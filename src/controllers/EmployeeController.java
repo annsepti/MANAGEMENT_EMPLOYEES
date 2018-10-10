@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import daos.GeneralDAO;
 import daos.InterfaceDAO;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,25 +14,26 @@ import models.Employees;
 import models.Jobs;
 import models.Roles;
 import models.Sites;
+import org.hibernate.SessionFactory;
 
 /**
  *
  * @author 680183
  */
 public class EmployeeController {
-   private InterfaceDAO iDAO;
+   private InterfaceDAO idao;
 
-    public EmployeeController(InterfaceDAO iDAO) {
-        this.iDAO = iDAO;
+    public EmployeeController(SessionFactory sessionFactory) {
+        idao = new GeneralDAO(sessionFactory, Employees.class);
     }
     public Object getAll(){
-        return iDAO.getAll();
+        return idao.getAll();
     }
     public Object getById(String employeeId){
-        return iDAO.getById(new Long(employeeId));
+        return idao.getById(new Long(employeeId));
     }
     public Object search(String category, String value){
-        return iDAO.search(category, value);
+        return idao.search(category, value);
     }
     public boolean saveOrUpdate(String employeeId, String firstName, String lastName, String e_nik, String uname, String pass, 
             String mail, String sal, String e_phone, String e_npwp, String e_skck, String departmentId, String siteId, String jobId,
@@ -45,11 +47,11 @@ public class EmployeeController {
              mail, new BigDecimal(sal), e_phone, e_npwp, e_skck, new Long(siteId),
              new Long(managerId), foto, stat, new Date(birthDate), new Date(hireDate), new Long(roleId), e_bpjs, 
                 new BigDecimal(sal), department, manager, job, site, role);
-        return iDAO.saveOrUpdate(employee);
+        return idao.saveOrUpdate(employee);
     }
     
     public Object getNewId(){
-        Employees employee =  (Employees) iDAO.getLastId();
+        Employees employee =  (Employees) idao.getLastId();
         return employee.getEmployeeId() + 1;
     }
 }

@@ -63,6 +63,10 @@ public class Departments implements Serializable {
         this.departmentName = departmentName;
     }
 
+    public Departments(Long aLong, String departmentName, Employees manager) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Long getDepartmentId() {
         return departmentId;
     }
