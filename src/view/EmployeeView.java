@@ -16,6 +16,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
      */
     public EmployeeView() {
         initComponents();
+        
     }
 
     /**
@@ -133,6 +134,11 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         txtSite3.setEnabled(false);
 
         btnSubmit.setText("SUBMIT");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
         btnChangePassword.setText("CHANGE PASSWORD");
         btnChangePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -413,6 +419,11 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnChangePasswordActionPerformed
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+         // TODO add your handling code here:
+         
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
