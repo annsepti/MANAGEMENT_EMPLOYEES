@@ -8,7 +8,7 @@ package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
 import java.util.List;
-import models.Roles;
+import models.Role;
 import org.hibernate.SessionFactory;
 
 /**
@@ -19,7 +19,7 @@ public class RoleController {
     private final InterfaceDAO idao;
 
     public RoleController(SessionFactory sessionFactory) {
-        idao = new GeneralDAO(sessionFactory, Roles.class);
+        idao = new GeneralDAO(sessionFactory, Role.class);
     }
     public List<Object> getAll(){
         return idao.getAll();

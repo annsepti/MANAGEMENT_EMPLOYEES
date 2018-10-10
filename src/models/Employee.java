@@ -7,6 +7,7 @@ package models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -28,36 +29,37 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 680183
+ * @author Nande
  */
 @Entity
 @Table(name = "EMPLOYEES")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Employees.findAll", query = "SELECT e FROM Employees e")
-    , @NamedQuery(name = "Employees.findByEmployeeId", query = "SELECT e FROM Employees e WHERE e.employeeId = :employeeId")
-    , @NamedQuery(name = "Employees.findByLastName", query = "SELECT e FROM Employees e WHERE e.lastName = :lastName")
-    , @NamedQuery(name = "Employees.findByFirstName", query = "SELECT e FROM Employees e WHERE e.firstName = :firstName")
-    , @NamedQuery(name = "Employees.findByNik", query = "SELECT e FROM Employees e WHERE e.nik = :nik")
-    , @NamedQuery(name = "Employees.findByUsername", query = "SELECT e FROM Employees e WHERE e.username = :username")
-    , @NamedQuery(name = "Employees.findByPassword", query = "SELECT e FROM Employees e WHERE e.password = :password")
-    , @NamedQuery(name = "Employees.findByEmail", query = "SELECT e FROM Employees e WHERE e.email = :email")
-    , @NamedQuery(name = "Employees.findBySalary", query = "SELECT e FROM Employees e WHERE e.salary = :salary")
-    , @NamedQuery(name = "Employees.findByPhone", query = "SELECT e FROM Employees e WHERE e.phone = :phone")
-    , @NamedQuery(name = "Employees.findByNpwp", query = "SELECT e FROM Employees e WHERE e.npwp = :npwp")
-    , @NamedQuery(name = "Employees.findBySkck", query = "SELECT e FROM Employees e WHERE e.skck = :skck")
-    , @NamedQuery(name = "Employees.findByPhoto", query = "SELECT e FROM Employees e WHERE e.photo = :photo")
-    , @NamedQuery(name = "Employees.findByStatus", query = "SELECT e FROM Employees e WHERE e.status = :status")
-    , @NamedQuery(name = "Employees.findByBirthDate", query = "SELECT e FROM Employees e WHERE e.birthDate = :birthDate")
-    , @NamedQuery(name = "Employees.findByHireDate", query = "SELECT e FROM Employees e WHERE e.hireDate = :hireDate")
-    , @NamedQuery(name = "Employees.findByBpjs", query = "SELECT e FROM Employees e WHERE e.bpjs = :bpjs")})
-public class Employees implements Serializable {
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+    , @NamedQuery(name = "Employee.findByEmployeeId", query = "SELECT e FROM Employee e WHERE e.employeeId = :employeeId")
+    , @NamedQuery(name = "Employee.findByLastName", query = "SELECT e FROM Employee e WHERE e.lastName = :lastName")
+    , @NamedQuery(name = "Employee.findByFirstName", query = "SELECT e FROM Employee e WHERE e.firstName = :firstName")
+    , @NamedQuery(name = "Employee.findByNik", query = "SELECT e FROM Employee e WHERE e.nik = :nik")
+    , @NamedQuery(name = "Employee.findByUsername", query = "SELECT e FROM Employee e WHERE e.username = :username")
+    , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")
+    , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
+    , @NamedQuery(name = "Employee.findBySalary", query = "SELECT e FROM Employee e WHERE e.salary = :salary")
+    , @NamedQuery(name = "Employee.findByPhone", query = "SELECT e FROM Employee e WHERE e.phone = :phone")
+    , @NamedQuery(name = "Employee.findByNpwp", query = "SELECT e FROM Employee e WHERE e.npwp = :npwp")
+    , @NamedQuery(name = "Employee.findBySkck", query = "SELECT e FROM Employee e WHERE e.skck = :skck")
+    , @NamedQuery(name = "Employee.findByPhoto", query = "SELECT e FROM Employee e WHERE e.photo = :photo")
+    , @NamedQuery(name = "Employee.findByStatus", query = "SELECT e FROM Employee e WHERE e.status = :status")
+    , @NamedQuery(name = "Employee.findByBirthDate", query = "SELECT e FROM Employee e WHERE e.birthDate = :birthDate")
+    , @NamedQuery(name = "Employee.findByHireDate", query = "SELECT e FROM Employee e WHERE e.hireDate = :hireDate")
+    , @NamedQuery(name = "Employee.findByBpjs", query = "SELECT e FROM Employee e WHERE e.bpjs = :bpjs")})
+public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "EMPLOYEE_ID")
-    private Long employeeId;
+    private BigDecimal employeeId;
     @Basic(optional = false)
     @Column(name = "LAST_NAME")
     private String lastName;
@@ -73,9 +75,8 @@ public class Employees implements Serializable {
     @Basic(optional = false)
     @Column(name = "EMAIL")
     private String email;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "SALARY")
-    private BigDecimal salary;
+    private BigInteger salary;
     @Column(name = "PHONE")
     private String phone;
     @Column(name = "NPWP")
@@ -98,34 +99,34 @@ public class Employees implements Serializable {
     private String bpjs;
     @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Departments departmentId;
+    private Department departmentId;
     @OneToMany(mappedBy = "managerId", fetch = FetchType.LAZY)
-    private List<Employees> employeesList;
+    private List<Employee> employeeList;
     @JoinColumn(name = "MANAGER_ID", referencedColumnName = "EMPLOYEE_ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Employees managerId;
+    private Employee managerId;
     @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Jobs jobId;
+    private Job jobId;
     @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Roles roleId;
+    private Role roleId;
     @JoinColumn(name = "SITE_ID", referencedColumnName = "SITE_ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Sites siteId;
+    private Site siteId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "managerId", fetch = FetchType.LAZY)
-    private List<Departments> departmentsList;
+    private List<Department> departmentList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId", fetch = FetchType.LAZY)
     private List<EmployeeTemp> employeeTempList;
 
-    public Employees() {
+    public Employee() {
     }
 
-    public Employees(Long employeeId) {
+    public Employee(BigDecimal employeeId) {
         this.employeeId = employeeId;
     }
 
-    public Employees(Long employeeId, String lastName, String nik, String email, Character status, Date hireDate) {
+    public Employee(BigDecimal employeeId, String lastName, String nik, String email, Character status, Date hireDate) {
         this.employeeId = employeeId;
         this.lastName = lastName;
         this.nik = nik;
@@ -134,15 +135,40 @@ public class Employees implements Serializable {
         this.hireDate = hireDate;
     }
 
-    public Employees(Long aLong, String firstName, String lastName, String e_nik, String uname, String pass, String mail, BigDecimal bigDecimal, String e_phone, String e_npwp, String e_skck, Long aLong0, Long aLong1, String foto, String stat, Date date, Date date0, Long aLong2, String e_bpjs, BigDecimal bigDecimal0, Departments department, Employees manager, Jobs job, Sites site, Roles role) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Employee(BigDecimal employeeId, String lastName, String firstName
+            , String nik, String username, String password, String email
+            , BigInteger salary, String phone, String npwp, String skck
+            , String photo, Character status, Date birthDate, Date hireDate
+            , String bpjs, Department departmentId, Employee managerId, Job jobId
+            , Role roleId, Site siteId) {
+        this.employeeId = employeeId;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.nik = nik;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.salary = salary;
+        this.phone = phone;
+        this.npwp = npwp;
+        this.skck = skck;
+        this.photo = photo;
+        this.status = status;
+        this.birthDate = birthDate;
+        this.hireDate = hireDate;
+        this.bpjs = bpjs;
+        this.departmentId = departmentId;
+        this.managerId = managerId;
+        this.jobId = jobId;
+        this.roleId = roleId;
+        this.siteId = siteId;
     }
 
-    public Long getEmployeeId() {
+    public BigDecimal getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(Long employeeId) {
+    public void setEmployeeId(BigDecimal employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -194,11 +220,11 @@ public class Employees implements Serializable {
         this.email = email;
     }
 
-    public BigDecimal getSalary() {
+    public BigInteger getSalary() {
         return salary;
     }
 
-    public void setSalary(BigDecimal salary) {
+    public void setSalary(BigInteger salary) {
         this.salary = salary;
     }
 
@@ -266,62 +292,62 @@ public class Employees implements Serializable {
         this.bpjs = bpjs;
     }
 
-    public Departments getDepartmentId() {
+    public Department getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(Departments departmentId) {
+    public void setDepartmentId(Department departmentId) {
         this.departmentId = departmentId;
     }
 
     @XmlTransient
-    public List<Employees> getEmployeesList() {
-        return employeesList;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setEmployeesList(List<Employees> employeesList) {
-        this.employeesList = employeesList;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
-    public Employees getManagerId() {
+    public Employee getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(Employees managerId) {
+    public void setManagerId(Employee managerId) {
         this.managerId = managerId;
     }
 
-    public Jobs getJobId() {
+    public Job getJobId() {
         return jobId;
     }
 
-    public void setJobId(Jobs jobId) {
+    public void setJobId(Job jobId) {
         this.jobId = jobId;
     }
 
-    public Roles getRoleId() {
+    public Role getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Roles roleId) {
+    public void setRoleId(Role roleId) {
         this.roleId = roleId;
     }
 
-    public Sites getSiteId() {
+    public Site getSiteId() {
         return siteId;
     }
 
-    public void setSiteId(Sites siteId) {
+    public void setSiteId(Site siteId) {
         this.siteId = siteId;
     }
 
     @XmlTransient
-    public List<Departments> getDepartmentsList() {
-        return departmentsList;
+    public List<Department> getDepartmentList() {
+        return departmentList;
     }
 
-    public void setDepartmentsList(List<Departments> departmentsList) {
-        this.departmentsList = departmentsList;
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
     }
 
     @XmlTransient
@@ -343,10 +369,10 @@ public class Employees implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Employees)) {
+        if (!(object instanceof Employee)) {
             return false;
         }
-        Employees other = (Employees) object;
+        Employee other = (Employee) object;
         if ((this.employeeId == null && other.employeeId != null) || (this.employeeId != null && !this.employeeId.equals(other.employeeId))) {
             return false;
         }
@@ -355,7 +381,7 @@ public class Employees implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Employees[ employeeId=" + employeeId + " ]";
+        return "models.Employee[ employeeId=" + employeeId + " ]";
     }
     
 }

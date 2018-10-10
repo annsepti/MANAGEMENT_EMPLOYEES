@@ -6,6 +6,7 @@
 package models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -23,51 +24,52 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 680183
+ * @author Nande
  */
 @Entity
 @Table(name = "SITES")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sites.findAll", query = "SELECT s FROM Sites s")
-    , @NamedQuery(name = "Sites.findBySiteId", query = "SELECT s FROM Sites s WHERE s.siteId = :siteId")
-    , @NamedQuery(name = "Sites.findBySiteName", query = "SELECT s FROM Sites s WHERE s.siteName = :siteName")
-    , @NamedQuery(name = "Sites.findByAddress", query = "SELECT s FROM Sites s WHERE s.address = :address")})
-public class Sites implements Serializable {
+    @NamedQuery(name = "Site.findAll", query = "SELECT s FROM Site s")
+    , @NamedQuery(name = "Site.findBySiteId", query = "SELECT s FROM Site s WHERE s.siteId = :siteId")
+    , @NamedQuery(name = "Site.findBySiteName", query = "SELECT s FROM Site s WHERE s.siteName = :siteName")
+    , @NamedQuery(name = "Site.findByAddress", query = "SELECT s FROM Site s WHERE s.address = :address")})
+public class Site implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "SITE_ID")
-    private Long siteId;
+    private BigDecimal siteId;
     @Basic(optional = false)
     @Column(name = "SITE_NAME")
     private String siteName;
     @Column(name = "ADDRESS")
     private String address;
     @OneToMany(mappedBy = "siteId", fetch = FetchType.LAZY)
-    private List<Employees> employeesList;
+    private List<Employee> employeeList;
     @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Departments departmentId;
+    private Department departmentId;
 
-    public Sites() {
+    public Site() {
     }
 
-    public Sites(Long siteId) {
+    public Site(BigDecimal siteId) {
         this.siteId = siteId;
     }
 
-    public Sites(Long siteId, String siteName) {
+    public Site(BigDecimal siteId, String siteName) {
         this.siteId = siteId;
         this.siteName = siteName;
     }
 
-    public Long getSiteId() {
+    public BigDecimal getSiteId() {
         return siteId;
     }
 
-    public void setSiteId(Long siteId) {
+    public void setSiteId(BigDecimal siteId) {
         this.siteId = siteId;
     }
 
@@ -88,19 +90,19 @@ public class Sites implements Serializable {
     }
 
     @XmlTransient
-    public List<Employees> getEmployeesList() {
-        return employeesList;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setEmployeesList(List<Employees> employeesList) {
-        this.employeesList = employeesList;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
-    public Departments getDepartmentId() {
+    public Department getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(Departments departmentId) {
+    public void setDepartmentId(Department departmentId) {
         this.departmentId = departmentId;
     }
 
@@ -114,10 +116,10 @@ public class Sites implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sites)) {
+        if (!(object instanceof Site)) {
             return false;
         }
-        Sites other = (Sites) object;
+        Site other = (Site) object;
         if ((this.siteId == null && other.siteId != null) || (this.siteId != null && !this.siteId.equals(other.siteId))) {
             return false;
         }
@@ -126,7 +128,7 @@ public class Sites implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Sites[ siteId=" + siteId + " ]";
+        return "models.Site[ siteId=" + siteId + " ]";
     }
     
 }

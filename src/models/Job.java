@@ -6,6 +6,8 @@
 package models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -21,51 +23,52 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 680183
+ * @author Nande
  */
 @Entity
 @Table(name = "JOBS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Jobs.findAll", query = "SELECT j FROM Jobs j")
-    , @NamedQuery(name = "Jobs.findByJobId", query = "SELECT j FROM Jobs j WHERE j.jobId = :jobId")
-    , @NamedQuery(name = "Jobs.findByJobTitle", query = "SELECT j FROM Jobs j WHERE j.jobTitle = :jobTitle")
-    , @NamedQuery(name = "Jobs.findByMinSalary", query = "SELECT j FROM Jobs j WHERE j.minSalary = :minSalary")
-    , @NamedQuery(name = "Jobs.findByMaxSalary", query = "SELECT j FROM Jobs j WHERE j.maxSalary = :maxSalary")})
-public class Jobs implements Serializable {
+    @NamedQuery(name = "Job.findAll", query = "SELECT j FROM Job j")
+    , @NamedQuery(name = "Job.findByJobId", query = "SELECT j FROM Job j WHERE j.jobId = :jobId")
+    , @NamedQuery(name = "Job.findByJobTitle", query = "SELECT j FROM Job j WHERE j.jobTitle = :jobTitle")
+    , @NamedQuery(name = "Job.findByMinSalary", query = "SELECT j FROM Job j WHERE j.minSalary = :minSalary")
+    , @NamedQuery(name = "Job.findByMaxSalary", query = "SELECT j FROM Job j WHERE j.maxSalary = :maxSalary")})
+public class Job implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "JOB_ID")
-    private Long jobId;
+    private BigDecimal jobId;
     @Basic(optional = false)
     @Column(name = "JOB_TITLE")
     private String jobTitle;
     @Column(name = "MIN_SALARY")
-    private Long minSalary;
+    private BigInteger minSalary;
     @Column(name = "MAX_SALARY")
-    private Long maxSalary;
+    private BigInteger maxSalary;
     @OneToMany(mappedBy = "jobId", fetch = FetchType.LAZY)
-    private List<Employees> employeesList;
+    private List<Employee> employeeList;
 
-    public Jobs() {
+    public Job() {
     }
 
-    public Jobs(Long jobId) {
+    public Job(BigDecimal jobId) {
         this.jobId = jobId;
     }
 
-    public Jobs(Long jobId, String jobTitle) {
+    public Job(BigDecimal jobId, String jobTitle) {
         this.jobId = jobId;
         this.jobTitle = jobTitle;
     }
 
-    public Long getJobId() {
+    public BigDecimal getJobId() {
         return jobId;
     }
 
-    public void setJobId(Long jobId) {
+    public void setJobId(BigDecimal jobId) {
         this.jobId = jobId;
     }
 
@@ -77,29 +80,29 @@ public class Jobs implements Serializable {
         this.jobTitle = jobTitle;
     }
 
-    public Long getMinSalary() {
+    public BigInteger getMinSalary() {
         return minSalary;
     }
 
-    public void setMinSalary(Long minSalary) {
+    public void setMinSalary(BigInteger minSalary) {
         this.minSalary = minSalary;
     }
 
-    public Long getMaxSalary() {
+    public BigInteger getMaxSalary() {
         return maxSalary;
     }
 
-    public void setMaxSalary(Long maxSalary) {
+    public void setMaxSalary(BigInteger maxSalary) {
         this.maxSalary = maxSalary;
     }
 
     @XmlTransient
-    public List<Employees> getEmployeesList() {
-        return employeesList;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setEmployeesList(List<Employees> employeesList) {
-        this.employeesList = employeesList;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
     @Override
@@ -112,10 +115,10 @@ public class Jobs implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Jobs)) {
+        if (!(object instanceof Job)) {
             return false;
         }
-        Jobs other = (Jobs) object;
+        Job other = (Job) object;
         if ((this.jobId == null && other.jobId != null) || (this.jobId != null && !this.jobId.equals(other.jobId))) {
             return false;
         }
@@ -124,7 +127,7 @@ public class Jobs implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Jobs[ jobId=" + jobId + " ]";
+        return "models.Job[ jobId=" + jobId + " ]";
     }
     
 }

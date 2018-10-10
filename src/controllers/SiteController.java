@@ -7,7 +7,7 @@ package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
 import java.util.List;
-import models.Sites;
+import models.Site;
 import org.hibernate.SessionFactory;
 /**
  *
@@ -18,7 +18,7 @@ public class SiteController {
     private final DepartmentController controller;
 
     public SiteController(SessionFactory sessionFactory) {
-        idao = new GeneralDAO(sessionFactory, Sites.class);
+        idao = new GeneralDAO(sessionFactory, Site.class);
         controller = new DepartmentController(sessionFactory);
     }
     public List<Object> getAll(){

@@ -6,6 +6,7 @@
 package models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -24,54 +25,51 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 680183
+ * @author Nande
  */
 @Entity
 @Table(name = "DEPARTMENTS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Departments.findAll", query = "SELECT d FROM Departments d")
-    , @NamedQuery(name = "Departments.findByDepartmentId", query = "SELECT d FROM Departments d WHERE d.departmentId = :departmentId")
-    , @NamedQuery(name = "Departments.findByDepartmentName", query = "SELECT d FROM Departments d WHERE d.departmentName = :departmentName")})
-public class Departments implements Serializable {
+    @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d")
+    , @NamedQuery(name = "Department.findByDepartmentId", query = "SELECT d FROM Department d WHERE d.departmentId = :departmentId")
+    , @NamedQuery(name = "Department.findByDepartmentName", query = "SELECT d FROM Department d WHERE d.departmentName = :departmentName")})
+public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "DEPARTMENT_ID")
-    private Long departmentId;
+    private BigDecimal departmentId;
     @Basic(optional = false)
     @Column(name = "DEPARTMENT_NAME")
     private String departmentName;
     @OneToMany(mappedBy = "departmentId", fetch = FetchType.LAZY)
-    private List<Employees> employeesList;
+    private List<Employee> employeeList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "departmentId", fetch = FetchType.LAZY)
-    private List<Sites> sitesList;
+    private List<Site> siteList;
     @JoinColumn(name = "MANAGER_ID", referencedColumnName = "EMPLOYEE_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employees managerId;
+    private Employee managerId;
 
-    public Departments() {
+    public Department() {
     }
 
-    public Departments(Long departmentId) {
+    public Department(BigDecimal departmentId) {
         this.departmentId = departmentId;
     }
 
-    public Departments(Long departmentId, String departmentName) {
+    public Department(BigDecimal departmentId, String departmentName) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;
     }
 
-    public Departments(Long aLong, String departmentName, Employees manager) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Long getDepartmentId() {
+    public BigDecimal getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(Long departmentId) {
+    public void setDepartmentId(BigDecimal departmentId) {
         this.departmentId = departmentId;
     }
 
@@ -84,28 +82,28 @@ public class Departments implements Serializable {
     }
 
     @XmlTransient
-    public List<Employees> getEmployeesList() {
-        return employeesList;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setEmployeesList(List<Employees> employeesList) {
-        this.employeesList = employeesList;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
     @XmlTransient
-    public List<Sites> getSitesList() {
-        return sitesList;
+    public List<Site> getSiteList() {
+        return siteList;
     }
 
-    public void setSitesList(List<Sites> sitesList) {
-        this.sitesList = sitesList;
+    public void setSiteList(List<Site> siteList) {
+        this.siteList = siteList;
     }
 
-    public Employees getManagerId() {
+    public Employee getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(Employees managerId) {
+    public void setManagerId(Employee managerId) {
         this.managerId = managerId;
     }
 
@@ -119,10 +117,10 @@ public class Departments implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Departments)) {
+        if (!(object instanceof Department)) {
             return false;
         }
-        Departments other = (Departments) object;
+        Department other = (Department) object;
         if ((this.departmentId == null && other.departmentId != null) || (this.departmentId != null && !this.departmentId.equals(other.departmentId))) {
             return false;
         }
@@ -131,7 +129,7 @@ public class Departments implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Departments[ departmentId=" + departmentId + " ]";
+        return "models.Department[ departmentId=" + departmentId + " ]";
     }
     
 }

@@ -8,8 +8,8 @@ package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
 import java.util.List;
-import models.Departments;
-import models.Employees;
+import models.Department;
+import models.Employee;
 import org.hibernate.SessionFactory;
 
 /**
@@ -21,7 +21,7 @@ public class DepartmentController {
     private final EmployeeController empController;
     
     public DepartmentController(SessionFactory sessionFactory) {  
-        idao = new GeneralDAO(sessionFactory, Departments.class);
+        idao = new GeneralDAO(sessionFactory, Department.class);
         empController = new EmployeeController(sessionFactory);
     }
     public List<Object> getAll(){
@@ -33,9 +33,4 @@ public class DepartmentController {
     public Object getById(String departmentId){
         return idao.getById(new Short(departmentId));
     }
-//    public boolean saveOrUpdate(String departmentId, String departmentName, String managerId){
-//        Employees manager = new Employees(new Long(managerId.substring(0,3)));
-//        Departments department = new Departments(new Long(departmentId), departmentName, manager);
-//        return iDAO.saveOrUpdate(department);
-//    }
 }

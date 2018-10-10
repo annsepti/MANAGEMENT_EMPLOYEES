@@ -8,12 +8,13 @@ package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
-import models.Departments;
-import models.Employees;
-import models.Jobs;
-import models.Roles;
-import models.Sites;
+import models.Department;
+import models.Employee;
+import models.Job;
+import models.Role;
+import models.Site;
 import org.hibernate.SessionFactory;
 
 /**
@@ -21,37 +22,43 @@ import org.hibernate.SessionFactory;
  * @author 680183
  */
 public class EmployeeController {
-   private InterfaceDAO idao;
+
+    private InterfaceDAO idao;
 
     public EmployeeController(SessionFactory sessionFactory) {
-        idao = new GeneralDAO(sessionFactory, Employees.class);
+        idao = new GeneralDAO(sessionFactory, Employee.class);
     }
-    public Object getAll(){
+
+    public Object getAll() {
         return idao.getAll();
     }
-    public Object getById(String employeeId){
+
+    public Object getById(String employeeId) {
         return idao.getById(new Long(employeeId));
     }
-    public Object search(String category, String value){
+
+    public Object search(String category, String value) {
         return idao.search(category, value);
     }
-    public boolean saveOrUpdate(String employeeId, String firstName, String lastName, String e_nik, String uname, String pass, 
+
+    public boolean saveOrUpdate(String employeeId, String firstName, String lastName, String e_nik, String uname, String pass,
             String mail, String sal, String e_phone, String e_npwp, String e_skck, String departmentId, String siteId, String jobId,
-            String managerId, String foto, String stat, String birthDate, String hireDate, String roleId, String e_bpjs){
-        Departments department = new Departments(new Long(departmentId));
-        Employees manager = new Employees(new Long(managerId));
-        Jobs job = new Jobs(new Long(jobId));
-        Sites site = new Sites(new Long(siteId));
-        Roles role = new Roles(new Long(roleId));
-            Employees employee = new Employees(new Long(employeeId), firstName, lastName, e_nik, uname, pass, 
-             mail, new BigDecimal(sal), e_phone, e_npwp, e_skck, new Long(siteId),
-             new Long(managerId), foto, stat, new Date(birthDate), new Date(hireDate), new Long(roleId), e_bpjs, 
-                new BigDecimal(sal), department, manager, job, site, role);
+            String managerId, String foto, String stat, String birthDate, String hireDate, String roleId, String e_bpjs) {
+        Department department = new Department(new BigDecimal(departmentId));
+        Employee manager = new Employee(new BigDecimal(managerId));
+        Job job = new Job(new BigDecimal(jobId));
+        Site site = new Site(new BigDecimal(siteId));
+        Role role = new Role(new BigDecimal(roleId));
+
+        Employee employee = new Employee(new BigDecimal(employeeId), lastName, firstName, e_nik, uname, pass,
+                mail, new BigInteger(sal), e_phone, e_npwp, e_skck, foto, stat.charAt(0),
+                new Date(birthDate), new Date(hireDate), e_bpjs,
+                department, manager, job, role, site);
         return idao.saveOrUpdate(employee);
     }
-    
-    public Object getNewId(){
-        Employees employee =  (Employees) idao.getLastId();
-        return employee.getEmployeeId() + 1;
+
+    public Object getNewId() {
+        Employee employee = (Employee) idao.getLastId();
+        return Integer.parseInt(employee.getEmployeeId() + "") + 1;
     }
 }

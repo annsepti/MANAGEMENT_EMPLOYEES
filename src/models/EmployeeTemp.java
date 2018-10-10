@@ -6,6 +6,7 @@
 package models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 680183
+ * @author Nande
  */
 @Entity
 @Table(name = "EMPLOYEE_TEMP")
@@ -38,10 +39,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class EmployeeTemp implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "TEMP_ID")
-    private Long tempId;
+    private BigDecimal tempId;
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "PASSWORD")
@@ -58,20 +60,20 @@ public class EmployeeTemp implements Serializable {
     private String bpjs;
     @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employees employeeId;
+    private Employee employeeId;
 
     public EmployeeTemp() {
     }
 
-    public EmployeeTemp(Long tempId) {
+    public EmployeeTemp(BigDecimal tempId) {
         this.tempId = tempId;
     }
 
-    public Long getTempId() {
+    public BigDecimal getTempId() {
         return tempId;
     }
 
-    public void setTempId(Long tempId) {
+    public void setTempId(BigDecimal tempId) {
         this.tempId = tempId;
     }
 
@@ -131,11 +133,11 @@ public class EmployeeTemp implements Serializable {
         this.bpjs = bpjs;
     }
 
-    public Employees getEmployeeId() {
+    public Employee getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(Employees employeeId) {
+    public void setEmployeeId(Employee employeeId) {
         this.employeeId = employeeId;
     }
 

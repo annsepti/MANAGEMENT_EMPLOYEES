@@ -6,6 +6,7 @@
 package models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -22,45 +23,46 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 680183
+ * @author Nande
  */
 @Entity
 @Table(name = "ROLES")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r")
-    , @NamedQuery(name = "Roles.findByRoleId", query = "SELECT r FROM Roles r WHERE r.roleId = :roleId")
-    , @NamedQuery(name = "Roles.findByRoleName", query = "SELECT r FROM Roles r WHERE r.roleName = :roleName")})
-public class Roles implements Serializable {
+    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")
+    , @NamedQuery(name = "Role.findByRoleId", query = "SELECT r FROM Role r WHERE r.roleId = :roleId")
+    , @NamedQuery(name = "Role.findByRoleName", query = "SELECT r FROM Role r WHERE r.roleName = :roleName")})
+public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "ROLE_ID")
-    private Long roleId;
+    private BigDecimal roleId;
     @Basic(optional = false)
     @Column(name = "ROLE_NAME")
     private String roleName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId", fetch = FetchType.LAZY)
-    private List<Employees> employeesList;
+    private List<Employee> employeeList;
 
-    public Roles() {
+    public Role() {
     }
 
-    public Roles(Long roleId) {
+    public Role(BigDecimal roleId) {
         this.roleId = roleId;
     }
 
-    public Roles(Long roleId, String roleName) {
+    public Role(BigDecimal roleId, String roleName) {
         this.roleId = roleId;
         this.roleName = roleName;
     }
 
-    public Long getRoleId() {
+    public BigDecimal getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(BigDecimal roleId) {
         this.roleId = roleId;
     }
 
@@ -73,12 +75,12 @@ public class Roles implements Serializable {
     }
 
     @XmlTransient
-    public List<Employees> getEmployeesList() {
-        return employeesList;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setEmployeesList(List<Employees> employeesList) {
-        this.employeesList = employeesList;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
     @Override
@@ -91,10 +93,10 @@ public class Roles implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Roles)) {
+        if (!(object instanceof Role)) {
             return false;
         }
-        Roles other = (Roles) object;
+        Role other = (Role) object;
         if ((this.roleId == null && other.roleId != null) || (this.roleId != null && !this.roleId.equals(other.roleId))) {
             return false;
         }
@@ -103,7 +105,7 @@ public class Roles implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Roles[ roleId=" + roleId + " ]";
+        return "models.Role[ roleId=" + roleId + " ]";
     }
     
 }
