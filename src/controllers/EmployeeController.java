@@ -34,7 +34,7 @@ public class EmployeeController {
     }
 
     public Object getById(String employeeId) {
-        return idao.getById(new Long(employeeId));
+        return idao.getById(new BigDecimal(employeeId));
     }
 
     public Object search(String category, String value) {
