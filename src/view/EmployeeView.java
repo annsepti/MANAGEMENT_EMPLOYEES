@@ -66,12 +66,14 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         btnSubmit = new javax.swing.JButton();
         btnChangePassword = new javax.swing.JButton();
 
+        setTitle("EMPLOYEE");
+
         lblEmployeeId.setText("18001");
 
         jLabel2.setText("Employee ID :");
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.MatteBorder(null), "EMPLOYEE DETAILS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Dialog", 1, 18))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.MatteBorder(null), "EMPLOYEE DETAILS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 18))); // NOI18N
 
         jLabel1.setText("FIRST NAME");
 
@@ -247,7 +249,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmit)
                     .addComponent(btnChangePassword))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
