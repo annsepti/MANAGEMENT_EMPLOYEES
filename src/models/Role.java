@@ -6,7 +6,6 @@
 package models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -35,11 +34,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "ROLE_ID")
-    private BigDecimal roleId;
+    private Long roleId;
     @Basic(optional = false)
     @Column(name = "ROLE_NAME")
     private String roleName;
@@ -49,20 +47,20 @@ public class Role implements Serializable {
     public Role() {
     }
 
-    public Role(BigDecimal roleId) {
+    public Role(Long roleId) {
         this.roleId = roleId;
     }
 
-    public Role(BigDecimal roleId, String roleName) {
+    public Role(Long roleId, String roleName) {
         this.roleId = roleId;
         this.roleName = roleName;
     }
 
-    public BigDecimal getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(BigDecimal roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

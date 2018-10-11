@@ -55,16 +55,19 @@ public class Tools {
     }
     
     public String dateToString(Date date){
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat formater = new SimpleDateFormat("MM/dd/yyyy");
         return formater.format(date);
     }
     
     public Date stringToDate(String sdate) throws ParseException{
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formater = new SimpleDateFormat("MM/dd/yyyy");
         return formater.parse(sdate);
     }
     
-    public boolean generatePassword(Employee employee) {
+    public Employee generatePassword(){
+        return null;
+    }
+    public boolean sendUsernamePassword(Employee employee) {
         boolean hasil = false;
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -85,7 +88,7 @@ public class Tools {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(employee.getEmail()));
             message.setSubject("Employee User Account");
-            message.setText("Dear " + employee.getFirstName()+ employee.getLastName() + ","
+            message.setText("Dear " + employee.getFirstName()+ " " +employee.getLastName() + ","
                     + "\n\nHere is your account:\n\nUsername\t: "
                     + employee.getUsername() + "\nPassword\t: "
                     + employee.getPassword());

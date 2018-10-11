@@ -46,7 +46,7 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
     <property name="hibernate.connection.username">system</property>
     <property name="hibernate.connection.password">admin</property>
-    <property name="hibernate.default_schema">managementemployee</property>
+    <property name="hibernate.default_schema">emp_data</property>
     <property name="hibernate.connection.autocommit">true</property>
     <mapping class="models.EmployeeTemp"/>
     <mapping class="models.Department"/>
