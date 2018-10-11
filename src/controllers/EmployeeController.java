@@ -8,6 +8,7 @@ package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Date;
 import models.Department;
 import models.Employee;
@@ -89,5 +90,9 @@ public class EmployeeController {
             employee = null;
         }
         return employee;
+    }
+    
+    public int addNewEmployee(Employee employee) throws SQLException{
+        return idao.addNewEmployee(employee);
     }
 }
