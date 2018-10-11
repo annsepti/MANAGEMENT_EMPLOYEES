@@ -21,6 +21,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.hibernate.procedure.ProcedureCall;
 import org.hibernate.result.Output;
+import tools.BCrypt;
 import tools.Tools;
 
 /**
@@ -119,5 +120,17 @@ public class GeneralDAO implements InterfaceDAO {
         callableStatement.execute();
         tools.sendUsernamePassword(employee);
         return callableStatement.getInt(20);
+    }
+    
+    public int changePassword(String username, String password) throws SQLException{
+        Connection con = sf.getSessionFactoryOptions().getServiceRegistry().
+                getService(ConnectionProvider.class).getConnection();
+        String pass = BCrypt.hashpw(password, BCrypt.gensalt());
+        CallableStatement callableStatement = con.prepareCall("{call emp_data.updateUserPass(?,?,?)}");
+        callableStatement.setString(1, username);
+        callableStatement.setString(2, pass);
+        callableStatement.registerOutParameter(3, Types.INTEGER);
+        callableStatement.execute();
+        return callableStatement.getInt(3);
     }
 }
