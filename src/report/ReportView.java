@@ -5,8 +5,19 @@
  */
 package report;
 
+import java.awt.BorderLayout;
+import java.sql.Connection;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.swing.JRViewer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
+import tools.HibernateUtil;
 
 /**
  *
@@ -14,11 +25,27 @@ import org.hibernate.SessionFactory;
  */
 public class ReportView extends javax.swing.JInternalFrame {
 
+    private SessionFactory sf;
     /**
      * Creates new form ReportView
      */
-    public ReportView(SessionFactory sessionFactory) {
+    public ReportView(SessionFactory sessionFactory, String url) {
         initComponents();
+        this.sf = HibernateUtil.getSessionFactory();
+        Connection connection = null;
+        try {
+            connection = sf.getSessionFactoryOptions().getServiceRegistry().
+                    getService(ConnectionProvider.class).getConnection();
+            JasperDesign jd = JRXmlLoader.load(url);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jPrint = JasperFillManager.fillReport(jr, null, connection);
+            JRViewer viewer = new JRViewer(jPrint);
+            panelReportView.setLayout(new BorderLayout());
+            panelReportView.add(viewer);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
     }
 
