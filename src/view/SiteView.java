@@ -5,17 +5,25 @@
  */
 package view;
 
+import controllers.SiteController;
+import org.hibernate.SessionFactory;
+
 /**
  *
  * @author USER
  */
 public class SiteView extends javax.swing.JInternalFrame {
 
+    private final SiteController siteController;
+
     /**
      * Creates new form SiteView
+     * @param sessionFactory
      */
-    public SiteView() {
+    public SiteView(SessionFactory sessionFactory) {
         initComponents();
+        siteController = new SiteController(sessionFactory);
+
     }
 
     /**
@@ -36,11 +44,12 @@ public class SiteView extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txtAddress = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
-        btnDeparmentId = new javax.swing.JComboBox<>();
+        cmbDeparmentId = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setMaximizable(true);
         setTitle("SITE VIEW");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel1.setText("SITE ID");
 
@@ -57,7 +66,7 @@ public class SiteView extends javax.swing.JInternalFrame {
 
         jLabel4.setText("DEPARTMENT ID");
 
-        btnDeparmentId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbDeparmentId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -79,7 +88,7 @@ public class SiteView extends javax.swing.JInternalFrame {
                                     .addComponent(txtSiteName)
                                     .addComponent(txtSiteID)
                                     .addComponent(txtAddress)
-                                    .addComponent(btnDeparmentId, 0, 155, Short.MAX_VALUE)))))
+                                    .addComponent(cmbDeparmentId, 0, 155, Short.MAX_VALUE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(166, 166, 166)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -103,7 +112,7 @@ public class SiteView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(btnDeparmentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbDeparmentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(btnSave)
                 .addGap(62, 62, 62))
@@ -131,12 +140,15 @@ public class SiteView extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        siteController.saveOrUpdate(txtSiteID.getText(), txtSiteName.getText(),
+                txtAddress.getText(), cmbDeparmentId.getSelectedItem().toString());
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> btnDeparmentId;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> cmbDeparmentId;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
