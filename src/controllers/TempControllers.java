@@ -35,6 +35,10 @@ public class TempControllers {
         return false;
     }
     public Object delete(String idTemp){
-        return idao.delete(idTemp);
+        TempControllers temp = (TempControllers) getById(idTemp);
+        return idao.delete(temp);
+    }
+    public Object getById(String idTemp){
+        return idao.getById(idTemp);
     }
 }
