@@ -60,6 +60,11 @@
                 <Property name="text" type="java.lang.String" value="SETTING PROFILE"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="SITE"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniLogout">
               <Properties>
                 <Property name="text" type="java.lang.String" value="LOG OUT"/>
