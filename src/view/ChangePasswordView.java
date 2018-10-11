@@ -5,7 +5,10 @@
  */
 package view;
 
+import controllers.EmployeeController;
+import models.Employee;
 import org.hibernate.SessionFactory;
+import tools.HibernateUtil;
 
 /**
  *
@@ -14,12 +17,15 @@ import org.hibernate.SessionFactory;
 public class ChangePasswordView extends javax.swing.JInternalFrame {
 
     private SessionFactory sessionFactory;
-
+    private Employee employee;
+    private EmployeeController controller;
     /**
      * Creates new form ChangePassword
      */
-    public ChangePasswordView(SessionFactory sessionFactory) {
+    public ChangePasswordView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
+        this.employee = employee;
+        controller = new EmployeeController(HibernateUtil.getSessionFactory());
     }
 
     /**
@@ -34,11 +40,11 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtCurrentPass = new javax.swing.JTextField();
         txtNewPass = new javax.swing.JPasswordField();
         btnSave = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtConfirmPass = new javax.swing.JPasswordField();
+        txtCurrentPass = new javax.swing.JPasswordField();
 
         setClosable(true);
         setMaximizable(true);
@@ -72,10 +78,11 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNewPass)
-                                    .addComponent(txtCurrentPass, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(txtConfirmPass)))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtNewPass, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                        .addComponent(txtConfirmPass))
+                                    .addComponent(txtCurrentPass, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(168, 168, 168)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -142,7 +149,7 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField txtConfirmPass;
-    private javax.swing.JTextField txtCurrentPass;
+    private javax.swing.JPasswordField txtCurrentPass;
     private javax.swing.JPasswordField txtNewPass;
     // End of variables declaration//GEN-END:variables
 }

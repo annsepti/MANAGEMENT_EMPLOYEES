@@ -5,9 +5,11 @@
  */
 package view;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import org.hibernate.SessionFactory;
+import tools.Tools;
+import controllers.EmployeeController;
+import models.Employee;
+import tools.HibernateUtil;
 
 /**
  *
@@ -16,13 +18,18 @@ import org.hibernate.SessionFactory;
 public class Login extends javax.swing.JInternalFrame {
 
     private SessionFactory sessionFactory;
+    Tools tool;
+    EmployeeController controller;
 
     /**
      * Creates new form Login
+     *
      * @param sessionFactory
      */
     public Login(SessionFactory sessionFactory) {
         initComponents();
+        tool = new Tools();
+        controller = new EmployeeController(HibernateUtil.getSessionFactory());
     }
 
     /**
@@ -111,21 +118,25 @@ public class Login extends javax.swing.JInternalFrame {
 //        
 //        
 //        )
-        ChangePasswordView changePasswordView = new ChangePasswordView(sessionFactory);
-        this.getParent().add(changePasswordView);
-        changePasswordView.setVisible(true);
-
-        EmployeeView employeeView = new EmployeeView(sessionFactory);
-        this.getParent().add(employeeView);
-        employeeView.setVisible(true);
-
-        HrView hrView = new HrView(sessionFactory);
-        this.getParent().add(hrView);
-        hrView.setVisible(true);
-
-        ManagerView managerView = new ManagerView(sessionFactory);
-        this.getParent().add(managerView);
-        managerView.setVisible(true);
+        Employee employee = new Employee(txtUsername.getText(), new String(pfPassword.getPassword()));
+        employee = (Employee) controller.getByLogin(employee);
+        if (tool.checkNumberFormat(employee.getPassword())) {
+            ChangePasswordView changePasswordView = new ChangePasswordView(sessionFactory, employee);
+            this.getParent().add(changePasswordView);
+            changePasswordView.setVisible(true);
+        } else if (employee.getRoleId().getRoleName().equals("Employee")) {
+            EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
+            this.getParent().add(employeeView);
+            employeeView.setVisible(true);
+        } else if (employee.getRoleId().getRoleName().equals("HR")) {
+            HrView hrView = new HrView(sessionFactory, employee);
+            this.getParent().add(hrView);
+            hrView.setVisible(true);
+        } else {
+            ManagerView managerView = new ManagerView(sessionFactory, employee);
+            this.getParent().add(managerView);
+            managerView.setVisible(true);
+        }
 
         this.setVisible(false);
 

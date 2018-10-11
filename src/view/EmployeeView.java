@@ -5,6 +5,7 @@
  */
 package view;
 
+import models.Employee;
 import org.hibernate.SessionFactory;
 
 /**
@@ -14,14 +15,15 @@ import org.hibernate.SessionFactory;
 public class EmployeeView extends javax.swing.JInternalFrame {
 
     private SessionFactory sessionFactory;
-
+    private Employee employee;
+    
     /**
      * Creates new form EmployeeView
      * @param sessionFactory
      */
-    public EmployeeView(SessionFactory sessionFactory) {
+    public EmployeeView(SessionFactory sessionFactory, Employee empoloyee) {
         initComponents();
-
+        this.employee = empoloyee;
     }
 
     /**
@@ -425,7 +427,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
         // TODO add your handling code here:
-        ChangePasswordView changePasswordView = new ChangePasswordView(sessionFactory);
+        ChangePasswordView changePasswordView = new ChangePasswordView(sessionFactory, employee);
         this.getParent().add(changePasswordView);
         changePasswordView.setVisible(true);
     }//GEN-LAST:event_btnChangePasswordActionPerformed
