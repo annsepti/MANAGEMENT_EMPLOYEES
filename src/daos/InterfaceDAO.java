@@ -5,7 +5,9 @@
  */
 package daos;
 
+import java.sql.SQLException;
 import java.util.List;
+import models.Employee;
 
 /**
  *
@@ -17,7 +19,7 @@ public interface InterfaceDAO {
     public List<Object> getAll();
     public List<Object> search(String category, Object key);
     public Object getById(Object id);
-    public Object getByName(Object name);
     public Object getLastId();
-
+    public Object getByLogin(Object model);
+    public int addNewEmployee(Employee employee)throws SQLException;
 }

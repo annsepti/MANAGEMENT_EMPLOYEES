@@ -133,6 +133,10 @@ public class Employee implements Serializable {
         this.status = status;
         this.hireDate = hireDate;
     }
+    public Employee(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
     public Employee(Long employeeId, String lastName, String firstName, String nik, String username, String password,
                 String email, BigDecimal salary, String phone, String npwp, String skck, String photo, Character status,
                 Date birthDate, Date hireDate, String bpjs,

@@ -41,7 +41,7 @@ public class EmployeeController {
     }
 
     public Object getById(String employeeId) {
-        return idao.getById(new Long(employeeId));
+        return idao.getById(new BigDecimal(employeeId));
     }
 
     public Object search(String category, String value) {
@@ -55,7 +55,7 @@ public class EmployeeController {
         Employee manager = new Employee(new Long(managerId));
         Job job = new Job(jobId);
         Site site = new Site(new Long(siteId));
-        Role role = new Role(new Long (roleId));
+        Role role = new Role(new Long(roleId));
 
         Employee employee = new Employee(new Long(employeeId), lastName, firstName, e_nik, uname, pass,
                 mail, new BigDecimal(sal), e_phone, e_npwp, e_skck, foto, stat.charAt(0),
@@ -68,4 +68,13 @@ public class EmployeeController {
         Employee employee = (Employee) idao.getLastId();
         return Integer.parseInt(employee.getEmployeeId() + "") + 1;
     }
+    
+    public Object getByLogin(Employee employee){
+        return idao.getByLogin(employee);
+    }
+    public boolean newUsernamePassword(){
+        return false;
+    }
+    
+    
 }

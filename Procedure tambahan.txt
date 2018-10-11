@@ -1,0 +1,53 @@
+------------------UPDATE SITE----------------------------
+create or replace PROCEDURE updateSite(
+id in sites.SITE_ID%TYPE,
+name in sites.SITE_NAME%TYPE,
+s_address in sites.ADDRESS%TYPE,
+iddept in sites.DEPARTMENT_ID%TYPE
+)
+IS
+BEGIN
+update sites
+set site_name=name, address=s_address, department_id=iddept
+    where site_id = id;
+END;
+
+------------------SAVE SITE----------------------------
+create or replace PROCEDURE saveSite(
+    id in sites.SITE_ID%TYPE,
+    name in sites.SITE_NAME%TYPE,
+s_address in sites.ADDRESS%TYPE,
+iddept in sites.DEPARTMENT_ID%TYPE)
+IS last_id number;
+BEGIN
+      select max(site_id)+1 into last_id FROM sites;
+      insert into sites(SITE_ID, SITE_NAME, ADDRESS, DEPARTMENT_ID)
+      values (last_id, name, s_address,iddept);
+END;
+
+------------------SAVE TEMP----------------------------
+create or replace PROCEDURE saveTemp(
+    id in employee_temp.TEMP_ID%TYPE,
+    idemp in employee_temp.EMPLOYEE_ID%TYPE,
+mail in employee_temp.EMAIL%TYPE,
+pass in employee_temp.PASSWORD%TYPE,
+hp in employee_temp.PHONE%TYPE,
+e_npwp in employee_temp.NPWP%TYPE,
+e_skck in employee_temp.SKCK%TYPE,
+e_photo in employee_temp.PHOTO%TYPE,
+e_bpjs in employee_temp.BPJS%TYPE
+)
+IS last_id number;
+BEGIN
+      select max(temp_id)+1 into last_id FROM employee_temp;
+      insert into employee_temp(TEMP_ID, EMPLOYEE_ID, EMAIL, PASSWORD, PHONE, NPWP, SKCK, PHOTO, BPJS)
+      values (last_id, idemp, MAIL, PASS, hp, e_NPWP, e_SKCK, e_PHOTO, e_bpjs);
+END;
+
+------------------DELETE TEMP----------------------------
+create or replace PROCEDURE deleteTemp(id in number)
+is
+begin
+Delete from employee_temp
+where temp_id=id;
+END;
