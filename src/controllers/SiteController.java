@@ -6,7 +6,6 @@
 package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
-import java.math.BigDecimal;
 import java.util.List;
 import models.Department;
 import models.Site;
@@ -29,8 +28,8 @@ public class SiteController {
     public Object search(String category, String value){
         return idao.search(category, value);
     }
-    public Object getById(String departmentId){
-        return idao.getById(new Short(departmentId));
+    public Object getById(String siteId){
+        return idao.getById(new Long(siteId));
     }
     public boolean saveOrUpdate(String idSite, String siteName,String address, String idDept ){
         Department department = new Department(idDept);

@@ -48,11 +48,11 @@ Contributor(s):
     <property name="hibernate.connection.password">admin</property>
     <property name="hibernate.default_schema">emp_data</property>
     <property name="hibernate.connection.autocommit">true</property>
-    <mapping class="models.Departments"/>
+    <mapping class="models.Department"/>
     <mapping class="models.EmployeeTemp"/>
-    <mapping class="models.Employees"/>
-    <mapping class="models.Jobs"/>
-    <mapping class="models.Roles"/>
-    <mapping class="models.Sites"/>
+    <mapping class="models.Employee"/>
+    <mapping class="models.Job"/>
+    <mapping class="models.Role"/>
+    <mapping class="models.Site"/>
   </session-factory>
 </hibernate-configuration>

@@ -8,7 +8,6 @@ package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import models.Department;
 import models.Employee;
@@ -23,10 +22,18 @@ import org.hibernate.SessionFactory;
  */
 public class EmployeeController {
 
-    private InterfaceDAO idao;
+    private final InterfaceDAO idao;
+    private final DepartmentController departmentController;
+    private final JobController jobController;
+    private final SiteController siteController;
+    private final RoleController roleController;
 
     public EmployeeController(SessionFactory sessionFactory) {
         idao = new GeneralDAO(sessionFactory, Employee.class);
+        departmentController = new DepartmentController(sessionFactory);
+        jobController = new JobController(sessionFactory);
+        siteController = new SiteController(sessionFactory);
+        roleController = new RoleController(sessionFactory);
     }
 
     public Object getAll() {

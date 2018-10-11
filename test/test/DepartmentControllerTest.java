@@ -6,7 +6,7 @@
 package test;
 
 import controllers.DepartmentController;
-import org.hibernate.SessionFactory;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,8 +19,6 @@ import static org.junit.Assert.*;
  * @author 680183
  */
 public class DepartmentControllerTest {
-    
-//    DepartmentController controller = new DepartmentController(SessionFactory sessionFactory);
     
     public DepartmentControllerTest() {
     }
@@ -45,15 +43,39 @@ public class DepartmentControllerTest {
     // The methods must be annotated with annotation @Test. For example:
     //
     // @Test
-    // public void hello() {}
-        @Test
+    // public void hello() {}            
+    @Test
     public void testSaveOrUpdate() {
-        System.out.println("saveDepartment");
-//        Employee employee = new Employee(100);
-//        Department department = new Department("Marketing", employee);
-       // boolean expResult = true;
-//        boolean result = controller.saveOrUpdate(department);
-        //assertEquals(expResult, result);
-//        assertTrue(result);
+        System.out.println("Try saveOrUpdate");
+        String idDept = "AAA";
+        String deptName = "coba";
+        String idMng = "18001";
+        DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
+        boolean result = dc.saveOrUpdate(idDept, deptName, idMng);
+        assertTrue(result);
+    }
+    @Test
+    public void testGetAll() {
+        System.out.println("getAll");
+        DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
+        List<Object> result = dc.getAll();
+        assertNotNull(result);
+    }
+    @Test
+    public void testSearch() {
+        System.out.println("search");
+        String category = "departmentId";
+        Object key = "MSBU";
+        DepartmentController instance = new DepartmentController(tools.HibernateUtil.getSessionFactory());
+        List<Object> result = (List<Object>) instance.search(category, (String) key);
+        assertNotNull(result);
+    }
+    @Test
+    public void testGetById() {
+        System.out.println("getById");
+        String departmentId = "280";
+        DepartmentController instance = new DepartmentController(tools.HibernateUtil.getSessionFactory());
+        Object result = instance.getById(departmentId);
+        assertNotNull(result);
     }
 }

@@ -133,31 +133,31 @@ public class Employee implements Serializable {
         this.status = status;
         this.hireDate = hireDate;
     }
-    public Employee(Long employeeId, String lastName, String firstName, String e_nik, String uname, String pass,
-                String mail, BigDecimal sal, String e_phone, String e_npwp, String e_skck, String foto, Character stat,
-                Date birthDate, Date hireDate, String e_bpjs,
-                Department idDept, Employee idMng, Job idJob, Role idRole, Site idSite) {
+    public Employee(Long employeeId, String lastName, String firstName, String nik, String username, String password,
+                String email, BigDecimal salary, String phone, String npwp, String skck, String photo, Character status,
+                Date birthDate, Date hireDate, String bpjs,
+                Department departmentId, Employee managerId, Job jobId, Role roleId, Site siteId) {
         this.employeeId = employeeId;
         this.lastName = lastName;
         this.firstName = firstName;
-        this.nik = e_nik;
-        this.username = uname;
-        this.password = pass;
-        this.email = mail;
-        this.salary = sal;
-        this.phone = e_phone;
-        this.npwp = e_npwp;
-        this.skck = e_skck;
-        this.photo = foto;
-        this.status = stat;
+        this.nik = nik;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.salary = salary;
+        this.phone = phone;
+        this.npwp = npwp;
+        this.skck = skck;
+        this.photo = photo;
+        this.status = status;
         this.birthDate = birthDate;
         this.hireDate = hireDate;
-        this.bpjs = e_bpjs;
-        this.departmentId = idDept;
-        this.managerId = idMng;
-        this.jobId = idJob;
-        this.roleId = idRole;
-        this.siteId = idSite;
+        this.bpjs = bpjs;
+        this.departmentId = departmentId;
+        this.managerId = managerId;
+        this.jobId = jobId;
+        this.roleId = roleId;
+        this.siteId = siteId;
     }
 
     public Long getEmployeeId() {

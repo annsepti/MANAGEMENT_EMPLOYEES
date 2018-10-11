@@ -7,7 +7,6 @@ package controllers;
 
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
-import java.math.BigDecimal;
 import java.util.List;
 import models.Department;
 import models.Employee;
@@ -19,11 +18,11 @@ import org.hibernate.SessionFactory;
  */
 public class DepartmentController {
     private final InterfaceDAO idao;
-    private final EmployeeController empController;
+    private final EmployeeController employeeController;
     
     public DepartmentController(SessionFactory sessionFactory) {  
         idao = new GeneralDAO(sessionFactory, Department.class);
-        empController = new EmployeeController(sessionFactory);
+        employeeController = new EmployeeController(sessionFactory);
     }
     public List<Object> getAll(){
         return idao.getAll();
