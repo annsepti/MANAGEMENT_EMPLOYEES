@@ -6,8 +6,8 @@
 package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
-import java.math.BigDecimal;
 import java.util.List;
+import javax.swing.JComboBox;
 import models.Department;
 import models.Site;
 import org.hibernate.SessionFactory;
@@ -29,12 +29,20 @@ public class SiteController {
     public Object search(String category, String value){
         return idao.search(category, value);
     }
-    public Object getById(String departmentId){
-        return idao.getById(new Short(departmentId));
+    public Object getById(String siteId){
+        return idao.getById(new Long(siteId));
     }
     public boolean saveOrUpdate(String idSite, String siteName,String address, String idDept ){
         Department department = new Department(idDept);
         Site site = new Site(new Long(idSite),siteName, address, department);
         return idao.saveOrUpdate(site);
+    }
+    
+     public void loadCmb(JComboBox cmb) {
+        List<Object> objects = (List<Object>) controller.getAll();
+        for (Object object : objects) {
+            Department department = (Department) object;
+            cmb.addItem(department.getDepartmentName());
+        }
     }
 }

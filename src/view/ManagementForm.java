@@ -15,7 +15,7 @@ import tools.HibernateUtil;
  */
 public class ManagementForm extends javax.swing.JFrame {
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     /**
      * Creates new form ManagementForm
@@ -138,17 +138,17 @@ public class ManagementForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        Employee employee = new Employee();
-        if (txtUsername.getText().equalsIgnoreCase(employee.getUsername())) {
-            
-        }
+//        Employee employee = new Employee();
+//        if (txtUsername.getText().equalsIgnoreCase(employee.getUsername())) {
+//            
+//        }
         HrView hrView = new HrView(sessionFactory);
         hrView.show();
         dpManagement.add(hrView);
         
         txtUsername.setText("");
         pfPassword.setText("");
-        panelLogin.setVisible(false);
+//        panelLogin.setVisible(false);
         
 //        ManagerView managerView = new ManagerView(sessionFactory);
 //        managerView.show();

@@ -5,6 +5,7 @@
  */
 package daos;
 
+import models.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -27,7 +28,7 @@ public class FunctionDAO {
     /**
      *
      * @param CRUD - 0 for Save/Update, 1 for delete, 2 for getById, 3 for
-     * search, 4 for getLastId, selain 0-4 for getAll
+     * search, 4 for getLastId, 5 for login, selain 0-5 for getAll
      * @param type
      * @param category
      * @param key
@@ -77,9 +78,10 @@ public class FunctionDAO {
                 return session.createQuery("FROM " + type
                         .getSimpleName() + " ORDER BY 1 DESC").list().get(0);
             case 5:
+                Employee employee = (Employee) key;
                 return session.createCriteria(type)
-                        .add(Restrictions.eq(category, key))
-                        .uniqueResult();    
+                        .add(Restrictions.and(Restrictions.eq("username", employee.getUsername())
+                                , Restrictions.eq("password", employee.getPassword()))).uniqueResult();
             default:
                 return session.createQuery("FROM " + type
                         .getSimpleName() + " ORDER BY 1").list();

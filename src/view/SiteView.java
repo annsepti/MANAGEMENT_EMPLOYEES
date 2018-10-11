@@ -18,11 +18,13 @@ public class SiteView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form SiteView
+     *
      * @param sessionFactory
      */
     public SiteView(SessionFactory sessionFactory) {
         initComponents();
         siteController = new SiteController(sessionFactory);
+        siteController.loadCmb(cmbDeparment);
 
     }
 
@@ -42,9 +44,10 @@ public class SiteView extends javax.swing.JInternalFrame {
         txtSiteName = new javax.swing.JPasswordField();
         btnSave = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txtAddress = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
-        cmbDeparmentId = new javax.swing.JComboBox<>();
+        cmbDeparment = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAddress = new javax.swing.JTextArea();
 
         setClosable(true);
         setMaximizable(true);
@@ -64,9 +67,11 @@ public class SiteView extends javax.swing.JInternalFrame {
 
         jLabel3.setText("ADDRESS");
 
-        jLabel4.setText("DEPARTMENT ID");
+        jLabel4.setText("DEPARTMENT NAME");
 
-        cmbDeparmentId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtAddress.setColumns(20);
+        txtAddress.setRows(5);
+        jScrollPane1.setViewportView(txtAddress);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,19 +85,23 @@ public class SiteView extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel3))
+                                        .addGap(55, 55, 55))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cmbDeparment, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtSiteName)
-                                    .addComponent(txtSiteID)
-                                    .addComponent(txtAddress)
-                                    .addComponent(cmbDeparmentId, 0, 155, Short.MAX_VALUE)))))
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(txtSiteID)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(166, 166, 166)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,13 +115,13 @@ public class SiteView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtSiteName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cmbDeparmentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbDeparment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(btnSave)
                 .addGap(62, 62, 62))
@@ -141,21 +150,23 @@ public class SiteView extends javax.swing.JInternalFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         siteController.saveOrUpdate(txtSiteID.getText(), txtSiteName.getText(),
-                txtAddress.getText(), cmbDeparmentId.getSelectedItem().toString());
+                txtAddress.getText(), cmbDeparment.getSelectedItem().toString());
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
-    private javax.swing.JComboBox<String> cmbDeparmentId;
+    private javax.swing.JComboBox<String> cmbDeparment;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField txtAddress;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txtAddress;
     private javax.swing.JTextField txtSiteID;
     private javax.swing.JPasswordField txtSiteName;
     // End of variables declaration//GEN-END:variables
+
 }

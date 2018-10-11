@@ -5,8 +5,11 @@
  */
 package controllers;
 
+import daos.GeneralDAO;
 import daos.InterfaceDAO;
 import java.util.List;
+import models.Job;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -15,8 +18,8 @@ import java.util.List;
 public class JobController {
     private final InterfaceDAO idao;
 
-    public JobController(InterfaceDAO idao) {
-        this.idao = idao;
+    public JobController(SessionFactory sessionFactory) {
+        idao = new GeneralDAO(sessionFactory, Job.class);
     }
     public List<Object> getAll(){
         return idao.getAll();

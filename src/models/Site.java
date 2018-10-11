@@ -62,11 +62,11 @@ public class Site implements Serializable {
         this.siteId = siteId;
         this.siteName = siteName;
     }
-    public Site(Long siteId, String siteName, String address, Department idDept) {
+    public Site(Long siteId, String siteName, String address, Department departmentId) {
         this.siteId = siteId;
         this.siteName = siteName;
         this.address = address;
-        this.departmentId = idDept;
+        this.departmentId = departmentId;
     }
 
     public Long getSiteId() {

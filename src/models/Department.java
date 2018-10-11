@@ -58,10 +58,10 @@ public class Department implements Serializable {
         this.departmentId = departmentId;
     }
     
-    public Department(String departmentId, String deptName, Employee idMng) {
+    public Department(String departmentId, String departmentName, Employee managerId) {
         this.departmentId = departmentId;
-        this.departmentName = deptName;
-        this.managerId=idMng;
+        this.departmentName = departmentName;
+        this.managerId=managerId;
     }
 
     public Department(String departmentId, String departmentName) {
