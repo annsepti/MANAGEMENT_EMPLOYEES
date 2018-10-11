@@ -9,6 +9,7 @@ import controllers.TempControllers;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import models.Employee;
 import models.EmployeeTemp;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,17 +22,17 @@ public class HrView extends javax.swing.JInternalFrame {
 
     private SessionFactory sessionFactory;
     private final TempControllers tempController;
-
+    private Employee employee;
     /**
      * Creates new form HrView
      *
      * @param sessionFactory
      */
-    public HrView(SessionFactory sessionFactory) {
+    public HrView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
         tempController = new TempControllers(sessionFactory);
         bindingLocation(tempController.getAll());
-
+        this.employee = employee;
     }
 
     /**
@@ -158,7 +159,7 @@ public class HrView extends javax.swing.JInternalFrame {
 
     private void menuSettingProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingProfileMouseClicked
         // TODO add your handling code here:
-        EmployeeView employeeView = new EmployeeView(sessionFactory);
+        EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
         this.getParent().add(employeeView);
         employeeView.setVisible(true);
     }//GEN-LAST:event_menuSettingProfileMouseClicked

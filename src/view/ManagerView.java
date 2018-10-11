@@ -5,6 +5,7 @@
  */
 package view;
 
+import models.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -15,14 +16,14 @@ import org.hibernate.SessionFactory;
 public class ManagerView extends javax.swing.JInternalFrame {
 
     private SessionFactory sessionFactory;
-
+    private Employee employee;
     /**
      * Creates new form Login
      * @param sessionFactory
      */
-    public ManagerView(SessionFactory sessionFactory) {
+    public ManagerView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
-
+        this.employee = employee;
     }
 
     /**
@@ -176,7 +177,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
 
     private void menuSettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingMouseClicked
         // TODO add your handling code here:
-        EmployeeView employeeView = new EmployeeView(sessionFactory);
+        EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
         this.getParent().add(employeeView);
         employeeView.setVisible(true);
     }//GEN-LAST:event_menuSettingMouseClicked
