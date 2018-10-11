@@ -170,7 +170,6 @@ public class ManagerView extends javax.swing.JInternalFrame {
         this.getParent().add(login);
         login.setLocation(480, 200);
         login.setVisible(true);
-       
 
         dispose();
 
