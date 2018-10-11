@@ -16,11 +16,11 @@ import org.hibernate.SessionFactory;
  */
 public class SiteController {
     private final InterfaceDAO idao;
-    private final DepartmentController controller;
+//    private final DepartmentController controller;
 
     public SiteController(SessionFactory sessionFactory) {
         idao = new GeneralDAO(sessionFactory, Site.class);
-        controller = new DepartmentController(sessionFactory);
+//        controller = new DepartmentController(sessionFactory);
     }
     public List<Object> getAll(){
         return idao.getAll();
