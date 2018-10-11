@@ -27,7 +27,7 @@ public class RoleController {
     public Object search(String category, String value){
         return idao.search(category, value);
     }
-    public Object getById(String departmentId){
-        return idao.getById(new Short(departmentId));
+    public Object getById(String roleId){
+        return idao.getById(new Long(roleId));
     }
 }

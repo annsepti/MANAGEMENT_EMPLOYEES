@@ -21,7 +21,9 @@ public class DepartmentController {
     private final InterfaceDAO idao;
 
     public DepartmentController(SessionFactory sessionFactory) {
+
         idao = new GeneralDAO(sessionFactory, Department.class);
+
     }
 
     public List<Object> getAll() {
@@ -41,4 +43,5 @@ public class DepartmentController {
         Department department = new Department(idDept, deptName, manager);
         return idao.saveOrUpdate(department);
     }
+    
 }
