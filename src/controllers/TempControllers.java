@@ -25,6 +25,7 @@ public class TempControllers {
     }
     public List<Object> getAll(){
         return idao.getAll();
+        
     }
     public boolean saveOrUpdate(String idTemp, String idEmp, String mail, String pass, String hp, String t_npwp,
             String t_skck, String foto, String e_bpjs){
