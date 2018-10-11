@@ -5,6 +5,7 @@
  */
 package test;
 
+import controllers.TempControllers;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,4 +43,45 @@ public class EmployeeTempController {
     //
     // @Test
     // public void hello() {}
+    @Test
+    public void testGetAll() {
+        System.out.println("getAll");
+        TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
+        Object result = tc.getAll();
+        assertNotNull(result);
+    }
+
+    @Test
+    public void testGetById() {
+        System.out.println("getById");
+        String tempId = "100";
+        TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
+        Object result = tc.getById(tempId);
+        assertNotNull(result);
+    }
+
+    @Test
+    public void testDelete() {
+        System.out.println("delete");
+        TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
+        Object result = tc.delete("18002");
+        assertNotNull(result);
+    }
+
+    @Test
+    public void testSaveOrUpdate() {
+        System.out.println("saveOrUpdate");
+        String tempId = "1";
+        String email = "haha";
+        String password = "";
+        String phone = "222180";
+        String npwp = "";
+        String skck = "";
+        String foto= "";
+        String bpjs = "";
+        String employeeId = "1";
+        TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
+        boolean result = tc.saveOrUpdate(tempId, email, password, phone, npwp, skck, foto, bpjs, employeeId);
+        assertTrue(result);
+    }
 }

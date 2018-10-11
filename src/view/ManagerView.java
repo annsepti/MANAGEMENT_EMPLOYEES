@@ -5,6 +5,7 @@
  */
 package view;
 
+import viewemp.EmployeeView;
 import models.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

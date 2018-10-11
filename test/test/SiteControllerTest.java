@@ -49,7 +49,7 @@ public class SiteControllerTest {
     public void testSaveOrUpdate() {
         System.out.println("Try saveOrUpdate");
         String idSite = "7";
-        String siteName = "coba";
+        String siteName = "Toyota";
         String address = "Tebet";
         String idDept= "MSBU";
         SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
@@ -66,10 +66,10 @@ public class SiteControllerTest {
     @Test
     public void testSearch() {
         System.out.println("search");
-        String category = "siteId";
-        Object key = "MSBU";
+        String category = "siteName";
+        Object value = "Toyota";
         SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
-        List<Object> result = (List<Object>) sc.search(category, (String) key);
+        List<Object> result = (List<Object>) sc.search(category, (String) value);
         assertNotNull(result);
     }
     @Test

@@ -65,17 +65,17 @@ public class DepartmentControllerTest {
     public void testSearch() {
         System.out.println("search");
         String category = "departmentId";
-        Object key = "MSBU";
-        DepartmentController instance = new DepartmentController(tools.HibernateUtil.getSessionFactory());
-        List<Object> result = (List<Object>) instance.search(category, (String) key);
+        Object value = "MSBU";
+        DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
+        List<Object> result = (List<Object>) dc.search(category, (String) value);
         assertNotNull(result);
     }
     @Test
     public void testGetById() {
         System.out.println("getById");
-        String departmentId = "280";
-        DepartmentController instance = new DepartmentController(tools.HibernateUtil.getSessionFactory());
-        Object result = instance.getById(departmentId);
+        String departmentId = "MSAD";
+        DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
+        Object result = dc.getById(departmentId);
         assertNotNull(result);
     }
 }

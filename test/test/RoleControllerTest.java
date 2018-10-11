@@ -5,6 +5,8 @@
  */
 package test;
 
+import controllers.RoleController;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,5 +44,28 @@ public class RoleControllerTest {
     //
     // @Test
     // public void hello() {}
-    
+    @Test
+    public void testGetAll() {
+        System.out.println("getAll");
+        RoleController rc = new RoleController(tools.HibernateUtil.getSessionFactory());
+        List<Object> result = rc.getAll();
+        assertNotNull(result);
+    }
+    @Test
+    public void testSearch() {
+        System.out.println("search");
+        String category = "roleName";
+        Object value = "HR";
+        RoleController rc = new RoleController(tools.HibernateUtil.getSessionFactory());
+        List<Object> result = (List<Object>) rc.search(category, (String) value);
+        assertNotNull(result);
+    }
+    @Test
+    public void testGetById() {
+        System.out.println("getById");
+        String departmentId = "1";
+        RoleController rc = new RoleController(tools.HibernateUtil.getSessionFactory());
+        Object result = rc.getById(departmentId);
+        assertNotNull(result);
+    }
 }

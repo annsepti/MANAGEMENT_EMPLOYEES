@@ -55,7 +55,7 @@ public class GeneralDAO implements InterfaceDAO {
 
     @Override
     public List<Object> getAll() {
-        return (List<Object>) gdao.execute(6, null, type, null, null);
+        return (List<Object>) gdao.execute(99, null, type, null, null);
     }
 
     @Override
@@ -133,5 +133,10 @@ public class GeneralDAO implements InterfaceDAO {
         callableStatement.registerOutParameter(3, Types.INTEGER);
         callableStatement.execute();
         return callableStatement.getInt(3);
+    }
+
+    @Override
+    public List<Employee> getByManagerId(Object object) {
+        return (List<Employee>) gdao.execute(6, null, type, "managerId", object);
     }
 }
