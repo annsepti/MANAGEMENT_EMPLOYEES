@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package viewemp;
 
 import models.Employee;
 import org.hibernate.SessionFactory;
+import view.ChangePasswordView;
 
 /**
  *
