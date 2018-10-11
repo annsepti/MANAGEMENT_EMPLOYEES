@@ -10,6 +10,7 @@ import daos.InterfaceDAO;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import models.Department;
 import models.Employee;
 import models.Job;
@@ -26,16 +27,8 @@ public class EmployeeController {
 
     private final InterfaceDAO idao;
 
-    private final JobController jobController;
-    private final SiteController siteController;
-    private final RoleController roleController;
-
     public EmployeeController(SessionFactory sessionFactory) {
         idao = new GeneralDAO(sessionFactory, Employee.class);
-
-        jobController = new JobController(sessionFactory);
-        siteController = new SiteController(sessionFactory);
-        roleController = new RoleController(sessionFactory);
     }
 
     public Object getAll() {
@@ -70,18 +63,17 @@ public class EmployeeController {
         Employee employee = (Employee) idao.getLastId();
         return Integer.parseInt(employee.getEmployeeId() + "") + 1;
     }
-
-    public Object getByLogin(Employee employee) {
-        return idao.getByLogin(employee);
-    }
-
-    public boolean newUsernamePassword() {
-        return false;
+    
+    public Employee login(String username, String password){
+        List<Employee> employees = (List<Employee>) search("username", username);
+        Employee employee = employees.get(0);
+        if(!BCrypt.checkpw(password, employee.getPassword())) employee = null;
+        return employee;
     }
 
     public Employee firstLogin(String username, String password) {
         Employee employee = new Employee(username, password);
-        return (Employee) getByLogin(employee);
+        return (Employee) idao.getByLogin(employee);
     }
 
     public Employee nextLogin(String username, String password) {
@@ -94,5 +86,8 @@ public class EmployeeController {
     
     public int addNewEmployee(Employee employee) throws SQLException{
         return idao.addNewEmployee(employee);
+    }
+    public int changePassword(String username, String password) throws SQLException{
+        return idao.changePassword(username, password);
     }
 }

@@ -6,9 +6,14 @@
 package view;
 
 import controllers.EmployeeController;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import models.Employee;
 import org.hibernate.SessionFactory;
 import tools.HibernateUtil;
+import tools.Tools;
 
 /**
  *
@@ -19,6 +24,8 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
     private SessionFactory sessionFactory;
     private Employee employee;
     private EmployeeController controller;
+    private Tools tools;
+
     /**
      * Creates new form ChangePassword
      */
@@ -26,6 +33,7 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
         initComponents();
         this.employee = employee;
         controller = new EmployeeController(HibernateUtil.getSessionFactory());
+        tools = new Tools();
     }
 
     /**
@@ -49,6 +57,23 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setTitle("CHANGE PASSWORD");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jLabel1.setText("CURRENT PASSWORD :");
 
@@ -132,15 +157,39 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         //SAVE CODE
-        
-        Login login = new Login(sessionFactory);
-        this.getParent().add(login);
-        login.setLocation(480, 200);
-        login.setVisible(true);
+        if (employee.getPassword().equals(new String(txtCurrentPass.getPassword()))) {
+            if (tools.checkNewPassword(new String(txtNewPass.getPassword()))) {
+                if (new String(txtNewPass.getPassword()).equals(new String(txtConfirmPass.getPassword()))) {
+                    try {
+                        controller.changePassword(employee.getUsername(), new String(txtNewPass.getPassword()));
+                        tampilPesan("Password successfully updated.");
+                        Login login = new Login(sessionFactory);
+                        this.getParent().add(login);
+                        login.setLocation(480, 200);
+                        login.setVisible(true);
 
-        dispose();
+                        dispose();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ChangePasswordView.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    tampilPesan("New password doesn't match with confirm password");
+                }
+            } else {
+                tampilPesan("Password must have 8 characters minimum containing Uppercase, Lowercase, and number!!!");
+            }
+        } else {
+            tampilPesan("Current Password is Wrong!!!");
+        }
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formInternalFrameClosed
+    private void tampilPesan(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;

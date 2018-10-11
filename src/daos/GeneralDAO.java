@@ -122,6 +122,7 @@ public class GeneralDAO implements InterfaceDAO {
         return callableStatement.getInt(20);
     }
     
+    @Override
     public int changePassword(String username, String password) throws SQLException{
         Connection con = sf.getSessionFactoryOptions().getServiceRegistry().
                 getService(ConnectionProvider.class).getConnection();
