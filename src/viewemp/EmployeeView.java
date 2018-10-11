@@ -12,6 +12,7 @@ import controllers.SiteController;
 import models.Employee;
 import org.hibernate.SessionFactory;
 import view.ChangePasswordView;
+import view.Login;
 
 /**
  *
@@ -22,6 +23,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private SessionFactory sessionFactory;
     private Employee employee;
     private EmployeeController employeeController;
+
     /**
      * Creates new form EmployeeView
      *
@@ -30,12 +32,33 @@ public class EmployeeView extends javax.swing.JInternalFrame {
      */
     public EmployeeView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
+        employeeController = new EmployeeController(sessionFactory);
         employeeController.loadCmbSite(cmbSite);
         employeeController.loadCmbDepartment(cmbDepartment);
         employeeController.loadCmbJob(cmbJob);
         employeeController.loadCmbManager(cmbManager);
 
         this.employee = employee;
+        bindingData();
+    }
+
+    private void bindingData() {
+        lblEmployeeId.setText(employee.getEmployeeId() + "");
+        txtFirstName.setText(employee.getFirstName());
+        txtLastName.setText(employee.getLastName());
+        dtpBirthDate.setDate(employee.getBirthDate());
+        txtEmail.setText(employee.getEmail());
+        txtPhone.setText(employee.getPhone());
+        txtNpwp.setText(employee.getNpwp());
+        txtSkck.setText(employee.getSkck());
+        txtNik.setText(employee.getNik());
+        txtBpjs.setText(employee.getBpjs());
+        txtSalary.setText(employee.getSalary() + "");
+        cmbDepartment.setSelectedItem(employee.getDepartmentId().getDepartmentName());
+        cmbSite.setSelectedItem(employee.getSiteId().getSiteName());
+        cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
+        cmbManager.setSelectedItem(employee.getManagerId().getLastName());
+        txtStatus.setText(employee.getStatus() + "");
     }
 
     /**
@@ -75,7 +98,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        txtSite3 = new javax.swing.JTextField();
+        txtStatus = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
         btnChangePassword = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
@@ -105,6 +128,23 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setTitle("EMPLOYEE");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         lblEmployeeId.setText("18001");
 
@@ -145,7 +185,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
         jLabel16.setText("STATUS");
 
-        txtSite3.setEnabled(false);
+        txtStatus.setEnabled(false);
 
         btnSubmit.setText("SUBMIT");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -199,16 +239,12 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
         dtpBirthDate.setEnabled(false);
 
-        cmbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbDepartment.setEnabled(false);
 
-        cmbSite.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbSite.setEnabled(false);
 
-        cmbJob.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbJob.setEnabled(false);
 
-        cmbManager.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbManager.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -320,7 +356,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel32)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtSite3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addGap(45, 45, 45))
         );
         jPanel2Layout.setVerticalGroup(
@@ -400,13 +436,14 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
-                            .addComponent(txtSite3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel32))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dtpHireDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel33))))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel17)
+                                .addComponent(jLabel33)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -477,6 +514,14 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSubmitActionPerformed
 
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        // TODO add your handling code here:
+        Login login = new Login(sessionFactory);
+        this.getParent().add(login);
+        login.setLocation(480, 200);
+        login.setVisible(true);
+    }//GEN-LAST:event_formInternalFrameClosing
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;
@@ -531,7 +576,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNpwp;
     private javax.swing.JTextField txtPhone;
     private javax.swing.JTextField txtSalary;
-    private javax.swing.JTextField txtSite3;
     private javax.swing.JTextField txtSkck;
+    private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
 }
