@@ -14,6 +14,7 @@ import models.Employee;
 import models.EmployeeTemp;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import viewemp.EmployeeViewH;
 
 /**
  *
@@ -82,6 +83,11 @@ public class HrView extends javax.swing.JInternalFrame {
 
             }
         ));
+        tblEmployeeTemp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmployeeTempMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEmployeeTemp);
 
         jLabel17.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -160,10 +166,15 @@ public class HrView extends javax.swing.JInternalFrame {
 
     private void menuSettingProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingProfileMouseClicked
         // TODO add your handling code here:
-        EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
+        EmployeeViewH employeeView = new EmployeeViewH(sessionFactory, employee);
         this.getParent().add(employeeView);
         employeeView.setVisible(true);
     }//GEN-LAST:event_menuSettingProfileMouseClicked
+
+    private void tblEmployeeTempMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeTempMouseClicked
+         // TODO add your handling code here:
+         
+    }//GEN-LAST:event_tblEmployeeTempMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -184,7 +195,7 @@ public class HrView extends javax.swing.JInternalFrame {
             EmployeeTemp eTemp = (EmployeeTemp) object;
             data[i][0] = (i + 1) + "";
             data[i][1] = eTemp.getTempId() + "";
-            data[i][2] = eTemp.getEmployeeId() + "";
+            data[i][2] = eTemp.getEmployeeId().getEmployeeId() + "";
             data[i][3] = eTemp.getEmail() + "";
             data[i][4] = eTemp.getPhone() + "";
             data[i][5] = eTemp.getNpwp() + "";

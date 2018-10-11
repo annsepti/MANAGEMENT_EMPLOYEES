@@ -30,6 +30,7 @@ public class Login extends javax.swing.JInternalFrame {
      */
     public Login(SessionFactory sessionFactory) {
         initComponents();
+        this.sessionFactory = sessionFactory;
         tool = new Tools();
         controller = new EmployeeController(HibernateUtil.getSessionFactory());
     }
