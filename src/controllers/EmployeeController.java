@@ -26,7 +26,6 @@ import tools.BCrypt;
  */
 public class EmployeeController {
     private final InterfaceDAO idao;
-    private final EmployeeController employeeController;
     private final DepartmentController departmentController;
     private final JobController jobController;
     private final SiteController siteController;
@@ -36,7 +35,6 @@ public class EmployeeController {
      */
     public EmployeeController(SessionFactory sessionFactory) {
         idao = new GeneralDAO(sessionFactory, Employee.class);
-        employeeController = new EmployeeController(sessionFactory);
         departmentController = new DepartmentController(sessionFactory);
         jobController = new JobController(sessionFactory);
         siteController = new SiteController(sessionFactory);
@@ -194,7 +192,7 @@ public class EmployeeController {
     }
     
     public void loadCmbManager(JComboBox cmb) {
-        List<Object> objects = (List<Object>) employeeController.getAll();
+        List<Object> objects = (List<Object>) getAll();
         for (Object object : objects) {
             Employee employee = (Employee) object;
             cmb.addItem(employee.getManagerId().getFirstName());
