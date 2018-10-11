@@ -7,6 +7,7 @@ package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
 import java.util.List;
+import javax.swing.JComboBox;
 import models.Department;
 import models.Site;
 import org.hibernate.SessionFactory;
@@ -35,5 +36,13 @@ public class SiteController {
         Department department = new Department(idDept);
         Site site = new Site(new Long(idSite),siteName, address, department);
         return idao.saveOrUpdate(site);
+    }
+    
+     public void loadCmb(JComboBox cmb) {
+        List<Object> objects = (List<Object>) controller.getAll();
+        for (Object object : objects) {
+            Department department = (Department) object;
+            cmb.addItem(department.getDepartmentName());
+        }
     }
 }

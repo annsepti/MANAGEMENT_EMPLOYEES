@@ -24,14 +24,14 @@ import tools.BCrypt;
 public class EmployeeController {
 
     private final InterfaceDAO idao;
-    private final DepartmentController departmentController;
+
     private final JobController jobController;
     private final SiteController siteController;
     private final RoleController roleController;
 
     public EmployeeController(SessionFactory sessionFactory) {
         idao = new GeneralDAO(sessionFactory, Employee.class);
-        departmentController = new DepartmentController(sessionFactory);
+
         jobController = new JobController(sessionFactory);
         siteController = new SiteController(sessionFactory);
         roleController = new RoleController(sessionFactory);

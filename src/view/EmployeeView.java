@@ -16,7 +16,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
      */
     public EmployeeView() {
         initComponents();
-        
+
     }
 
     /**
@@ -80,6 +80,8 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
 
+        setClosable(true);
+        setMaximizable(true);
         setTitle("EMPLOYEE");
 
         lblEmployeeId.setText("18001");
@@ -418,11 +420,14 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
         // TODO add your handling code here:
+        ChangePasswordView changePasswordView = new ChangePasswordView();
+        this.getParent().add(changePasswordView);
+        changePasswordView.setVisible(true);
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-         // TODO add your handling code here:
-         
+        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnSubmitActionPerformed
 
 
