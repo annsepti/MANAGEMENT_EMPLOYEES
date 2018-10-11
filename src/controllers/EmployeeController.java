@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JComboBox;
 import models.Department;
 import models.Employee;
 import models.Job;
@@ -25,18 +26,20 @@ import tools.BCrypt;
  */
 public class EmployeeController {
     private final InterfaceDAO idao;
-//    private final JobController jobController;
-//    private final SiteController siteController;
-//    private final RoleController roleController;
+    private final EmployeeController employeeController;
+    private final DepartmentController departmentController;
+    private final JobController jobController;
+    private final SiteController siteController;
     /**
      * Method konstruktor dari kelas EmployeeController
      * @param sessionFactory dengan mengimport SessionFactory 
      */
     public EmployeeController(SessionFactory sessionFactory) {
         idao = new GeneralDAO(sessionFactory, Employee.class);
-//        jobController = new JobController(sessionFactory);
-//        siteController = new SiteController(sessionFactory);
-//        roleController = new RoleController(sessionFactory);
+        employeeController = new EmployeeController(sessionFactory);
+        departmentController = new DepartmentController(sessionFactory);
+        jobController = new JobController(sessionFactory);
+        siteController = new SiteController(sessionFactory);
     }
     /**
      * Method untuk mengambil semua data yang ada pada tabel Employees
@@ -165,4 +168,37 @@ public class EmployeeController {
     public int changePassword(String username, String password) throws SQLException{
         return idao.changePassword(username, password);
     }
+    
+    public void loadCmbDepartment(JComboBox cmb) {
+        List<Object> objects = (List<Object>) departmentController.getAll();
+        for (Object object : objects) {
+            Department department = (Department) object;
+            cmb.addItem(department.getDepartmentName());
+        }
+    }
+    
+    public void loadCmbSite(JComboBox cmb) {
+        List<Object> objects = (List<Object>) siteController.getAll();
+        for (Object object : objects) {
+            Site site = (Site) object;
+            cmb.addItem(site.getSiteName());
+        }
+    }
+    
+    public void loadCmbJob(JComboBox cmb) {
+        List<Object> objects = (List<Object>) jobController.getAll();
+        for (Object object : objects) {
+            Job job = (Job) object;
+            cmb.addItem(job.getJobTitle());
+        }
+    }
+    
+    public void loadCmbManager(JComboBox cmb) {
+        List<Object> objects = (List<Object>) employeeController.getAll();
+        for (Object object : objects) {
+            Employee employee = (Employee) object;
+            cmb.addItem(employee.getManagerId().getFirstName());
+        }
+    }
+    
 }

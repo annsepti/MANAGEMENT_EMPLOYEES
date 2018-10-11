@@ -83,7 +83,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
-        cmbDeparment = new javax.swing.JComboBox<>();
+        cmbDepartment = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         cmbSite = new javax.swing.JComboBox<>();
@@ -163,7 +163,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
 
         jLabel35.setText(":");
 
-        cmbDeparment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel11.setText("SITE NAME");
 
@@ -278,7 +278,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(cmbJob, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbDeparment, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbDepartment, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtSalary, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                         .addComponent(cmbSite, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbManager, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -325,7 +325,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                                     .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel27))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbDeparment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cmbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -447,7 +447,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         txtNik.setText(employee.getNik());
         txtBpjs.setText(employee.getBpjs());
         txtSalary.setText(employee.getSalary()+"");
-        cmbDeparment.setSelectedItem(employee.getDepartmentId().getDepartmentName());
+        cmbDepartment.setSelectedItem(employee.getDepartmentId().getDepartmentName());
         cmbSite.setSelectedItem(employee.getSiteId().getSiteName());
         cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
         cmbManager.setSelectedItem(employee.getManagerId().getLastName());
@@ -457,7 +457,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApprove;
     private javax.swing.JButton btnNo;
-    private javax.swing.JComboBox<String> cmbDeparment;
+    private javax.swing.JComboBox<String> cmbDepartment;
     private javax.swing.JComboBox<String> cmbJob;
     private javax.swing.JComboBox<String> cmbManager;
     private javax.swing.JComboBox<String> cmbSite;

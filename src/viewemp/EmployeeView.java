@@ -5,6 +5,10 @@
  */
 package viewemp;
 
+import controllers.DepartmentController;
+import controllers.EmployeeController;
+import controllers.JobController;
+import controllers.SiteController;
 import models.Employee;
 import org.hibernate.SessionFactory;
 import view.ChangePasswordView;
@@ -17,14 +21,20 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
     private SessionFactory sessionFactory;
     private Employee employee;
-    
+    private EmployeeController employeeController;
     /**
      * Creates new form EmployeeView
+     *
      * @param sessionFactory
      * @param empoloyee
      */
     public EmployeeView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
+        employeeController.loadCmbSite(cmbSite);
+        employeeController.loadCmbDepartment(cmbDepartment);
+        employeeController.loadCmbJob(cmbJob);
+        employeeController.loadCmbManager(cmbManager);
+
         this.employee = employee;
     }
 
@@ -87,7 +97,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         jLabel33 = new javax.swing.JLabel();
         dtpHireDate = new org.jdesktop.swingx.JXDatePicker();
         dtpBirthDate = new org.jdesktop.swingx.JXDatePicker();
-        cmbDeparment = new javax.swing.JComboBox<>();
+        cmbDepartment = new javax.swing.JComboBox<>();
         cmbSite = new javax.swing.JComboBox<>();
         cmbJob = new javax.swing.JComboBox<>();
         cmbManager = new javax.swing.JComboBox<>();
@@ -189,8 +199,8 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
         dtpBirthDate.setEnabled(false);
 
-        cmbDeparment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbDeparment.setEnabled(false);
+        cmbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbDepartment.setEnabled(false);
 
         cmbSite.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbSite.setEnabled(false);
@@ -293,7 +303,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(cmbDeparment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cmbSite, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cmbJob, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cmbManager, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -371,7 +381,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(jLabel28)
-                            .addComponent(cmbDeparment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -471,7 +481,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JComboBox<String> cmbDeparment;
+    private javax.swing.JComboBox<String> cmbDepartment;
     private javax.swing.JComboBox<String> cmbJob;
     private javax.swing.JComboBox<String> cmbManager;
     private javax.swing.JComboBox<String> cmbSite;
