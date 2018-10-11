@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7ff80975-bbb5-400d-ae11-bebe265b5277">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     EMPLOYEES."EMPLOYEE_ID" AS EMPLOYEES_EMPLOYEE_ID,
+     EMPLOYEES."LAST_NAME" AS EMPLOYEES_LAST_NAME,
+     EMPLOYEES."FIRST_NAME" AS EMPLOYEES_FIRST_NAME,
+     EMPLOYEES."NIK" AS EMPLOYEES_NIK,
+     EMPLOYEES."USERNAME" AS EMPLOYEES_USERNAME,
+     EMPLOYEES."PASSWORD" AS EMPLOYEES_PASSWORD,
+     EMPLOYEES."EMAIL" AS EMPLOYEES_EMAIL,
+     EMPLOYEES."SALARY" AS EMPLOYEES_SALARY,
+     EMPLOYEES."PHONE" AS EMPLOYEES_PHONE,
+     EMPLOYEES."NPWP" AS EMPLOYEES_NPWP,
+     EMPLOYEES."SKCK" AS EMPLOYEES_SKCK,
+     EMPLOYEES."DEPARTMENT_ID" AS EMPLOYEES_DEPARTMENT_ID,
+     EMPLOYEES."SITE_ID" AS EMPLOYEES_SITE_ID,
+     EMPLOYEES."JOB_ID" AS EMPLOYEES_JOB_ID,
+     EMPLOYEES."MANAGER_ID" AS EMPLOYEES_MANAGER_ID,
+     EMPLOYEES."PHOTO" AS EMPLOYEES_PHOTO,
+     EMPLOYEES."STATUS" AS EMPLOYEES_STATUS,
+     EMPLOYEES."BIRTH_DATE" AS EMPLOYEES_BIRTH_DATE,
+     EMPLOYEES."HIRE_DATE" AS EMPLOYEES_HIRE_DATE,
+     EMPLOYEES."ROLE_ID" AS EMPLOYEES_ROLE_ID,
+     EMPLOYEES."BPJS" AS EMPLOYEES_BPJS,
+     SITES."SITE_ID" AS SITES_SITE_ID,
+     SITES."SITE_NAME" AS SITES_SITE_NAME,
+     SITES."ADDRESS" AS SITES_ADDRESS,
+     SITES."DEPARTMENT_ID" AS SITES_DEPARTMENT_ID,
+     DEPARTMENTS."DEPARTMENT_ID" AS DEPARTMENTS_DEPARTMENT_ID,
+     DEPARTMENTS."DEPARTMENT_NAME" AS DEPARTMENTS_DEPARTMENT_NAME,
+     DEPARTMENTS."MANAGER_ID" AS DEPARTMENTS_MANAGER_ID,
+     JOBS."JOB_ID" AS JOBS_JOB_ID,
+     JOBS."JOB_TITLE" AS JOBS_JOB_TITLE,
+     JOBS."MIN_SALARY" AS JOBS_MIN_SALARY,
+     JOBS."MAX_SALARY" AS JOBS_MAX_SALARY,
+     ROLES."ROLE_ID" AS ROLES_ROLE_ID,
+     ROLES."ROLE_NAME" AS ROLES_ROLE_NAME
+FROM
+     "EMP_DATA"."SITES" SITES INNER JOIN "EMP_DATA"."EMPLOYEES" EMPLOYEES ON SITES."SITE_ID" = EMPLOYEES."SITE_ID"
+     INNER JOIN "EMP_DATA"."DEPARTMENTS" DEPARTMENTS ON EMPLOYEES."EMPLOYEE_ID" = DEPARTMENTS."MANAGER_ID"
+     AND DEPARTMENTS."DEPARTMENT_ID" = EMPLOYEES."DEPARTMENT_ID"
+     AND DEPARTMENTS."DEPARTMENT_ID" = SITES."DEPARTMENT_ID"
+     INNER JOIN "EMP_DATA"."JOBS" JOBS ON EMPLOYEES."JOB_ID" = JOBS."JOB_ID"
+     INNER JOIN "EMP_DATA"."ROLES" ROLES ON EMPLOYEES."ROLE_ID" = ROLES."ROLE_ID"]]>
+	</queryString>
+	<field name="EMPLOYEES_EMPLOYEE_ID" class="java.math.BigDecimal"/>
+	<field name="EMPLOYEES_LAST_NAME" class="java.lang.String"/>
+	<field name="EMPLOYEES_FIRST_NAME" class="java.lang.String"/>
+	<field name="EMPLOYEES_NIK" class="java.lang.String"/>
+	<field name="EMPLOYEES_USERNAME" class="java.lang.String"/>
+	<field name="EMPLOYEES_PASSWORD" class="java.lang.String"/>
+	<field name="EMPLOYEES_EMAIL" class="java.lang.String"/>
+	<field name="EMPLOYEES_SALARY" class="java.math.BigDecimal"/>
+	<field name="EMPLOYEES_PHONE" class="java.lang.String"/>
+	<field name="EMPLOYEES_NPWP" class="java.lang.String"/>
+	<field name="EMPLOYEES_SKCK" class="java.lang.String"/>
+	<field name="EMPLOYEES_DEPARTMENT_ID" class="java.lang.String"/>
+	<field name="EMPLOYEES_SITE_ID" class="java.math.BigDecimal"/>
+	<field name="EMPLOYEES_JOB_ID" class="java.lang.String"/>
+	<field name="EMPLOYEES_MANAGER_ID" class="java.math.BigDecimal"/>
+	<field name="EMPLOYEES_PHOTO" class="java.lang.String"/>
+	<field name="EMPLOYEES_STATUS" class="java.lang.String"/>
+	<field name="EMPLOYEES_BIRTH_DATE" class="java.sql.Timestamp"/>
+	<field name="EMPLOYEES_HIRE_DATE" class="java.sql.Timestamp"/>
+	<field name="EMPLOYEES_ROLE_ID" class="java.math.BigDecimal"/>
+	<field name="EMPLOYEES_BPJS" class="java.lang.String"/>
+	<field name="SITES_SITE_ID" class="java.math.BigDecimal"/>
+	<field name="SITES_SITE_NAME" class="java.lang.String"/>
+	<field name="SITES_ADDRESS" class="java.lang.String"/>
+	<field name="SITES_DEPARTMENT_ID" class="java.lang.String"/>
+	<field name="DEPARTMENTS_DEPARTMENT_ID" class="java.lang.String"/>
+	<field name="DEPARTMENTS_DEPARTMENT_NAME" class="java.lang.String"/>
+	<field name="DEPARTMENTS_MANAGER_ID" class="java.math.BigDecimal"/>
+	<field name="JOBS_JOB_ID" class="java.lang.String"/>
+	<field name="JOBS_JOB_TITLE" class="java.lang.String"/>
+	<field name="JOBS_MIN_SALARY" class="java.math.BigDecimal"/>
+	<field name="JOBS_MAX_SALARY" class="java.math.BigDecimal"/>
+	<field name="ROLES_ROLE_ID" class="java.math.BigDecimal"/>
+	<field name="ROLES_ROLE_NAME" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="156" y="0" width="243" height="58" uuid="af447573-52ea-425b-923e-d1b326c1e8f4"/>
+				<textElement textAlignment="Center">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMPLOYEE LIST]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
