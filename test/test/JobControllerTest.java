@@ -5,6 +5,8 @@
  */
 package test;
 
+import controllers.JobController;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,4 +44,28 @@ public class JobControllerTest {
     //
     // @Test
     // public void hello() {}
+     @Test
+    public void testGetAll() {
+        System.out.println("getAll");
+        JobController jc = new JobController(tools.HibernateUtil.getSessionFactory());
+        List<Object> result = jc.getAll();
+        assertNotNull(result);
+    }
+    @Test
+    public void testSearch() {
+        System.out.println("search");
+        String category = "jobTitle";
+        Object value = "PRESIDENT";
+        JobController jc = new JobController(tools.HibernateUtil.getSessionFactory());
+        List<Object> result = (List<Object>) jc.search(category, (String) value);
+        assertNotNull(result);
+    }
+    @Test
+    public void testGetById() {
+        System.out.println("getById");
+        String departmentId = "PRES";
+        JobController jc = new JobController(tools.HibernateUtil.getSessionFactory());
+        Object result = jc.getById(departmentId);
+        assertNotNull(result);
+    }
 }

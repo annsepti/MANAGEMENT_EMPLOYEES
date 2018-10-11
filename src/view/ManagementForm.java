@@ -26,10 +26,15 @@ public class ManagementForm extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.sessionFactory = HibernateUtil.getSessionFactory();
-        Login login = new Login(sessionFactory);
-        login.show();
-        login.setLocation(480, 200);
-        dpManagement.add(login);
+//        Login login = new Login(sessionFactory);
+//        login.show();
+//        login.setLocation(480, 200);
+//        dpManagement.add(login);
+        SiteView site = new SiteView(sessionFactory);
+        site.show();
+        site.setLocation(480, 200);
+        dpManagement.add(site);
+
     }
 
     /**

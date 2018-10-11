@@ -19,11 +19,9 @@ import org.hibernate.SessionFactory;
 public class DepartmentController {
 
     private final InterfaceDAO idao;
-
-    public DepartmentController(SessionFactory sessionFactory) {
-
+    
+    public DepartmentController(SessionFactory sessionFactory) {  
         idao = new GeneralDAO(sessionFactory, Department.class);
-
     }
 
     public List<Object> getAll() {
@@ -33,9 +31,8 @@ public class DepartmentController {
     public Object search(String category, String value) {
         return idao.search(category, value);
     }
-
-    public Object getById(String departmentId) {
-        return idao.getById(new Short(departmentId));
+    public Object getById(String departmentId){
+        return idao.getById(departmentId);
     }
 
     public boolean saveOrUpdate(String idDept, String deptName, String idMng) {

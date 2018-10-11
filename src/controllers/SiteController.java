@@ -6,6 +6,7 @@
 package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.JComboBox;
 import models.Department;
@@ -37,7 +38,14 @@ public class SiteController {
         Site site = new Site(new Long(idSite),siteName, address, department);
         return idao.saveOrUpdate(site);
     }
-    
+    /**
+     * Method untuk membuat id baru secara increment +1
+     * @return iDAO mengembalikan nilai object
+     */
+    public Object getAutoId(){
+        Site site =  (Site) idao.getLastId();
+        return site.getSiteId()+1;
+    }
      public void loadCmb(JComboBox cmb) {
         List<Object> objects = (List<Object>) controller.getAll();
         for (Object object : objects) {
@@ -45,4 +53,5 @@ public class SiteController {
             cmb.addItem(department.getDepartmentName());
         }
     }
+     
 }

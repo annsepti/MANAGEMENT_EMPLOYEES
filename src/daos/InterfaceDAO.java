@@ -22,4 +22,5 @@ public interface InterfaceDAO {
     public Object getLastId();
     public Object getByLogin(Object model);
     public int addNewEmployee(Employee employee)throws SQLException;
+    public List<Employee> getByManagerId(Object object);
 }

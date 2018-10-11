@@ -10,6 +10,7 @@ import daos.InterfaceDAO;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import models.Department;
 import models.Employee;
 import models.Job;
@@ -43,7 +44,7 @@ public class EmployeeController {
     }
 
     public Object getById(String employeeId) {
-        return idao.getById(new BigDecimal(employeeId));
+        return idao.getById(new Long(employeeId));
     }
 
     public Object search(String category, String value) {
@@ -94,5 +95,9 @@ public class EmployeeController {
     
     public int addNewEmployee(Employee employee) throws SQLException{
         return idao.addNewEmployee(employee);
+    }
+    
+    public List<Employee> getByManagerId(Employee manager){
+       return idao.getByManagerId(manager);
     }
 }
