@@ -5,16 +5,20 @@
  */
 package view;
 
+import org.hibernate.SessionFactory;
+
 /**
  *
  * @author USER
  */
 public class ChangePasswordView extends javax.swing.JInternalFrame {
 
+    private SessionFactory sessionFactory;
+
     /**
      * Creates new form ChangePassword
      */
-    public ChangePasswordView() {
+    public ChangePasswordView(SessionFactory sessionFactory) {
         initComponents();
     }
 
@@ -119,6 +123,15 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+
+        //SAVE CODE
+        
+        Login login = new Login(sessionFactory);
+        this.getParent().add(login);
+        login.setLocation(480, 200);
+        login.setVisible(true);
+
+        dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
 

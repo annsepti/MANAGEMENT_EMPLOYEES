@@ -6,7 +6,9 @@
 package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
+import java.math.BigDecimal;
 import java.util.List;
+import javax.swing.JComboBox;
 import models.Department;
 import models.Site;
 import org.hibernate.SessionFactory;
@@ -16,11 +18,11 @@ import org.hibernate.SessionFactory;
  */
 public class SiteController {
     private final InterfaceDAO idao;
-//    private final DepartmentController controller;
+    private final DepartmentController controller;
 
     public SiteController(SessionFactory sessionFactory) {
         idao = new GeneralDAO(sessionFactory, Site.class);
-//        controller = new DepartmentController(sessionFactory);
+        controller = new DepartmentController(sessionFactory);
     }
     public List<Object> getAll(){
         return idao.getAll();
@@ -36,4 +38,20 @@ public class SiteController {
         Site site = new Site(new Long(idSite),siteName, address, department);
         return idao.saveOrUpdate(site);
     }
+    /**
+     * Method untuk membuat id baru secara increment +1
+     * @return iDAO mengembalikan nilai object
+     */
+    public Object getAutoId(){
+        Site site =  (Site) idao.getLastId();
+        return site.getSiteId()+1;
+    }
+     public void loadCmb(JComboBox cmb) {
+        List<Object> objects = (List<Object>) controller.getAll();
+        for (Object object : objects) {
+            Department department = (Department) object;
+            cmb.addItem(department.getDepartmentName());
+        }
+    }
+     
 }

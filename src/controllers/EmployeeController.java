@@ -8,13 +8,16 @@ package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import models.Department;
 import models.Employee;
 import models.Job;
 import models.Role;
 import models.Site;
 import org.hibernate.SessionFactory;
+import tools.BCrypt;
 
 /**
  *
@@ -23,14 +26,14 @@ import org.hibernate.SessionFactory;
 public class EmployeeController {
 
     private final InterfaceDAO idao;
-    private final DepartmentController departmentController;
+
     private final JobController jobController;
     private final SiteController siteController;
     private final RoleController roleController;
 
     public EmployeeController(SessionFactory sessionFactory) {
         idao = new GeneralDAO(sessionFactory, Employee.class);
-        departmentController = new DepartmentController(sessionFactory);
+
         jobController = new JobController(sessionFactory);
         siteController = new SiteController(sessionFactory);
         roleController = new RoleController(sessionFactory);
@@ -56,8 +59,8 @@ public class EmployeeController {
         Job job = new Job(jobId);
         Site site = new Site(new Long(siteId));
         Role role = new Role(new Long(roleId));
-
-        Employee employee = new Employee(new Long(employeeId), lastName, firstName, e_nik, uname, pass,
+        String password = BCrypt.hashpw(pass, BCrypt.gensalt());
+        Employee employee = new Employee(new Long(employeeId), lastName, firstName, e_nik, uname, password,
                 mail, new BigDecimal(sal), e_phone, e_npwp, e_skck, foto, stat.charAt(0),
                 new Date(birthDate), new Date(hireDate), e_bpjs,
                 department, manager, job, role, site);
@@ -68,13 +71,33 @@ public class EmployeeController {
         Employee employee = (Employee) idao.getLastId();
         return Integer.parseInt(employee.getEmployeeId() + "") + 1;
     }
-    
-    public Object getByLogin(Employee employee){
+
+    public Object getByLogin(Employee employee) {
         return idao.getByLogin(employee);
     }
-    public boolean newUsernamePassword(){
+
+    public boolean newUsernamePassword() {
         return false;
     }
+
+    public Employee firstLogin(String username, String password) {
+        Employee employee = new Employee(username, password);
+        return (Employee) getByLogin(employee);
+    }
+
+    public Employee nextLogin(String username, String password) {
+        Employee employee = (Employee) search("username", username);
+        if (BCrypt.checkpw(password, employee.getPassword()) == false) {
+            employee = null;
+        }
+        return employee;
+    }
     
+    public int addNewEmployee(Employee employee) throws SQLException{
+        return idao.addNewEmployee(employee);
+    }
     
+    public List<Employee> getByManagerId(Employee manager){
+       return idao.getByManagerId(manager);
+    }
 }

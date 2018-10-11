@@ -82,6 +82,10 @@ public class FunctionDAO {
                 return session.createCriteria(type)
                         .add(Restrictions.and(Restrictions.eq("username", employee.getUsername())
                                 , Restrictions.eq("password", employee.getPassword()))).uniqueResult();
+            case 6:
+                return session.createCriteria(type)
+                        .add(Restrictions.eq(category, key))
+                        .list();
             default:
                 return session.createQuery("FROM " + type
                         .getSimpleName() + " ORDER BY 1").list();

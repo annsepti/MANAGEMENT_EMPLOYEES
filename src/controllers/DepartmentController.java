@@ -17,23 +17,28 @@ import org.hibernate.SessionFactory;
  * @author 680183
  */
 public class DepartmentController {
+
     private final InterfaceDAO idao;
     
     public DepartmentController(SessionFactory sessionFactory) {  
         idao = new GeneralDAO(sessionFactory, Department.class);
     }
-    public List<Object> getAll(){
+
+    public List<Object> getAll() {
         return idao.getAll();
     }
-    public Object search(String category, String value){
+
+    public Object search(String category, String value) {
         return idao.search(category, value);
     }
     public Object getById(String departmentId){
         return idao.getById(departmentId);
     }
-    public boolean saveOrUpdate(String idDept, String deptName, String idMng){
+
+    public boolean saveOrUpdate(String idDept, String deptName, String idMng) {
         Employee manager = new Employee(new Long(idMng));
-        Department department = new Department(idDept,deptName, manager);
+        Department department = new Department(idDept, deptName, manager);
         return idao.saveOrUpdate(department);
     }
+    
 }
