@@ -21,10 +21,11 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     /**
      * Creates new form EmployeeView
      * @param sessionFactory
+     * @param empoloyee
      */
-    public EmployeeView(SessionFactory sessionFactory, Employee empoloyee) {
+    public EmployeeView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
-        this.employee = empoloyee;
+        this.employee = employee;
     }
 
     /**
