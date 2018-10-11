@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Nande
+ * @author 680183
  */
 @Entity
 @Table(name = "EMPLOYEE_TEMP")
@@ -65,6 +65,18 @@ public class EmployeeTemp implements Serializable {
 
     public EmployeeTemp(Long tempId) {
         this.tempId = tempId;
+    }
+    public EmployeeTemp(Long tempId, String mail, String pass, String hp, String t_npwp,String t_skck, 
+            String foto, String e_bpjs, Employee idEmp) {
+        this.tempId = tempId;
+        this.email = mail;
+        this.password = pass;
+        this.phone = hp;
+        this.npwp = t_npwp;
+        this.skck = t_skck;
+        this.photo = foto;
+        this.bpjs = e_bpjs;
+        this.employeeId = idEmp;
     }
 
     public Long getTempId() {

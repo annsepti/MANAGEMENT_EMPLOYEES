@@ -5,7 +5,9 @@
  */
 package view;
 
+import controllers.EmployeeController;
 import javax.swing.JOptionPane;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -13,11 +15,14 @@ import javax.swing.JOptionPane;
  */
 public class HrView extends javax.swing.JInternalFrame {
 
+    private EmployeeController employeeController;
+    
     /**
      * Creates new form HrView
      */
-    public HrView() {
+    public HrView(SessionFactory sessionFactory) {
         initComponents();
+        employeeController = new EmployeeController(sessionFactory);
     }
 
     /**
@@ -85,6 +90,7 @@ public class HrView extends javax.swing.JInternalFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         mniSettingProfile = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         mniLogout = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
@@ -362,6 +368,9 @@ public class HrView extends javax.swing.JInternalFrame {
         mniSettingProfile.setText("SETTING PROFILE");
         jMenu4.add(mniSettingProfile);
 
+        jMenuItem3.setText("SITE");
+        jMenu4.add(jMenuItem3);
+
         mniLogout.setText("LOG OUT");
         mniLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -415,8 +424,6 @@ public class HrView extends javax.swing.JInternalFrame {
     private void mniLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniLogoutActionPerformed
         // TODO add your handling code here:
         
-        System.out.println(JOptionPane.showInternalInputDialog(this, "ISI ALASAN"));
-        
     }//GEN-LAST:event_mniLogoutActionPerformed
 
 
@@ -463,6 +470,7 @@ public class HrView extends javax.swing.JInternalFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem mniLogout;

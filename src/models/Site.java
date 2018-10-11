@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Nande
+ * @author 680183
  */
 @Entity
 @Table(name = "SITES")
@@ -61,6 +61,12 @@ public class Site implements Serializable {
     public Site(Long siteId, String siteName) {
         this.siteId = siteId;
         this.siteName = siteName;
+    }
+    public Site(Long siteId, String siteName, String address, Department idDept) {
+        this.siteId = siteId;
+        this.siteName = siteName;
+        this.address = address;
+        this.departmentId = idDept;
     }
 
     public Long getSiteId() {

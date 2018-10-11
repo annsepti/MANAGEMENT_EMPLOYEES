@@ -6,7 +6,9 @@
 package controllers;
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
+import java.math.BigDecimal;
 import java.util.List;
+import models.Department;
 import models.Site;
 import org.hibernate.SessionFactory;
 /**
@@ -29,5 +31,10 @@ public class SiteController {
     }
     public Object getById(String departmentId){
         return idao.getById(new Short(departmentId));
+    }
+    public boolean saveOrUpdate(String idSite, String siteName,String address, String idDept ){
+        Department department = new Department(idDept);
+        Site site = new Site(new Long(idSite),siteName, address, department);
+        return idao.saveOrUpdate(site);
     }
 }

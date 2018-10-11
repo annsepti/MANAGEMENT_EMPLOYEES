@@ -5,7 +5,8 @@
  */
 package view;
 
-import javax.swing.JOptionPane;
+import org.hibernate.SessionFactory;
+import tools.HibernateUtil;
 
 /**
  *
@@ -13,11 +14,15 @@ import javax.swing.JOptionPane;
  */
 public class ManagementForm extends javax.swing.JFrame {
 
+    private SessionFactory sessionFactory;
+    
     /**
      * Creates new form ManagementForm
      */
     public ManagementForm() {
         initComponents();
+        this.sessionFactory = HibernateUtil.getSessionFactory();
+        
     }
 
     /**
@@ -106,7 +111,8 @@ public class ManagementForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        System.out.println(JOptionPane.showInputDialog("ISI ALASAN"));
+        HrView hrView = new HrView(sessionFactory);
+        hrView.show();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**

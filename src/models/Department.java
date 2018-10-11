@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Nande
+ * @author 680183
  */
 @Entity
 @Table(name = "DEPARTMENTS")
@@ -56,6 +56,12 @@ public class Department implements Serializable {
 
     public Department(String departmentId) {
         this.departmentId = departmentId;
+    }
+    
+    public Department(String departmentId, String deptName, Employee idMng) {
+        this.departmentId = departmentId;
+        this.departmentName = deptName;
+        this.managerId=idMng;
     }
 
     public Department(String departmentId, String departmentName) {
