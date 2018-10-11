@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package viewemp;
 
 import models.Employee;
 import org.hibernate.SessionFactory;
+import view.ChangePasswordView;
 
 /**
  *
@@ -20,10 +21,11 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     /**
      * Creates new form EmployeeView
      * @param sessionFactory
+     * @param empoloyee
      */
-    public EmployeeView(SessionFactory sessionFactory, Employee empoloyee) {
+    public EmployeeView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
-        this.employee = empoloyee;
+        this.employee = employee;
     }
 
     /**
