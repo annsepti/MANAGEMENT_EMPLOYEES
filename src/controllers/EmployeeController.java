@@ -44,14 +44,14 @@ public class EmployeeController {
     public boolean saveOrUpdate(String employeeId, String firstName, String lastName, String e_nik, String uname, String pass,
             String mail, String sal, String e_phone, String e_npwp, String e_skck, String departmentId, String siteId, String jobId,
             String managerId, String foto, String stat, String birthDate, String hireDate, String roleId, String e_bpjs) {
-        Department department = new Department(new BigDecimal(departmentId));
-        Employee manager = new Employee(new BigDecimal(managerId));
-        Job job = new Job(new BigDecimal(jobId));
-        Site site = new Site(new BigDecimal(siteId));
-        Role role = new Role(new BigDecimal(roleId));
+        Department department = new Department(departmentId);
+        Employee manager = new Employee(new Long(managerId));
+        Job job = new Job(jobId);
+        Site site = new Site(new Long(siteId));
+        Role role = new Role(new Long (roleId));
 
-        Employee employee = new Employee(new BigDecimal(employeeId), lastName, firstName, e_nik, uname, pass,
-                mail, new BigInteger(sal), e_phone, e_npwp, e_skck, foto, stat.charAt(0),
+        Employee employee = new Employee(new Long(employeeId), lastName, firstName, e_nik, uname, pass,
+                mail, new BigDecimal(sal), e_phone, e_npwp, e_skck, foto, stat.charAt(0),
                 new Date(birthDate), new Date(hireDate), e_bpjs,
                 department, manager, job, role, site);
         return idao.saveOrUpdate(employee);

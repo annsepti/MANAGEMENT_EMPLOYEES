@@ -6,7 +6,6 @@
 package models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -24,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Nande
+ * @author 680183
  */
 @Entity
 @Table(name = "SITES")
@@ -37,11 +36,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Site implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "SITE_ID")
-    private BigDecimal siteId;
+    private Long siteId;
     @Basic(optional = false)
     @Column(name = "SITE_NAME")
     private String siteName;
@@ -56,20 +54,26 @@ public class Site implements Serializable {
     public Site() {
     }
 
-    public Site(BigDecimal siteId) {
+    public Site(Long siteId) {
         this.siteId = siteId;
     }
 
-    public Site(BigDecimal siteId, String siteName) {
+    public Site(Long siteId, String siteName) {
         this.siteId = siteId;
         this.siteName = siteName;
     }
+    public Site(Long siteId, String siteName, String address, Department idDept) {
+        this.siteId = siteId;
+        this.siteName = siteName;
+        this.address = address;
+        this.departmentId = idDept;
+    }
 
-    public BigDecimal getSiteId() {
+    public Long getSiteId() {
         return siteId;
     }
 
-    public void setSiteId(BigDecimal siteId) {
+    public void setSiteId(Long siteId) {
         this.siteId = siteId;
     }
 

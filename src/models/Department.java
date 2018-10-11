@@ -6,7 +6,6 @@
 package models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -25,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Nande
+ * @author 680183
  */
 @Entity
 @Table(name = "DEPARTMENTS")
@@ -37,11 +36,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "DEPARTMENT_ID")
-    private BigDecimal departmentId;
+    private String departmentId;
     @Basic(optional = false)
     @Column(name = "DEPARTMENT_NAME")
     private String departmentName;
@@ -56,20 +54,26 @@ public class Department implements Serializable {
     public Department() {
     }
 
-    public Department(BigDecimal departmentId) {
+    public Department(String departmentId) {
         this.departmentId = departmentId;
     }
+    
+    public Department(String departmentId, String deptName, Employee idMng) {
+        this.departmentId = departmentId;
+        this.departmentName = deptName;
+        this.managerId=idMng;
+    }
 
-    public Department(BigDecimal departmentId, String departmentName) {
+    public Department(String departmentId, String departmentName) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;
     }
 
-    public BigDecimal getDepartmentId() {
+    public String getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(BigDecimal departmentId) {
+    public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
     }
 

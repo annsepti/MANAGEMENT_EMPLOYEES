@@ -7,7 +7,6 @@ package models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -29,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Nande
+ * @author 680183
  */
 @Entity
 @Table(name = "EMPLOYEES")
@@ -55,11 +54,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "EMPLOYEE_ID")
-    private BigDecimal employeeId;
+    private Long employeeId;
     @Basic(optional = false)
     @Column(name = "LAST_NAME")
     private String lastName;
@@ -75,8 +73,9 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @Column(name = "EMAIL")
     private String email;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "SALARY")
-    private BigInteger salary;
+    private BigDecimal salary;
     @Column(name = "PHONE")
     private String phone;
     @Column(name = "NPWP")
@@ -122,11 +121,11 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(BigDecimal employeeId) {
+    public Employee(Long employeeId) {
         this.employeeId = employeeId;
     }
 
-    public Employee(BigDecimal employeeId, String lastName, String nik, String email, Character status, Date hireDate) {
+    public Employee(Long employeeId, String lastName, String nik, String email, Character status, Date hireDate) {
         this.employeeId = employeeId;
         this.lastName = lastName;
         this.nik = nik;
@@ -134,41 +133,38 @@ public class Employee implements Serializable {
         this.status = status;
         this.hireDate = hireDate;
     }
-
-    public Employee(BigDecimal employeeId, String lastName, String firstName
-            , String nik, String username, String password, String email
-            , BigInteger salary, String phone, String npwp, String skck
-            , String photo, Character status, Date birthDate, Date hireDate
-            , String bpjs, Department departmentId, Employee managerId, Job jobId
-            , Role roleId, Site siteId) {
+    public Employee(Long employeeId, String lastName, String firstName, String e_nik, String uname, String pass,
+                String mail, BigDecimal sal, String e_phone, String e_npwp, String e_skck, String foto, Character stat,
+                Date birthDate, Date hireDate, String e_bpjs,
+                Department idDept, Employee idMng, Job idJob, Role idRole, Site idSite) {
         this.employeeId = employeeId;
         this.lastName = lastName;
         this.firstName = firstName;
-        this.nik = nik;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.salary = salary;
-        this.phone = phone;
-        this.npwp = npwp;
-        this.skck = skck;
-        this.photo = photo;
-        this.status = status;
+        this.nik = e_nik;
+        this.username = uname;
+        this.password = pass;
+        this.email = mail;
+        this.salary = sal;
+        this.phone = e_phone;
+        this.npwp = e_npwp;
+        this.skck = e_skck;
+        this.photo = foto;
+        this.status = stat;
         this.birthDate = birthDate;
         this.hireDate = hireDate;
-        this.bpjs = bpjs;
-        this.departmentId = departmentId;
-        this.managerId = managerId;
-        this.jobId = jobId;
-        this.roleId = roleId;
-        this.siteId = siteId;
+        this.bpjs = e_bpjs;
+        this.departmentId = idDept;
+        this.managerId = idMng;
+        this.jobId = idJob;
+        this.roleId = idRole;
+        this.siteId = idSite;
     }
 
-    public BigDecimal getEmployeeId() {
+    public Long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(BigDecimal employeeId) {
+    public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -220,11 +216,11 @@ public class Employee implements Serializable {
         this.email = email;
     }
 
-    public BigInteger getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
 
-    public void setSalary(BigInteger salary) {
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 

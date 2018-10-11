@@ -6,8 +6,6 @@
 package models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -23,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Nande
+ * @author 680183
  */
 @Entity
 @Table(name = "JOBS")
@@ -37,38 +35,37 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Job implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @Column(name = "JOB_ID")
-    private BigDecimal jobId;
+    private String jobId;
     @Basic(optional = false)
     @Column(name = "JOB_TITLE")
     private String jobTitle;
     @Column(name = "MIN_SALARY")
-    private BigInteger minSalary;
+    private Long minSalary;
     @Column(name = "MAX_SALARY")
-    private BigInteger maxSalary;
+    private Long maxSalary;
     @OneToMany(mappedBy = "jobId", fetch = FetchType.LAZY)
     private List<Employee> employeeList;
 
     public Job() {
     }
 
-    public Job(BigDecimal jobId) {
+    public Job(String jobId) {
         this.jobId = jobId;
     }
 
-    public Job(BigDecimal jobId, String jobTitle) {
+    public Job(String jobId, String jobTitle) {
         this.jobId = jobId;
         this.jobTitle = jobTitle;
     }
 
-    public BigDecimal getJobId() {
+    public String getJobId() {
         return jobId;
     }
 
-    public void setJobId(BigDecimal jobId) {
+    public void setJobId(String jobId) {
         this.jobId = jobId;
     }
 
@@ -80,19 +77,19 @@ public class Job implements Serializable {
         this.jobTitle = jobTitle;
     }
 
-    public BigInteger getMinSalary() {
+    public Long getMinSalary() {
         return minSalary;
     }
 
-    public void setMinSalary(BigInteger minSalary) {
+    public void setMinSalary(Long minSalary) {
         this.minSalary = minSalary;
     }
 
-    public BigInteger getMaxSalary() {
+    public Long getMaxSalary() {
         return maxSalary;
     }
 
-    public void setMaxSalary(BigInteger maxSalary) {
+    public void setMaxSalary(Long maxSalary) {
         this.maxSalary = maxSalary;
     }
 

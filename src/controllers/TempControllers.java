@@ -7,7 +7,9 @@ package controllers;
 
 import daos.GeneralDAO;
 import daos.InterfaceDAO;
+import java.math.BigDecimal;
 import java.util.List;
+import models.Employee;
 import models.EmployeeTemp;
 import org.hibernate.SessionFactory;
 
@@ -24,5 +26,19 @@ public class TempControllers {
     public List<Object> getAll(){
         return idao.getAll();
     }
-    
+    public boolean saveOrUpdate(String idTemp, String idEmp, String mail, String pass, String hp, String t_npwp,
+            String t_skck, String foto, String e_bpjs){
+        Employee employee = new Employee(new Long(idEmp));
+        EmployeeTemp temp = new EmployeeTemp(new Long(idTemp), mail, pass, hp, t_npwp,t_skck, foto,
+        e_bpjs, employee);
+        return false;
+    }
+    public Object delete(String idTemp){
+        return idao.delete(idTemp);
+    }
+
+    private BigDecimal newBigDecimal(String idEmp) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
