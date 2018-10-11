@@ -30,7 +30,7 @@ public class Tester {
         System.out.println(tools.checkAlfabetOnly("Aku rapopo1"));
 
 //
-//        EmployeeController controller = new EmployeeController(HibernateUtil.getSessionFactory());
+        EmployeeController controller = new EmployeeController(HibernateUtil.getSessionFactory());
 //        Department department = new Department("MSBU", "Managed Service Business Unit");
 //        Employee manager = new Employee(18001L);
 //        Job job = new Job("J_PRG");
@@ -45,14 +45,14 @@ public class Tester {
 //        System.out.println(gdao.addNewEmployee(employee));
         
         
-//        Employee employee = new Employee("kurnia.nugraha", "18001250695");
-//
-//        employee = (Employee) controller.getByLogin(employee);
-//        if (employee.getEmployeeId() != null) {
-//            System.out.println(true);
-//        } else {
-//            System.out.println(false);
-//        }
+        Employee employee = controller.firstLogin("kurnia.nugraha", "18001250695");
+        if (employee.getEmployeeId() != null) {
+            System.out.println(true);
+        } else {
+            System.out.println(false);
+        }
+        
+        
 
 //        Employee employee = (Employee) controller.getById("18002");
 //        System.out.println(tools.generatePassword(employee));
