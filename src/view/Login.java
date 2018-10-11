@@ -9,6 +9,7 @@ import viewemp.EmployeeView;
 import org.hibernate.SessionFactory;
 import tools.Tools;
 import controllers.EmployeeController;
+import javax.swing.JOptionPane;
 import models.Employee;
 import tools.HibernateUtil;
 
@@ -29,6 +30,7 @@ public class Login extends javax.swing.JInternalFrame {
      */
     public Login(SessionFactory sessionFactory) {
         initComponents();
+        this.sessionFactory = sessionFactory;
         tool = new Tools();
         controller = new EmployeeController(HibernateUtil.getSessionFactory());
     }
@@ -115,34 +117,39 @@ public class Login extends javax.swing.JInternalFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-//        if (.getText()
-//        
-//        
-//        )
+        login();
+    }//GEN-LAST:event_btnLoginActionPerformed
+    private void login() {
         Employee employee = new Employee(txtUsername.getText(), new String(pfPassword.getPassword()));
-        employee = (Employee) controller.getByLogin(employee);
+
         if (tool.checkNumberFormat(employee.getPassword())) {
+            employee = (Employee) controller.firstLogin(employee.getUsername(), employee.getPassword());
             ChangePasswordView changePasswordView = new ChangePasswordView(sessionFactory, employee);
             this.getParent().add(changePasswordView);
             changePasswordView.setVisible(true);
-        } else if (employee.getRoleId().getRoleName().equals("Employee")) {
-            EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
-            this.getParent().add(employeeView);
-            employeeView.setVisible(true);
-        } else if (employee.getRoleId().getRoleName().equals("HR")) {
-            HrView hrView = new HrView(sessionFactory, employee);
-            this.getParent().add(hrView);
-            hrView.setVisible(true);
+            this.setVisible(false);
         } else {
-            ManagerView managerView = new ManagerView(sessionFactory, employee);
-            this.getParent().add(managerView);
-            managerView.setVisible(true);
+            employee = controller.login(txtUsername.getText(), new String(pfPassword.getPassword()));
+            if (employee != null) {
+                if (employee.getRoleId().getRoleName().equals("Employee")) {
+                    EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
+                    this.getParent().add(employeeView);
+                    employeeView.setVisible(true);
+                } else if (employee.getRoleId().getRoleName().equals("HR")) {
+                    HrView hrView = new HrView(sessionFactory, employee);
+                    this.getParent().add(hrView);
+                    hrView.setVisible(true);
+                } else {
+                    ManagerView managerView = new ManagerView(sessionFactory, employee);
+                    this.getParent().add(managerView);
+                    managerView.setVisible(true);
+                }
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Login Failed");
+            }
         }
-
-        this.setVisible(false);
-
-    }//GEN-LAST:event_btnLoginActionPerformed
-
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;

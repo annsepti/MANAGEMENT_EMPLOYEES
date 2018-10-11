@@ -5,8 +5,9 @@
  */
 package viewemp;
 
+import models.Employee;
 import org.hibernate.SessionFactory;
-import view.Login;
+import tools.Tools;
 import view.ReasonView;
 
 /**
@@ -15,15 +16,20 @@ import view.ReasonView;
  */
 public class EmployeeViewH extends javax.swing.JInternalFrame {
 
-    private SessionFactory sessionFactory;
-
+    private final SessionFactory sessionFactory;
+    Employee employee;
+    Tools tools;
     /**
      * Creates new form EmployeeViewH
      *
      * @param sessionFactory
      */
-    public EmployeeViewH(SessionFactory sessionFactory) {
+    public EmployeeViewH(SessionFactory sessionFactory, Employee employee) {
         initComponents();
+        this.sessionFactory = sessionFactory;
+        this.employee = employee;
+        tools = new Tools();
+        bindingData();
     }
 
     /**
@@ -57,7 +63,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         txtBpjs = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        txtSite3 = new javax.swing.JTextField();
+        txtStatus = new javax.swing.JTextField();
         btnNo = new javax.swing.JButton();
         btnApprove = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
@@ -276,7 +282,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                         .addComponent(txtSalary, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                         .addComponent(cmbSite, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbManager, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(txtSite3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dtpHireDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(79, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -351,10 +357,11 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel32))
                             .addComponent(txtNpwp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSkck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel24))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel24)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNik, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,7 +369,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                             .addComponent(jLabel8))
                         .addGap(0, 9, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtSite3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(dtpHireDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -429,7 +436,23 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_btnApproveActionPerformed
-
+    private void bindingData(){
+        txtFirstName.setText(employee.getFirstName());
+        txtLastName.setText(employee.getLastName());
+        dtpBirthDate.setDate(employee.getBirthDate());
+        txtEmail.setText(employee.getEmail());
+        txtPhone.setText(employee.getPhone());
+        txtNpwp.setText(employee.getNpwp());
+        txtSkck.setText(employee.getSkck());
+        txtNik.setText(employee.getNik());
+        txtBpjs.setText(employee.getBpjs());
+        txtSalary.setText(employee.getSalary()+"");
+        cmbDeparment.setSelectedItem(employee.getDepartmentId().getDepartmentName());
+        cmbSite.setSelectedItem(employee.getSiteId().getSiteName());
+        cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
+        cmbManager.setSelectedItem(employee.getManagerId().getLastName());
+        txtStatus.setText(employee.getStatus()+"");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApprove;
@@ -482,7 +505,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNpwp;
     private javax.swing.JTextField txtPhone;
     private javax.swing.JTextField txtSalary;
-    private javax.swing.JTextField txtSite3;
     private javax.swing.JTextField txtSkck;
+    private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
 }
