@@ -19,11 +19,9 @@ import org.hibernate.SessionFactory;
 public class TempControllers {
 
     private final InterfaceDAO idao;
-//    private final EmployeeController employeeController;
 
     public TempControllers(SessionFactory sessionFactory) {
         idao = new GeneralDAO(sessionFactory, EmployeeTemp.class);
-//        employeeController = new EmployeeController(sessionFactory);
 
     }
 
@@ -47,5 +45,4 @@ public class TempControllers {
     public Object getById(String idTemp) {
         return idao.getById(idTemp);
     }
-
 }
