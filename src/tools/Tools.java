@@ -5,6 +5,7 @@
  */
 package tools;
 
+import controllers.EmployeeController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,8 +27,9 @@ public class Tools {
 
     private final String username = "7nandemonai@gmail.com";
     private final String password = "Annisa7-";
-
+    private EmployeeController controller;
     public Tools() {
+        controller = new EmployeeController(HibernateUtil.getSessionFactory());
     }
 
     public boolean checkEmail(String email) {
@@ -67,6 +69,9 @@ public class Tools {
     public Employee generatePassword(){
         return null;
     }
+    
+    
+    
     public boolean sendUsernamePassword(Employee employee) {
         boolean hasil = false;
         Properties props = new Properties();
