@@ -14,14 +14,15 @@ import org.hibernate.SessionFactory;
  */
 public class ManagerView extends javax.swing.JInternalFrame {
 
-    private Session session;
+    private SessionFactory sessionFactory;
+
     /**
      * Creates new form Login
+     * @param sessionFactory
      */
     public ManagerView(SessionFactory sessionFactory) {
         initComponents();
-        
-        
+
     }
 
     /**
@@ -44,7 +45,6 @@ public class ManagerView extends javax.swing.JInternalFrame {
         menuSetting = new javax.swing.JMenu();
         menuLogout = new javax.swing.JMenu();
 
-        setClosable(true);
         setMaximizable(true);
         setTitle("MANAGER VIEW");
 
@@ -107,6 +107,11 @@ public class ManagerView extends javax.swing.JInternalFrame {
         lblEmployeeId.setText("18001");
 
         menuSetting.setText("SETTING PROFILE");
+        menuSetting.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuSettingMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(menuSetting);
 
         menuLogout.setForeground(new java.awt.Color(255, 0, 0));
@@ -159,7 +164,22 @@ public class ManagerView extends javax.swing.JInternalFrame {
 
     private void menuLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLogoutMouseClicked
         // TODO add your handling code here:
+        Login login = new Login(sessionFactory);
+        this.getParent().add(login);
+        login.setLocation(480, 200);
+        login.setVisible(true);
+       
+
+        dispose();
+
     }//GEN-LAST:event_menuLogoutMouseClicked
+
+    private void menuSettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingMouseClicked
+        // TODO add your handling code here:
+        EmployeeView employeeView = new EmployeeView(sessionFactory);
+        this.getParent().add(employeeView);
+        employeeView.setVisible(true);
+    }//GEN-LAST:event_menuSettingMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

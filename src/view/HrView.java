@@ -22,9 +22,9 @@ public class HrView extends javax.swing.JInternalFrame {
     private SessionFactory sessionFactory;
     private final TempControllers tempController;
 
-    
     /**
      * Creates new form HrView
+     *
      * @param sessionFactory
      */
     public HrView(SessionFactory sessionFactory) {
@@ -51,7 +51,6 @@ public class HrView extends javax.swing.JInternalFrame {
         menuSite = new javax.swing.JMenu();
         menuLogout = new javax.swing.JMenu();
 
-        setClosable(true);
         setMaximizable(true);
         setTitle("HUMAN RESOURCE VIEW");
         setToolTipText("");
@@ -141,7 +140,12 @@ public class HrView extends javax.swing.JInternalFrame {
 
     private void menuLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLogoutMouseClicked
         // TODO add your handling code here:
-        this.dispose();
+        Login login = new Login(sessionFactory);
+        this.getParent().add(login);
+        login.setLocation(480, 200);
+        login.setVisible(true);
+
+        dispose();
     }//GEN-LAST:event_menuLogoutMouseClicked
 
     private void menuSiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSiteMouseClicked
@@ -149,12 +153,12 @@ public class HrView extends javax.swing.JInternalFrame {
         SiteView siteView = new SiteView(sessionFactory);
         this.getParent().add(siteView);
         siteView.setVisible(true);
-        
+
     }//GEN-LAST:event_menuSiteMouseClicked
 
     private void menuSettingProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingProfileMouseClicked
         // TODO add your handling code here:
-        EmployeeView employeeView = new EmployeeView();
+        EmployeeView employeeView = new EmployeeView(sessionFactory);
         this.getParent().add(employeeView);
         employeeView.setVisible(true);
     }//GEN-LAST:event_menuSettingProfileMouseClicked
