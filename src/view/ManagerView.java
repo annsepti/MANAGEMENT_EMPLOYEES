@@ -5,9 +5,11 @@
  */
 package view;
 
+import java.util.HashMap;
 import models.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import report.ReportView;
 import viewemp.EmployeeViewM;
 
 /**
@@ -41,6 +43,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
         tblEmployee = new javax.swing.JTable();
         txtFindEmployee = new javax.swing.JTextField();
         btnFind = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lblEmployeeId = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -78,6 +81,13 @@ public class ManagerView extends javax.swing.JInternalFrame {
             }
         });
 
+        btnPrint.setText("PRINT");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -88,6 +98,8 @@ public class ManagerView extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnPrint)
+                        .addGap(107, 107, 107)
                         .addComponent(txtFindEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnFind)))
@@ -98,7 +110,9 @@ public class ManagerView extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtFindEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtFindEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPrint)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -182,9 +196,21 @@ public class ManagerView extends javax.swing.JInternalFrame {
         employeeViewM.setVisible(true);
     }//GEN-LAST:event_menuSettingMouseClicked
 
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        // TODO add your handling code here:
+        HashMap parameter = new HashMap();
+        parameter.put("listReport", lblEmployeeId.getText());
+        ReportView reportView = new ReportView(sessionFactory, "src\\report\\EmployeeListReport.jrxml");
+        this.getParent().add(reportView);
+        reportView.setLocation(480, 200);
+        reportView.setVisible(true);
+        
+    }//GEN-LAST:event_btnPrintActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFind;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;

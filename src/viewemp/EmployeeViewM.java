@@ -460,13 +460,15 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
-//        ReportView reportView = new ReportView(sessionFactory, "src\\report\\EmployeeListReport.jrxml");
+//        HashMap parameter = new HashMap();
+//        parameter.put("employeeId", lblEmployeeId.getText());
+//        ReportView reportView = new ReportView(sessionFactory, "src\\report\\EmployeeDetailReport.jrxml");
 //        this.getParent().add(reportView);
 //        reportView.setLocation(480, 200);
 //        reportView.setVisible(true);
 
         try {
-            String path = "src\\report\\EmployeeListReport.jrxml";      // letak penyimpanan report
+            String path = "src\\report\\EmployeeDetailReport.jrxml";      // letak penyimpanan report
             HashMap parameter = new HashMap();
             parameter.put("employeeId", lblEmployeeId.getText());
             JasperPrint print = JasperFillManager.fillReport(path, parameter, connection);
