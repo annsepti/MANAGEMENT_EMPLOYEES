@@ -5,10 +5,10 @@
  */
 package view;
 
-import viewemp.EmployeeView;
 import models.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import viewemp.EmployeeViewM;
 
 /**
  *
@@ -177,9 +177,9 @@ public class ManagerView extends javax.swing.JInternalFrame {
 
     private void menuSettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingMouseClicked
         // TODO add your handling code here:
-        EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
-        this.getParent().add(employeeView);
-        employeeView.setVisible(true);
+        EmployeeViewM employeeViewM = new EmployeeViewM(sessionFactory, employee);
+        this.getParent().add(employeeViewM);
+        employeeViewM.setVisible(true);
     }//GEN-LAST:event_menuSettingMouseClicked
 
 

@@ -5,9 +5,10 @@
  */
 package viewemp;
 
+import models.Employee;
 import org.hibernate.SessionFactory;
 import report.ReportView;
-
+import tools.Tools;
 
 /**
  *
@@ -16,11 +17,18 @@ import report.ReportView;
 public class EmployeeViewM extends javax.swing.JInternalFrame {
 
     private SessionFactory sessionFactory;
+    Employee employee;
+    Tools tools;
+
     /**
      * Creates new form EmployeeViewM
      */
-    public EmployeeViewM() {
+    public EmployeeViewM(SessionFactory sessionFactory, Employee employee) {
         initComponents();
+        this.sessionFactory = sessionFactory;
+        this.employee = employee;
+        tools = new Tools();
+
     }
 
     /**
@@ -58,7 +66,7 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        txtSite3 = new javax.swing.JTextField();
+        txtStatus = new javax.swing.JTextField();
         btnPrint = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -136,7 +144,7 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
 
         jLabel16.setText("STATUS");
 
-        txtSite3.setEnabled(false);
+        txtStatus.setEnabled(false);
 
         btnPrint.setText("PRINT");
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
@@ -286,7 +294,7 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
                         .addComponent(jLabel33)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtSite3, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(txtStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                     .addComponent(txtSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                     .addComponent(dtpHireDate, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                     .addComponent(cmbDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -381,7 +389,7 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
                             .addComponent(jLabel31))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSite3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel32))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -488,7 +496,25 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNpwp;
     private javax.swing.JTextField txtPhone;
     private javax.swing.JTextField txtSalary;
-    private javax.swing.JTextField txtSite3;
     private javax.swing.JTextField txtSkck;
+    private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
+
+    private void bindingData() {
+        txtFirstName.setText(employee.getFirstName());
+        txtLastName.setText(employee.getLastName());
+        dtpBirthDate.setDate(employee.getBirthDate());
+        txtEmail.setText(employee.getEmail());
+        txtPhone.setText(employee.getPhone());
+        txtNpwp.setText(employee.getNpwp());
+        txtSkck.setText(employee.getSkck());
+        txtNik.setText(employee.getNik());
+        txtBpjs.setText(employee.getBpjs());
+        txtSalary.setText(employee.getSalary() + "");
+        cmbDepartment.setSelectedItem(employee.getDepartmentId().getDepartmentName());
+        cmbSite.setSelectedItem(employee.getSiteId().getSiteName());
+        cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
+        cmbManager.setSelectedItem(employee.getManagerId().getLastName());
+        txtStatus.setText(employee.getStatus() + "");
+    }
 }

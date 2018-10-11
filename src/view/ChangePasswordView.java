@@ -64,6 +64,7 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
                 formInternalFrameClosed(evt);
             }
             public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
             }
             public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -186,7 +187,16 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_formInternalFrameClosed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        // TODO add your handling code here:
+        Login login = new Login(sessionFactory);
+        this.getParent().add(login);
+        login.setLocation(480, 200);
+        login.setVisible(true);
+    }//GEN-LAST:event_formInternalFrameClosing
     private void tampilPesan(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
