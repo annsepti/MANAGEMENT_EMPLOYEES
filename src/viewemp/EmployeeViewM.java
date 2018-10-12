@@ -18,7 +18,7 @@ import report.ReportView;
 import tools.Tools;
 
 /**
- * Deklarasi kelas EmployeeView M
+ * Deklarasi kelas EmployeeViewM
  * @author USER
  */
 public class EmployeeViewM extends javax.swing.JInternalFrame {

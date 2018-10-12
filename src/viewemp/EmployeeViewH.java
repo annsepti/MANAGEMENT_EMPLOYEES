@@ -481,7 +481,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     /**
-     * Method untuk memanggil kelas dari ReasonView
+     * Method untuk memanggil kelas dari ReasonView ketika menolak masukan data dari user
      * @param evt merupakan sebuah event
      */
     private void btnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoActionPerformed
@@ -497,7 +497,10 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_btnApproveActionPerformed
-
+    /**
+     * Method untuk melakukan save daata
+     * @param evt merupakan sebuah event
+     */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
             try {
@@ -548,6 +551,9 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
             
         }
     }
+    /**
+     * Method untuk menampilkan data employee
+     */
     private void bindingData(){
         txtFirstName.setText(employee.getFirstName());
         txtLastName.setText(employee.getLastName());

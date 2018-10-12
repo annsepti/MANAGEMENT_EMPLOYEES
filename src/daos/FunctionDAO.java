@@ -12,7 +12,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- *
+ * Deklarasi kelas FunctionDAO
  * @author Ignatius
  */
 public class FunctionDAO {
@@ -53,7 +53,7 @@ public class FunctionDAO {
         }
         return obj;
     }
-
+    
     private Object getAction(Session session, int crud,
             Object object, Class type, String category, Object key) {
         switch (crud) {

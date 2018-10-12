@@ -66,12 +66,20 @@ public class TempControllers {
     public Object getById(String idTemp) {
         return idao.getById(idTemp);
     }
-    
+    /**
+     * Method untuk mendapatkan id employee temporary baru
+     * @return EmployeeTemp mengembalikan nilai objek
+     */
     public Object getNewId() {
         EmployeeTemp employee = (EmployeeTemp) idao.getLastId();
         return Integer.parseInt(employee.getTempId()+ "") + 1;
     }
-    
+    /**
+     * Method untuk melakukan search berdasarkan kategori dan kata kunci
+     * @param category tipe data String
+     * @param value tipe data String
+     * @return idao mengembalikan nilai object
+     */
     public Object search(String category, String value) {
         return idao.search(category, new Employee(new Long(value)));
     }

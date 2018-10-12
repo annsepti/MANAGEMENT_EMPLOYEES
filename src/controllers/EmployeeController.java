@@ -160,7 +160,7 @@ public class EmployeeController {
      * Untuk mengubah password
      * @param username username
      * @param password password
-     * @return int 
+     * @return idao mengembalikan nilai integer
      * @throws SQLException penangkap error
      */
     public int changePassword(String username, String password) throws SQLException{

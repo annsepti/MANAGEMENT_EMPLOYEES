@@ -43,7 +43,9 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         bindingData();
         cekTemp();
     }
-
+    /**
+     * Method untuk menampilkan data employee
+     */
     private void bindingData() {
         lblEmployeeId.setText(employee.getEmployeeId() + "");
         txtFirstName.setText(employee.getFirstName());
@@ -523,6 +525,10 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         submit(employee.getRoleId().getRoleId()+"");
         cekTemp();
     }//GEN-LAST:event_btnSubmitActionPerformed
+    /**
+     * Method untuk submit data masukan dari employee
+     * @param role tipe data String, roleID 3 yaitu employee
+     */
     private void submit(String role){
         switch(Integer.parseInt(role)){
             case 1:
@@ -537,9 +543,18 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                 break;
         }
     }
+    /**
+     * Method submit untuk menyimpan data ke temporary
+     * @param employeeTemp tipe data EmployeeTemp
+     * @return mengembalikan nilai temporary ke fungsi saveOrUpdate
+     */
     private boolean submit(EmployeeTemp employeeTemp){
         return tempControllers.saveOrUpdate(employeeTemp.getTempId()+"", employeeTemp.getEmail(), employeeTemp.getPhone(), employeeTemp.getNpwp(), employeeTemp.getSkck(), employeeTemp.getBpjs(), employee.getEmployeeId()+"");
     }
+    /**
+     * Method untuk memanggil kelas login ketika form EmployeeView ditutup
+     * @param evt berupakan suatu event
+     */
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         // TODO add your handling code here:
         Login login = new Login(sessionFactory);
@@ -547,12 +562,17 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         login.setLocation(480, 200);
         login.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosing
-    
+    /**
+     * Method untuk menampilkan info berupa message
+     * @param isSuccess tipe data boolean
+     */
     private void tampilInfo(boolean isSuccess){
         if(isSuccess) JOptionPane.showMessageDialog(this, "Update sukses, mohon tunggu konfirmasi dari HR, terima kasih.");
         else JOptionPane.showMessageDialog(this, "Gagal update data!");
     }
-    
+    /**
+     * Method untuk memeriksa isi dari  Temp
+     */
     private void cekTemp(){
         List<EmployeeTemp> employeeTemps = (List<EmployeeTemp>) tempControllers.search("employeeId", employee.getEmployeeId()+"");
         if(employeeTemps.size() > 0) btnSubmit.setEnabled(false);

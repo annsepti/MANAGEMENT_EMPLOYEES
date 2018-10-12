@@ -197,7 +197,10 @@ public class HrView extends javax.swing.JInternalFrame {
         this.getParent().add(employeeViewH);
         employeeViewH.setVisible(true);
     }//GEN-LAST:event_tblEmployeeTempMouseClicked
-
+    /**
+     * Method untuk memanggil kelas dari EmployeeViewH
+     * @param evt merupakan sebuah event
+     */
     private void menuNewEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuNewEmployeeMouseClicked
         // TODO add your handling code here:
         EmployeeViewH employeeView = new EmployeeViewH(sessionFactory, new Employee(), 1);
@@ -216,7 +219,10 @@ public class HrView extends javax.swing.JInternalFrame {
     private javax.swing.JMenu menuSite;
     private javax.swing.JTable tblEmployeeTemp;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     * Method untuk menampilkan data dari Employee temporary
+     * @param empTemp dengan tipe data List
+     */
     private void bindingLocation(List<Object> empTemp) {
         String[] header = {"No", "REQUEST ID", "EMPLOYEE ID", "EMAIL", "PHONE", "NPWP", "SKCK", "BPJS"};
         String[][] data = new String[empTemp.size()][header.length];
