@@ -5,11 +5,17 @@
  */
 package view;
 
+import java.sql.Connection;
 import java.util.HashMap;
 import models.Employee;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import report.ReportView;
+import viewemp.EmployeeView;
 import viewemp.EmployeeViewM;
 
 /**
@@ -20,13 +26,16 @@ public class ManagerView extends javax.swing.JInternalFrame {
 
     private SessionFactory sessionFactory;
     private Employee employee;
+
     /**
      * Creates new form Login
+     *
      * @param sessionFactory
      */
     public ManagerView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
         this.employee = employee;
+        bindingManager();
     }
 
     /**
@@ -66,6 +75,11 @@ public class ManagerView extends javax.swing.JInternalFrame {
 
             }
         ));
+        tblEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmployeeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEmployee);
 
         txtFindEmployee.addActionListener(new java.awt.event.ActionListener() {
@@ -186,27 +200,42 @@ public class ManagerView extends javax.swing.JInternalFrame {
         login.setVisible(true);
 
         dispose();
-
     }//GEN-LAST:event_menuLogoutMouseClicked
 
     private void menuSettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingMouseClicked
         // TODO add your handling code here:
-        EmployeeViewM employeeViewM = new EmployeeViewM(sessionFactory, employee);
-        this.getParent().add(employeeViewM);
-        employeeViewM.setVisible(true);
+        EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
+        this.getParent().add(employeeView);
+        employeeView.setVisible(true);
     }//GEN-LAST:event_menuSettingMouseClicked
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
-        HashMap parameter = new HashMap();
-        parameter.put("listReport", lblEmployeeId.getText());
-        ReportView reportView = new ReportView(sessionFactory, "src\\report\\EmployeeListReport.jrxml");
-        this.getParent().add(reportView);
-        reportView.setLocation(480, 200);
-        reportView.setVisible(true);
-        
+        try {
+            String NamaFile = "./src/report/EmployeeListReport.jasper";
+            Class.forName("oracle.jdbc.OracleDriver").newInstance();
+            Connection connection = sessionFactory.getSessionFactoryOptions().getServiceRegistry().
+                    getService(ConnectionProvider.class).getConnection();
+            HashMap hash = new HashMap();
+            hash.put("listReport", lblEmployeeId.getText());
+            JasperPrint jasperPrint = JasperFillManager.fillReport(NamaFile, hash, connection);
+            JasperViewer.viewReport(jasperPrint);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
     }//GEN-LAST:event_btnPrintActionPerformed
 
+    private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
+        // TODO add your handling code here:
+        EmployeeViewM employeeViewM = new EmployeeViewM(sessionFactory, employee);
+        this.getParent().add(employeeViewM);
+        employeeViewM.setVisible(true);
+    }//GEN-LAST:event_tblEmployeeMouseClicked
+
+    public void bindingManager() {
+        lblEmployeeId.setText(employee.getEmployeeId().toString());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFind;

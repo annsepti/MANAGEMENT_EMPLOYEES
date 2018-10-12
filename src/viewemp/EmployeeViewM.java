@@ -13,6 +13,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.SessionFactory;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import report.ReportView;
 import tools.Tools;
 
@@ -25,7 +26,6 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
     private SessionFactory sessionFactory;
     Employee employee;
     Tools tools;
-    private Connection connection;
 
     /**
      * Creates new form EmployeeViewM
@@ -460,22 +460,17 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
-//        HashMap parameter = new HashMap();
-//        parameter.put("employeeId", lblEmployeeId.getText());
-//        ReportView reportView = new ReportView(sessionFactory, "src\\report\\EmployeeDetailReport.jrxml");
-//        this.getParent().add(reportView);
-//        reportView.setLocation(480, 200);
-//        reportView.setVisible(true);
-
         try {
-            String path = "src\\report\\EmployeeDetailReport.jrxml";      // letak penyimpanan report
-            HashMap parameter = new HashMap();
-            parameter.put("employeeId", lblEmployeeId.getText());
-            JasperPrint print = JasperFillManager.fillReport(path, parameter, connection);
-            JasperViewer.viewReport(print, false);
+            String NamaFile = "./src/report/EmployeeDetailReport.jasper";
+            Class.forName("oracle.jdbc.OracleDriver").newInstance();
+            Connection connection = sessionFactory.getSessionFactoryOptions().getServiceRegistry().
+                    getService(ConnectionProvider.class).getConnection();
+            HashMap hash = new HashMap();
+            hash.put("employeeId", lblEmployeeId.getText());
+            JasperPrint jasperPrint = JasperFillManager.fillReport(NamaFile, hash, connection);
+            JasperViewer.viewReport(jasperPrint);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, "Dokumen Tidak Ada " + ex);
-
+            System.out.println(ex);
         }
 
     }//GEN-LAST:event_btnPrintActionPerformed

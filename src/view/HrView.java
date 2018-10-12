@@ -25,6 +25,7 @@ public class HrView extends javax.swing.JInternalFrame {
     private SessionFactory sessionFactory;
     private final TempControllers tempController;
     private Employee employee;
+
     /**
      * Creates new form HrView
      *
@@ -166,14 +167,16 @@ public class HrView extends javax.swing.JInternalFrame {
 
     private void menuSettingProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingProfileMouseClicked
         // TODO add your handling code here:
-        EmployeeViewH employeeView = new EmployeeViewH(sessionFactory, employee);
+        EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
         this.getParent().add(employeeView);
         employeeView.setVisible(true);
     }//GEN-LAST:event_menuSettingProfileMouseClicked
 
     private void tblEmployeeTempMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeTempMouseClicked
-         // TODO add your handling code here:
-         
+        // TODO add your handling code here:
+        EmployeeViewH employeeViewH = new EmployeeViewH(sessionFactory, employee);
+        this.getParent().add(employeeViewH);
+        employeeViewH.setVisible(true);
     }//GEN-LAST:event_tblEmployeeTempMouseClicked
 
 

@@ -7,6 +7,7 @@ package report;
 
 import java.awt.BorderLayout;
 import java.sql.Connection;
+import java.util.Map;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -14,7 +15,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.swing.JRViewer;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import tools.HibernateUtil;
@@ -28,6 +28,9 @@ public class ReportView extends javax.swing.JInternalFrame {
     private SessionFactory sf;
     /**
      * Creates new form ReportView
+     * @param sessionFactory
+     * @param url
+     * @param txt
      */
     public ReportView(SessionFactory sessionFactory, String url) {
         initComponents();
