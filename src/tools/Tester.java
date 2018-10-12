@@ -29,26 +29,36 @@ public class Tester {
 
     private Connection connection;
     public static void main(String[] args) throws SQLException {
-//        Tools tools = new Tools();
+        Tools tools = new Tools();
 //        System.out.println(tools.checkEmail("windingz@gmail.com"));
 //        System.out.println(tools.checkNewPassword("Annisa7-"));
 //        System.out.println(tools.checkNumberFormat("5000"));
 //        System.out.println(tools.checkAlfabetOnly("Aku rapopo1"));
+
 //
-////
-//        EmployeeController controller = new EmployeeController(HibernateUtil.getSessionFactory());
-//        Department department = new Department("MSBU", "Managed Service Business Unit");
-//        Employee manager = new Employee(18001L);
-//        Job job = new Job("J_PRG");
-//        Role role = new Role(3L);
-//        Site site = new Site();
-//        GeneralDAO gdao = new GeneralDAO(HibernateUtil.getSessionFactory(), Employee.class);
-//        Employee employee = new Employee(null, "Monk", "Beast", "42342", "", ""
-//                , "annisa.septiana.sani@gmail.com", new BigDecimal(3500),"", "", "", ""
-//                ,'A', new Date("1995/09/17"), new Date("2018/09/01"), "",
-//                department, manager, job, role, site);
-//        
-//        System.out.println(gdao.addNewEmployee(employee));
+        EmployeeController controller = new EmployeeController(HibernateUtil.getSessionFactory());
+        Department department = new Department("MSBU", "Managed Service Business Unit");
+        Employee manager = new Employee(18001L);
+        Job job = new Job("J_PRG");
+        Role role = new Role(3L);
+        Site site = new Site();
+        GeneralDAO gdao = new GeneralDAO(HibernateUtil.getSessionFactory(), Employee.class);
+        Employee employee = new Employee(null, "Monk", "Beast", "42342", "", ""
+                , "annisa.septiana.sani@gmail.com", new BigDecimal(3500),"", "", "", ""
+                ,'A', new Date("1995/09/17"), new Date("2018/09/01"), "",
+                department, manager, job, role, site);
+        
+        System.out.println(gdao.addNewEmployee(employee));
+        
+        
+//        Employee employee = controller.firstLogin("kurnia.nugraha", "18001250695");
+//        if (employee.getEmployeeId() != null) {
+//            System.out.println(true);
+//        } else {
+//            System.out.println(false);
+//        }
+        
+        
 
 //        Employee employee = controller.firstLogin("kurnia.nugraha", "18001250695");
 //        if (employee.getEmployeeId() != null) {

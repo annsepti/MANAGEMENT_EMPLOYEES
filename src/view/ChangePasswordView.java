@@ -12,11 +12,12 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Employee;
 import org.hibernate.SessionFactory;
+import tools.BCrypt;
 import tools.HibernateUtil;
 import tools.Tools;
 
 /**
- *
+ *Deklarasi kelas ChangePasswordView 
  * @author USER
  */
 public class ChangePasswordView extends javax.swing.JInternalFrame {
@@ -27,7 +28,9 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
     private Tools tools;
 
     /**
-     * Creates new form ChangePassword
+     * Method konstruktor
+     * @param sessionFactory tipe data SessionFactory
+     * @param employee tipe data Employee
      */
     public ChangePasswordView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
@@ -153,43 +156,53 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Method untuk menyimpan dan update data
+     * @param evt merupakan sebuah event
+     */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
 
         //SAVE CODE
-        if (employee.getPassword().equals(new String(txtCurrentPass.getPassword()))) {
-            if (tools.checkNewPassword(new String(txtNewPass.getPassword()))) {
-                if (new String(txtNewPass.getPassword()).equals(new String(txtConfirmPass.getPassword()))) {
-                    try {
-                        controller.changePassword(employee.getUsername(), new String(txtNewPass.getPassword()));
-                        tampilPesan("Password successfully updated.");
-                        Login login = new Login(sessionFactory);
-                        this.getParent().add(login);
-                        login.setLocation(480, 200);
-                        login.setVisible(true);
-
-                        dispose();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ChangePasswordView.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    tampilPesan("New password doesn't match with confirm password");
-                }
-            } else {
-                tampilPesan("Password must have 8 characters minimum containing Uppercase, Lowercase, and number!!!");
-            }
+        if (tools.checkNumberFormat(new String(txtCurrentPass.getPassword()))) {
+            checkRole();
+        } else if (BCrypt.checkpw(new String(txtCurrentPass.getPassword()), employee.getPassword())) {
+            checkRole();
         } else {
             tampilPesan("Current Password is Wrong!!!");
         }
 
     }//GEN-LAST:event_btnSaveActionPerformed
+    private void checkRole() {
+        if (tools.checkNewPassword(new String(txtNewPass.getPassword()))) {
+            if (new String(txtNewPass.getPassword()).equals(new String(txtConfirmPass.getPassword()))) {
+                try {
+                    controller.changePassword(employee.getUsername(), new String(txtNewPass.getPassword()));
+                    tampilPesan("Password successfully updated.");
+                    Login login = new Login(sessionFactory);
+                    this.getParent().add(login);
+                    login.setLocation(480, 200);
+                    login.setVisible(true);
 
+                    dispose();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ChangePasswordView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                tampilPesan("New password doesn't match with confirm password");
+            }
+        } else {
+            tampilPesan("Password must have 8 characters minimum containing Uppercase, Lowercase, and number!!!");
+        }
+    }
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         // TODO add your handling code here:
 
     }//GEN-LAST:event_formInternalFrameClosed
-
+    /**
+     * Method untuk menutup foem login
+     * @param evt merupakan sebuah event
+     */
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         // TODO add your handling code here:
         Login login = new Login(sessionFactory);
@@ -197,6 +210,10 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
         login.setLocation(480, 200);
         login.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosing
+    /**
+     * Method untuk tampil pesan
+     * @param message dengan tipe data string
+     */
     private void tampilPesan(String message) {
         JOptionPane.showMessageDialog(this, message);
     }

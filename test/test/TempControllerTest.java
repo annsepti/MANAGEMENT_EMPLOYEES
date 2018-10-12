@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author 680183
  */
-public class EmployeeTempController {
+public class TempControllerTest {
     
-    public EmployeeTempController() {
+    public TempControllerTest() {
     }
     
     @BeforeClass
@@ -68,20 +68,20 @@ public class EmployeeTempController {
         assertNotNull(result);
     }
 
-    @Test
-    public void testSaveOrUpdate() {
-        System.out.println("saveOrUpdate");
-        String tempId = "1";
-        String email = "haha";
-        String password = "";
-        String phone = "222180";
-        String npwp = "";
-        String skck = "";
-        String foto= "";
-        String bpjs = "";
-        String employeeId = "1";
-        TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
-        boolean result = tc.saveOrUpdate(tempId, email, password, phone, npwp, skck, foto, bpjs, employeeId);
-        assertTrue(result);
-    }
+//    @Test
+//    public void testSaveOrUpdate() {
+//        System.out.println("saveOrUpdate");
+//        String tempId = "1";
+//        String email = "haha";
+//        String password = "";
+//        String phone = "222180";
+//        String npwp = "";
+//        String skck = "";
+//        String foto= "";
+//        String bpjs = "";
+//        String employeeId = "1";
+//        TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
+//        boolean result = tc.saveOrUpdate(tempId, email, password, phone, npwp, skck, foto, bpjs, employeeId);
+//        assertTrue(result);
+//    }
 }

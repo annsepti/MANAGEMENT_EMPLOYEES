@@ -31,7 +31,7 @@ import report.ReportView;
 import tools.HibernateUtil;
 
 /**
- *
+ * Deklarasi kelas Login
  * @author USER
  */
 public class Login extends javax.swing.JInternalFrame {
@@ -42,9 +42,8 @@ public class Login extends javax.swing.JInternalFrame {
 //    Connection connection;
 
     /**
-     * Creates new form Login
-     *
-     * @param sessionFactory
+     * Method konstruktor
+     * @param sessionFactory tipe data SessionFactory
      */
     public Login(SessionFactory sessionFactory) {
         initComponents();
@@ -132,11 +131,17 @@ public class Login extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Method untuk memanggil fungsi login
+     * @param evt merupakan sebuah event
+     */
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         login();
     }//GEN-LAST:event_btnLoginActionPerformed
+    /**
+     * Method untuk melakukan login
+     */
     private void login() {
         Employee employee = new Employee(txtUsername.getText(), new String(pfPassword.getPassword()));
 

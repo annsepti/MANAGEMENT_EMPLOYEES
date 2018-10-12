@@ -12,7 +12,7 @@ import org.hibernate.SessionFactory;
 import tools.HibernateUtil;
 
 /**
- *
+ * Deklarasi kelas ManagementForm
  * @author Nande
  */
 public class ManagementForm extends javax.swing.JFrame {
@@ -20,7 +20,7 @@ public class ManagementForm extends javax.swing.JFrame {
     private final SessionFactory sessionFactory;
 
     /**
-     * Creates new form ManagementForm
+     * Method konstruktor
      */
     public ManagementForm() {
         initComponents();
