@@ -166,7 +166,10 @@ public class EmployeeController {
     public int changePassword(String username, String password) throws SQLException{
         return idao.changePassword(username, password);
     }
-    
+    /**
+     * Method untuk load pada combo button Department
+     * @param cmb dengan tipe data JComboBox
+     */
     public void loadCmbDepartment(JComboBox cmb) {
         List<Object> objects = (List<Object>) departmentController.getAll();
         for (Object object : objects) {
@@ -174,7 +177,10 @@ public class EmployeeController {
             cmb.addItem(department.getDepartmentName());
         }
     }
-    
+    /**
+     * Method untuk load pada combo button Site
+     * @param cmb dengan tipe data JComboBox
+     */
     public void loadCmbSite(JComboBox cmb) {
         List<Object> objects = (List<Object>) siteController.getAll();
         for (Object object : objects) {
@@ -182,7 +188,10 @@ public class EmployeeController {
             cmb.addItem(site.getSiteName());
         }
     }
-    
+    /**
+     * Method untuk load pada combo button Job
+     * @param cmb dengan tipe data JComboBox
+     */
     public void loadCmbJob(JComboBox cmb) {
         List<Object> objects = (List<Object>) jobController.getAll();
         for (Object object : objects) {
@@ -190,7 +199,10 @@ public class EmployeeController {
             cmb.addItem(job.getJobTitle());
         }
     }
-    
+    /**
+     * Method untuk load pada combo button manager
+     * @param cmb dengan tipe data JComboBox
+     */
     public void loadCmbManager(JComboBox cmb) {
         List<Object> objects = (List<Object>) getAll();
         for (Object object : objects) {

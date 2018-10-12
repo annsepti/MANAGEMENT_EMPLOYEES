@@ -14,7 +14,7 @@ import models.Job;
 import org.hibernate.SessionFactory;
 
 /**
- *
+ *Deklarasi kelas SiteView
  * @author USER
  */
 public class SiteView extends javax.swing.JInternalFrame {
@@ -23,9 +23,8 @@ public class SiteView extends javax.swing.JInternalFrame {
      private DepartmentController departmentController;
 
     /**
-     * Creates new form SiteView
-     *
-     * @param sessionFactory
+     * Method konstruktor
+     * @param sessionFactory tipe data SessionFactory
      */
     public SiteView(SessionFactory sessionFactory) {
         initComponents();
@@ -157,7 +156,10 @@ public class SiteView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Method untuk menyimpan data masukan
+     * @param evt merupakan sebuah event
+     */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         String departmentId="";

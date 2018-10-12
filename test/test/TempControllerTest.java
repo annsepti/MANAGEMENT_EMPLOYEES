@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author 680183
  */
-public class EmployeeTempController {
+public class TempControllerTest {
     
-    public EmployeeTempController() {
+    public TempControllerTest() {
     }
     
     @BeforeClass

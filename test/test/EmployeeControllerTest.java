@@ -16,7 +16,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Deklarasi kelas EmployeeControllerTest
  * @author 680183
  */
 public class EmployeeControllerTest {

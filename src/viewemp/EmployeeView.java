@@ -14,7 +14,7 @@ import org.hibernate.SessionFactory;
 import view.ChangePasswordView;
 
 /**
- *
+ * Deklarasi kelas EmployeeView
  * @author Nande
  */
 public class EmployeeView extends javax.swing.JInternalFrame {
@@ -23,10 +23,9 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private Employee employee;
     private EmployeeController employeeController;
     /**
-     * Creates new form EmployeeView
-     *
-     * @param sessionFactory
-     * @param empoloyee
+     * Method konstruktor
+     * @param sessionFactory dengan tipe data SessionFactory
+     * @param empoloyee dengan tipe data Employee
      */
     public EmployeeView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
@@ -403,10 +402,11 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                             .addComponent(txtSite3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel32))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dtpHireDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel33))))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel17)
+                                .addComponent(jLabel33)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -465,14 +465,20 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Method untuk mengubah password dengan memanggil class ChangePasswordView
+     * @param evt merupakan sebuah event
+     */
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
         // TODO add your handling code here:
         ChangePasswordView changePasswordView = new ChangePasswordView(sessionFactory, employee);
         this.getParent().add(changePasswordView);
         changePasswordView.setVisible(true);
     }//GEN-LAST:event_btnChangePasswordActionPerformed
-
+    /**
+     * Method untuk submit data employee
+     * @param evt merupakan sebuah event
+     */
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSubmitActionPerformed

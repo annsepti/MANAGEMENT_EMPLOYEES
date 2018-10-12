@@ -11,7 +11,7 @@ import tools.Tools;
 import view.ReasonView;
 
 /**
- *
+ * Deklarasi kelas EmployeeViewH
  * @author USER
  */
 public class EmployeeViewH extends javax.swing.JInternalFrame {
@@ -20,9 +20,9 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
     Employee employee;
     Tools tools;
     /**
-     * Creates new form EmployeeViewH
-     *
-     * @param sessionFactory
+     * Method konstruktor
+     * @param sessionFactory tipe data SessionFactory
+     * @param employee  tipe data Employee
      */
     public EmployeeViewH(SessionFactory sessionFactory, Employee employee) {
         initComponents();
@@ -422,7 +422,10 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Method untuk memanggil kelas dari ReasonView
+     * @param evt merupakan sebuah event
+     */
     private void btnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoActionPerformed
         // TODO add your handling code here:
         ReasonView reasonView = new ReasonView(sessionFactory);
@@ -436,6 +439,9 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_btnApproveActionPerformed
+    /**
+     * Method untuk menampilkan data
+     */
     private void bindingData(){
         txtFirstName.setText(employee.getFirstName());
         txtLastName.setText(employee.getLastName());

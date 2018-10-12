@@ -16,7 +16,7 @@ import tools.HibernateUtil;
 import tools.Tools;
 
 /**
- *
+ *Deklarasi kelas ChangePasswordView 
  * @author USER
  */
 public class ChangePasswordView extends javax.swing.JInternalFrame {
@@ -27,7 +27,9 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
     private Tools tools;
 
     /**
-     * Creates new form ChangePassword
+     * Method konstruktor
+     * @param sessionFactory tipe data SessionFactory
+     * @param employee tipe data Employee
      */
     public ChangePasswordView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
@@ -153,7 +155,10 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Method untuk menyimpan dan update data
+     * @param evt merupakan sebuah event
+     */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
 
@@ -184,12 +189,15 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_btnSaveActionPerformed
-
+    
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         // TODO add your handling code here:
 
     }//GEN-LAST:event_formInternalFrameClosed
-
+    /**
+     * Method untuk menutup foem login
+     * @param evt merupakan sebuah event
+     */
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         // TODO add your handling code here:
         Login login = new Login(sessionFactory);
@@ -197,6 +205,10 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
         login.setLocation(480, 200);
         login.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosing
+    /**
+     * Method untuk tampil pesan
+     * @param message dengan tipe data string
+     */
     private void tampilPesan(String message) {
         JOptionPane.showMessageDialog(this, message);
     }

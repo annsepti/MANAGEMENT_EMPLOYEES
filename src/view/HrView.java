@@ -17,7 +17,7 @@ import org.hibernate.SessionFactory;
 import viewemp.EmployeeViewH;
 
 /**
- *
+ * Deklarasi kelas HrView
  * @author Nande
  */
 public class HrView extends javax.swing.JInternalFrame {
@@ -26,9 +26,9 @@ public class HrView extends javax.swing.JInternalFrame {
     private final TempControllers tempController;
     private Employee employee;
     /**
-     * Creates new form HrView
-     *
-     * @param sessionFactory
+     * Method konstruktor
+     * @param sessionFactory tipe data SessionFactory
+     * @param employee tipe data Employee
      */
     public HrView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
@@ -145,7 +145,10 @@ public class HrView extends javax.swing.JInternalFrame {
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         // TODO add your handling code here:
     }//GEN-LAST:event_formInternalFrameClosed
-
+    /**
+     * Method untuk melakukan logout dan memanggil kelas login
+     * @param evt merupakan sebuah event
+     */
     private void menuLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLogoutMouseClicked
         // TODO add your handling code here:
         Login login = new Login(sessionFactory);
@@ -155,7 +158,10 @@ public class HrView extends javax.swing.JInternalFrame {
 
         dispose();
     }//GEN-LAST:event_menuLogoutMouseClicked
-
+    /**
+     * Method untuk memanggil kelas SiteView
+     * @param evt merupakan sebuah event
+     */
     private void menuSiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSiteMouseClicked
         // TODO add your handling code here:
         SiteView siteView = new SiteView(sessionFactory);
@@ -163,7 +169,10 @@ public class HrView extends javax.swing.JInternalFrame {
         siteView.setVisible(true);
 
     }//GEN-LAST:event_menuSiteMouseClicked
-
+    /**
+     * Method untuk memnaggil kelas EmployeeViewH
+     * @param evt merupakan sebuah event
+     */
     private void menuSettingProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingProfileMouseClicked
         // TODO add your handling code here:
         EmployeeViewH employeeView = new EmployeeViewH(sessionFactory, employee);
