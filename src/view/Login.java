@@ -137,6 +137,18 @@ public class Login extends javax.swing.JInternalFrame {
      */
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+//         try {
+//            String NamaFile = "./src/report/EmployeeListReport.jasper";
+//            Connection connection = sessionFactory.getSessionFactoryOptions().getServiceRegistry().
+//                    getService(ConnectionProvider.class).getConnection();
+//            HashMap hash = new HashMap();
+//            hash.put("listReport", txtUsername.getText());
+//            JasperPrint jasperPrint = JasperFillManager.fillReport(NamaFile, hash, connection);
+//            JasperViewer.viewReport(jasperPrint);
+//        } catch (Exception ex) {
+//            System.out.println(ex);
+//        }
+        
         login();
     }//GEN-LAST:event_btnLoginActionPerformed
     /**

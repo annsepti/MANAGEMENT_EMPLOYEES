@@ -25,30 +25,30 @@ import tools.HibernateUtil;
  */
 public class ReportView extends javax.swing.JInternalFrame {
 
-    private SessionFactory sf;
+    private final SessionFactory sf;
     /**
      * Method konstruktor
      * @param sessionFactory tipe data SessionFactory
      * @param url tipe data string
      */
-    public ReportView(SessionFactory sessionFactory, String url) {
+    public ReportView(SessionFactory sessionFactory) {
         initComponents();
         this.sf = HibernateUtil.getSessionFactory();
-        Connection connection = null;
-        try {
-            connection = sf.getSessionFactoryOptions().getServiceRegistry().
-                    getService(ConnectionProvider.class).getConnection();
-            JasperDesign jd = JRXmlLoader.load(url);
-            JasperReport jr = JasperCompileManager.compileReport(jd);
-            JasperPrint jPrint = JasperFillManager.fillReport(jr, null, connection);
-            JRViewer viewer = new JRViewer(jPrint);
-            panelReportView.setLayout(new BorderLayout());
-            panelReportView.add(viewer);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
+//        Connection connection = null;
+//        try {
+//            connection = sf.getSessionFactoryOptions().getServiceRegistry().
+//                    getService(ConnectionProvider.class).getConnection();
+//            JasperDesign jd = JRXmlLoader.load(url);
+//            JasperReport jr = JasperCompileManager.compileReport(jd);
+//            JasperPrint jPrint = JasperFillManager.fillReport(jr, null, connection);
+//            JRViewer viewer = new JRViewer(jPrint);
+//            panelReportView.setLayout(new BorderLayout());
+//            panelReportView.add(viewer);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        
     }
 
     /**

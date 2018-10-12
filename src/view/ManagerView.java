@@ -24,23 +24,28 @@ import viewemp.EmployeeViewM;
 
 /**
  * Dekalrasi kelas ManagerView
+ *
  * @author Nande
  */
 public class ManagerView extends javax.swing.JInternalFrame {
-
+    
     private SessionFactory sessionFactory;
     private Employee employee;
     private EmployeeController employeeController;
+
     /**
      * Method konstruktor
+     *
      * @param sessionFactory tipe data SessionFactory
      * @param employee tipe data Employee
      */
     public ManagerView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
         this.employee = employee;
+        this.sessionFactory = sessionFactory;
         employeeController = new EmployeeController(HibernateUtil.getSessionFactory());
         bindingData(employeeController.getByManagerId(employee));
+        txtEmployeeId.setVisible(false);
     }
 
     /**
@@ -58,6 +63,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
         tblEmployee = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         lblEmployeeId = new javax.swing.JLabel();
+        txtEmployeeId = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuSetting = new javax.swing.JMenu();
         menuLogout = new javax.swing.JMenu();
@@ -110,6 +116,8 @@ public class ManagerView extends javax.swing.JInternalFrame {
 
         lblEmployeeId.setText("18001");
 
+        txtEmployeeId.setEnabled(false);
+
         menuSetting.setText("SETTING PROFILE");
         menuSetting.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -142,15 +150,18 @@ public class ManagerView extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblEmployeeId)
-                .addGap(23, 23, 23))
+                .addGap(7, 7, 7)
+                .addComponent(txtEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmployeeId)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 22, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -159,6 +170,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Method untuk logout/keluar dari sistem
+     *
      * @param evt merupakan sebuah event
      */
     private void menuLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLogoutMouseClicked
@@ -167,11 +179,12 @@ public class ManagerView extends javax.swing.JInternalFrame {
         this.getParent().add(login);
         login.setLocation(480, 200);
         login.setVisible(true);
-
+        
         dispose();
     }//GEN-LAST:event_menuLogoutMouseClicked
     /**
-     * Method untuk memanggil kelas EmployeeViewM 
+     * Method untuk memanggil kelas EmployeeViewM
+     *
      * @param evt merupakan sebuah event
      */
     private void menuSettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingMouseClicked
@@ -185,7 +198,6 @@ public class ManagerView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             String NamaFile = "./src/report/EmployeeListReport.jasper";
-            Class.forName("oracle.jdbc.OracleDriver").newInstance();
             Connection connection = sessionFactory.getSessionFactoryOptions().getServiceRegistry().
                     getService(ConnectionProvider.class).getConnection();
             HashMap hash = new HashMap();
@@ -193,31 +205,37 @@ public class ManagerView extends javax.swing.JInternalFrame {
             JasperPrint jasperPrint = JasperFillManager.fillReport(NamaFile, hash, connection);
             JasperViewer.viewReport(jasperPrint);
         } catch (Exception ex) {
+//            ex.printStackTrace();
             System.out.println(ex);
+            
         }
 
     }//GEN-LAST:event_btnPrintActionPerformed
-private void bindingData(List<Employee> emmployee){
-    String[] header = {"No", "EMPLOYEE ID", "FIRST NAME", "LAST NAME", "EMAIL", "SALARY", "PHONE", "SITE NAME", "HIRE DATE"};
+    private void bindingData(List<Employee> emmployee) {
+        String[] header = {"No", "EMPLOYEE ID", "FIRST NAME", "LAST NAME", "EMAIL", "SALARY", "PHONE", "SITE NAME", "HIRE DATE"};
         String[][] data = new String[emmployee.size()][header.length];
         int i = 0;
         for (Object object : emmployee) {
             Employee e = (Employee) object;
             data[i][0] = (i + 1) + "";
-            data[i][1] = e.getEmployeeId()+ "";
+            data[i][1] = e.getEmployeeId() + "";
             data[i][2] = e.getFirstName();
             data[i][3] = e.getLastName();
             data[i][4] = e.getEmail();
-            data[i][5] = e.getSalary()+"";
+            data[i][5] = e.getSalary() + "";
             data[i][6] = e.getPhone();
             String site = "null";
-            if(e.getSiteId() != null) site = e.getSiteId().getSiteName();
+            if (e.getSiteId() != null) {
+                site = e.getSiteId().getSiteName();
+            }
             data[i][7] = site;
             data[i][8] = e.getHireDate().toString();
             i++;
         }
+        lblEmployeeId.setText(employee.getEmployeeId() + "");
+        txtEmployeeId.setText(employee.getEmployeeId() + "");
         tblEmployee.setModel(new DefaultTableModel(data, header));
-}
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrint;
@@ -229,5 +247,6 @@ private void bindingData(List<Employee> emmployee){
     private javax.swing.JMenu menuLogout;
     private javax.swing.JMenu menuSetting;
     private javax.swing.JTable tblEmployee;
+    private javax.swing.JTextField txtEmployeeId;
     // End of variables declaration//GEN-END:variables
 }

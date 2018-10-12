@@ -23,7 +23,7 @@ import tools.Tools;
  */
 public class EmployeeViewM extends javax.swing.JInternalFrame {
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
     Employee employee;
     Tools tools;
 
@@ -467,7 +467,6 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             String NamaFile = "./src/report/EmployeeDetailReport.jasper";
-            Class.forName("oracle.jdbc.OracleDriver").newInstance();
             Connection connection = sessionFactory.getSessionFactoryOptions().getServiceRegistry().
                     getService(ConnectionProvider.class).getConnection();
             HashMap hash = new HashMap();
@@ -475,6 +474,7 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
             JasperPrint jasperPrint = JasperFillManager.fillReport(NamaFile, hash, connection);
             JasperViewer.viewReport(jasperPrint);
         } catch (Exception ex) {
+            ex.printStackTrace();
             System.out.println(ex);
         }
 
