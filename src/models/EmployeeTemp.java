@@ -66,6 +66,17 @@ public class EmployeeTemp implements Serializable {
     public EmployeeTemp(Long tempId) {
         this.tempId = tempId;
     }
+
+    public EmployeeTemp(Long tempId, String email, String phone, String npwp, String skck, String bpjs, Employee employeeId) {
+        this.tempId = tempId;
+        this.email = email;
+        this.phone = phone;
+        this.npwp = npwp;
+        this.skck = skck;
+        this.bpjs = bpjs;
+        this.employeeId = employeeId;
+    }
+    
     public EmployeeTemp(Long tempId, String email, String password, String phone, String npwp,String skck, 
             String photo, String bpjs, Employee employeeId) {
         this.tempId = tempId;

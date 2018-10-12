@@ -81,7 +81,7 @@ public class EmployeeTempController {
         String bpjs = "";
         String employeeId = "1";
         TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
-        boolean result = tc.saveOrUpdate(tempId, email, password, phone, npwp, skck, foto, bpjs, employeeId);
-        assertTrue(result);
+//        boolean result = tc.saveOrUpdate(tempId, email, password, phone, npwp, skck, foto, bpjs, employeeId);
+//        assertTrue(result);
     }
 }

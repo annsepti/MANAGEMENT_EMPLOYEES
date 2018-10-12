@@ -5,11 +5,12 @@
  */
 package viewemp;
 
-import controllers.DepartmentController;
 import controllers.EmployeeController;
-import controllers.JobController;
-import controllers.SiteController;
+import controllers.TempControllers;
+import java.util.List;
+import javax.swing.JOptionPane;
 import models.Employee;
+import models.EmployeeTemp;
 import org.hibernate.SessionFactory;
 import view.ChangePasswordView;
 import view.Login;
@@ -23,7 +24,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private SessionFactory sessionFactory;
     private Employee employee;
     private EmployeeController employeeController;
-
+    private TempControllers tempControllers;
     /**
      * Creates new form EmployeeView
      *
@@ -37,9 +38,10 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         employeeController.loadCmbDepartment(cmbDepartment);
         employeeController.loadCmbJob(cmbJob);
         employeeController.loadCmbManager(cmbManager);
-
+        tempControllers = new TempControllers(sessionFactory);
         this.employee = employee;
         bindingData();
+        cekTemp();
     }
 
     private void bindingData() {
@@ -512,8 +514,26 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        submit(employee.getRoleId().getRoleId()+"");
+        cekTemp();
     }//GEN-LAST:event_btnSubmitActionPerformed
-
+    private void submit(String role){
+        switch(Integer.parseInt(role)){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                EmployeeTemp employeeTemp = new EmployeeTemp(new Long(tempControllers.getNewId()+""), txtEmail.getText(), txtPhone.getText()
+                , txtNpwp.getText(), txtSkck.getText(), txtBpjs.getText(), employee);
+                boolean hasil = submit(employeeTemp);
+                tampilInfo(hasil);
+                break;
+        }
+    }
+    private boolean submit(EmployeeTemp employeeTemp){
+        return tempControllers.saveOrUpdate(employeeTemp.getTempId()+"", employeeTemp.getEmail(), employeeTemp.getPhone(), employeeTemp.getNpwp(), employeeTemp.getSkck(), employeeTemp.getBpjs(), employee.getEmployeeId()+"");
+    }
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         // TODO add your handling code here:
         Login login = new Login(sessionFactory);
@@ -521,7 +541,16 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         login.setLocation(480, 200);
         login.setVisible(true);
     }//GEN-LAST:event_formInternalFrameClosing
-
+    
+    private void tampilInfo(boolean isSuccess){
+        if(isSuccess) JOptionPane.showMessageDialog(this, "Update sukses, mohon tunggu konfirmasi dari HR, terima kasih.");
+        else JOptionPane.showMessageDialog(this, "Gagal update data!");
+    }
+    
+    private void cekTemp(){
+        List<EmployeeTemp> employeeTemps = (List<EmployeeTemp>) tempControllers.search("employeeId", employee.getEmployeeId()+"");
+        if(employeeTemps.size() > 0) btnSubmit.setEnabled(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;

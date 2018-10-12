@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Employee;
 import org.hibernate.SessionFactory;
+import tools.BCrypt;
 import tools.HibernateUtil;
 import tools.Tools;
 
@@ -158,33 +159,37 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         //SAVE CODE
-        if (employee.getPassword().equals(new String(txtCurrentPass.getPassword()))) {
-            if (tools.checkNewPassword(new String(txtNewPass.getPassword()))) {
-                if (new String(txtNewPass.getPassword()).equals(new String(txtConfirmPass.getPassword()))) {
-                    try {
-                        controller.changePassword(employee.getUsername(), new String(txtNewPass.getPassword()));
-                        tampilPesan("Password successfully updated.");
-                        Login login = new Login(sessionFactory);
-                        this.getParent().add(login);
-                        login.setLocation(480, 200);
-                        login.setVisible(true);
-
-                        dispose();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ChangePasswordView.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    tampilPesan("New password doesn't match with confirm password");
-                }
-            } else {
-                tampilPesan("Password must have 8 characters minimum containing Uppercase, Lowercase, and number!!!");
-            }
+        if (tools.checkNumberFormat(new String(txtCurrentPass.getPassword()))) {
+            checkRole();
+        } else if (BCrypt.checkpw(new String(txtCurrentPass.getPassword()), employee.getPassword())) {
+            checkRole();
         } else {
             tampilPesan("Current Password is Wrong!!!");
         }
 
     }//GEN-LAST:event_btnSaveActionPerformed
+    private void checkRole() {
+        if (tools.checkNewPassword(new String(txtNewPass.getPassword()))) {
+            if (new String(txtNewPass.getPassword()).equals(new String(txtConfirmPass.getPassword()))) {
+                try {
+                    controller.changePassword(employee.getUsername(), new String(txtNewPass.getPassword()));
+                    tampilPesan("Password successfully updated.");
+                    Login login = new Login(sessionFactory);
+                    this.getParent().add(login);
+                    login.setLocation(480, 200);
+                    login.setVisible(true);
 
+                    dispose();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ChangePasswordView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                tampilPesan("New password doesn't match with confirm password");
+            }
+        } else {
+            tampilPesan("Password must have 8 characters minimum containing Uppercase, Lowercase, and number!!!");
+        }
+    }
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         // TODO add your handling code here:
 
