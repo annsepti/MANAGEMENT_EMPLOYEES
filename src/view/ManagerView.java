@@ -179,7 +179,10 @@ public class ManagerView extends javax.swing.JInternalFrame {
         this.getParent().add(employeeViewM);
         employeeViewM.setVisible(true);
     }//GEN-LAST:event_menuSettingMouseClicked
-
+    /**
+     * Method untuk mencetak list employee report dan memanggil kelas ReportView
+     * @param evt merupakan sebuah event
+     */
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
         HashMap parameter = new HashMap();
@@ -190,7 +193,11 @@ public class ManagerView extends javax.swing.JInternalFrame {
         reportView.setVisible(true);
         
     }//GEN-LAST:event_btnPrintActionPerformed
-private void bindingData(List<Employee> emmployee){
+    /**
+     * Method untuk menampilkan list data employee
+     * @param emmployee dengan tipe data List
+     */
+    private void bindingData(List<Employee> emmployee){
     String[] header = {"No", "EMPLOYEE ID", "FIRST NAME", "LAST NAME", "EMAIL", "SALARY", "PHONE", "SITE NAME", "HIRE DATE"};
         String[][] data = new String[emmployee.size()][header.length];
         int i = 0;
