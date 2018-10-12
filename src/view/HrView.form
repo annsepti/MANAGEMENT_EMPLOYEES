@@ -12,6 +12,14 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuSettingProfileMouseClicked"/>
           </Events>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="menuNewEmployee">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="NEW EMPLOYEE"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuNewEmployeeMouseClicked"/>
+          </Events>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="menuSite">
           <Properties>
             <Property name="text" type="java.lang.String" value="SITE"/>
