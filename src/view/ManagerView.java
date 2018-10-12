@@ -5,11 +5,15 @@
  */
 package view;
 
+import controllers.EmployeeController;
 import java.util.HashMap;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import models.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import report.ReportView;
+import tools.HibernateUtil;
 import viewemp.EmployeeViewM;
 
 /**
@@ -20,6 +24,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
 
     private SessionFactory sessionFactory;
     private Employee employee;
+    private EmployeeController employeeController;
     /**
      * Method konstruktor
      * @param sessionFactory tipe data SessionFactory
@@ -28,6 +33,8 @@ public class ManagerView extends javax.swing.JInternalFrame {
     public ManagerView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
         this.employee = employee;
+        employeeController = new EmployeeController(HibernateUtil.getSessionFactory());
+        bindingData(employeeController.getByManagerId(employee));
     }
 
     /**
@@ -42,8 +49,6 @@ public class ManagerView extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
-        txtFindEmployee = new javax.swing.JTextField();
-        btnFind = new javax.swing.JButton();
         btnPrint = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lblEmployeeId = new javax.swing.JLabel();
@@ -69,19 +74,6 @@ public class ManagerView extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblEmployee);
 
-        txtFindEmployee.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFindEmployeeActionPerformed(evt);
-            }
-        });
-
-        btnFind.setText("FIND");
-        btnFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFindActionPerformed(evt);
-            }
-        });
-
         btnPrint.setText("PRINT");
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,20 +92,13 @@ public class ManagerView extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnPrint)
-                        .addGap(107, 107, 107)
-                        .addComponent(txtFindEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFind)))
+                        .addGap(350, 350, 350)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtFindEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnPrint)))
+                .addComponent(btnPrint)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -170,14 +155,6 @@ public class ManagerView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtFindEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFindEmployeeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFindEmployeeActionPerformed
-
-    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnFindActionPerformed
     /**
      * Method untuk logout/keluar dari sistem
      * @param evt merupakan sebuah event
@@ -213,10 +190,29 @@ public class ManagerView extends javax.swing.JInternalFrame {
         reportView.setVisible(true);
         
     }//GEN-LAST:event_btnPrintActionPerformed
-
+private void bindingData(List<Employee> emmployee){
+    String[] header = {"No", "EMPLOYEE ID", "FIRST NAME", "LAST NAME", "EMAIL", "SALARY", "PHONE", "SITE NAME", "HIRE DATE"};
+        String[][] data = new String[emmployee.size()][header.length];
+        int i = 0;
+        for (Object object : emmployee) {
+            Employee e = (Employee) object;
+            data[i][0] = (i + 1) + "";
+            data[i][1] = e.getEmployeeId()+ "";
+            data[i][2] = e.getFirstName();
+            data[i][3] = e.getLastName();
+            data[i][4] = e.getEmail();
+            data[i][5] = e.getSalary()+"";
+            data[i][6] = e.getPhone();
+            String site = "null";
+            if(e.getSiteId() != null) site = e.getSiteId().getSiteName();
+            data[i][7] = site;
+            data[i][8] = e.getHireDate().toString();
+            i++;
+        }
+        tblEmployee.setModel(new DefaultTableModel(data, header));
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnPrint;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -226,6 +222,5 @@ public class ManagerView extends javax.swing.JInternalFrame {
     private javax.swing.JMenu menuLogout;
     private javax.swing.JMenu menuSetting;
     private javax.swing.JTable tblEmployee;
-    private javax.swing.JTextField txtFindEmployee;
     // End of variables declaration//GEN-END:variables
 }
