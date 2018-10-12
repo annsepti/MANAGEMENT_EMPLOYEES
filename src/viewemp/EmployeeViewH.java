@@ -42,7 +42,8 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
     /**
      * Method konstruktor
      * @param sessionFactory tipe data SessionFactory
-     * @param employee  tipe data Employee
+     * @param employee tipe data Employee
+     * @param newEmployee tipe data Integer
      */
     public EmployeeViewH(SessionFactory sessionFactory, Employee employee, int newEmployee) {
         initComponents();
