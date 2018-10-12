@@ -8,13 +8,18 @@ package tools;
 import controllers.EmployeeController;
 import daos.GeneralDAO;
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 import models.Department;
 import models.Employee;
 import models.Job;
 import models.Role;
 import models.Site;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -22,6 +27,7 @@ import models.Site;
  */
 public class Tester {
 
+    private Connection connection;
     public static void main(String[] args) throws SQLException {
         Tools tools = new Tools();
 //        System.out.println(tools.checkEmail("windingz@gmail.com"));
@@ -54,8 +60,15 @@ public class Tester {
         
         
 
+//        Employee employee = controller.firstLogin("kurnia.nugraha", "18001250695");
+//        if (employee.getEmployeeId() != null) {
+//            System.out.println(true);
+//        } else {
+//            System.out.println(false);
+//        }
 //        Employee employee = (Employee) controller.getById("18002");
 //        System.out.println(tools.generatePassword(employee));
+        
 
     }
 }

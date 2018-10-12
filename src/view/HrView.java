@@ -25,6 +25,7 @@ public class HrView extends javax.swing.JInternalFrame {
     private SessionFactory sessionFactory;
     private final TempControllers tempController;
     private Employee employee;
+
     /**
      * Method konstruktor
      * @param sessionFactory tipe data SessionFactory
@@ -191,8 +192,10 @@ public class HrView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_menuSettingProfileMouseClicked
 
     private void tblEmployeeTempMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeTempMouseClicked
-         // TODO add your handling code here:
-         
+        // TODO add your handling code here:
+        EmployeeViewH employeeViewH = new EmployeeViewH(sessionFactory, employee, 0);
+        this.getParent().add(employeeViewH);
+        employeeViewH.setVisible(true);
     }//GEN-LAST:event_tblEmployeeTempMouseClicked
     /**
      * Method untuk memanggil kelas dari EmployeeViewH

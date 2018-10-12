@@ -9,8 +9,25 @@ import viewemp.EmployeeView;
 import org.hibernate.SessionFactory;
 import tools.Tools;
 import controllers.EmployeeController;
+import java.awt.BorderLayout;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import models.Employee;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JRViewer;
+import net.sf.jasperreports.view.JasperViewer;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
+import report.ReportView;
 import tools.HibernateUtil;
 
 /**
@@ -22,6 +39,7 @@ public class Login extends javax.swing.JInternalFrame {
     private SessionFactory sessionFactory;
     Tools tool;
     EmployeeController controller;
+//    Connection connection;
 
     /**
      * Method konstruktor

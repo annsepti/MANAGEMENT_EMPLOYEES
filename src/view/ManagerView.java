@@ -6,14 +6,20 @@
 package view;
 
 import controllers.EmployeeController;
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import models.Employee;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import report.ReportView;
 import tools.HibernateUtil;
+import viewemp.EmployeeView;
 import viewemp.EmployeeViewM;
 
 /**
@@ -47,9 +53,9 @@ public class ManagerView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        btnPrint = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
-        btnPrint = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lblEmployeeId = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -61,19 +67,6 @@ public class ManagerView extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Your Employees", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 24))); // NOI18N
 
-        tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(tblEmployee);
-
         btnPrint.setText("PRINT");
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,26 +74,35 @@ public class ManagerView extends javax.swing.JInternalFrame {
             }
         });
 
+        tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tblEmployee);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnPrint)
-                        .addGap(350, 350, 350)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPrint)
+                .addGap(362, 362, 362))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(btnPrint)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -148,7 +150,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmployeeId)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -167,7 +169,6 @@ public class ManagerView extends javax.swing.JInternalFrame {
         login.setVisible(true);
 
         dispose();
-
     }//GEN-LAST:event_menuLogoutMouseClicked
     /**
      * Method untuk memanggil kelas EmployeeViewM 
@@ -175,9 +176,9 @@ public class ManagerView extends javax.swing.JInternalFrame {
      */
     private void menuSettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingMouseClicked
         // TODO add your handling code here:
-        EmployeeViewM employeeViewM = new EmployeeViewM(sessionFactory, employee);
-        this.getParent().add(employeeViewM);
-        employeeViewM.setVisible(true);
+        EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
+        this.getParent().add(employeeView);
+        employeeView.setVisible(true);
     }//GEN-LAST:event_menuSettingMouseClicked
     /**
      * Method untuk mencetak list employee report dan memanggil kelas ReportView
@@ -185,13 +186,19 @@ public class ManagerView extends javax.swing.JInternalFrame {
      */
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
-        HashMap parameter = new HashMap();
-        parameter.put("listReport", lblEmployeeId.getText());
-        ReportView reportView = new ReportView(sessionFactory, "src\\report\\EmployeeListReport.jrxml");
-        this.getParent().add(reportView);
-        reportView.setLocation(480, 200);
-        reportView.setVisible(true);
-        
+        try {
+            String NamaFile = "./src/report/EmployeeListReport.jasper";
+            Class.forName("oracle.jdbc.OracleDriver").newInstance();
+            Connection connection = sessionFactory.getSessionFactoryOptions().getServiceRegistry().
+                    getService(ConnectionProvider.class).getConnection();
+            HashMap hash = new HashMap();
+            hash.put("listReport", lblEmployeeId.getText());
+            JasperPrint jasperPrint = JasperFillManager.fillReport(NamaFile, hash, connection);
+            JasperViewer.viewReport(jasperPrint);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
     }//GEN-LAST:event_btnPrintActionPerformed
     /**
      * Method untuk menampilkan list data employee
