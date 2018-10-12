@@ -8,6 +8,7 @@ package test;
 
 import controllers.EmployeeController;
 import java.util.List;
+import javax.swing.JComboBox;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,12 +40,38 @@ public class EmployeeControllerTest {
     @After
     public void tearDown() {
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void testLoadCmbDepartment() {
+        System.out.println("Test: loadCmbDepartment");
+        JComboBox cmb = new JComboBox();
+        EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
+        ec.loadCmbDepartment(cmb);
+        assertNotNull(ec);
+    }
+    @Test
+    public void testLoadCmbSite() {
+        System.out.println("Test: loadCmbSite");
+        JComboBox cmb = new JComboBox();
+        EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
+        ec.loadCmbSite(cmb);
+        assertNotNull(ec);
+    }
+    @Test
+    public void testLoadCmbJob() {
+        System.out.println("Test: loadCmbJob");
+        JComboBox cmb = new JComboBox();
+        EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
+        ec.loadCmbJob(cmb);
+        assertNotNull(ec);
+    }
+    @Test
+    public void testLoadCmbManager() {
+        System.out.println("Test: loadCmbManager");
+        JComboBox cmb = new JComboBox();
+        EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
+        ec.loadCmbManager(cmb);
+        assertNotNull(ec);
+    }
     @Test
     public void testSaveOrUpdate() {
         System.out.println("Try saveOrUpdate");
