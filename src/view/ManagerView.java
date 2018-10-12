@@ -208,7 +208,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
             JasperPrint jasperPrint = JasperFillManager.fillReport(NamaFile, hash, connection);
             JasperViewer.viewReport(jasperPrint);
         } catch (Exception ex) {
-//            ex.printStackTrace();
+            ex.printStackTrace();
             System.out.println(ex);
             
         }
