@@ -18,6 +18,7 @@ import view.Login;
 /**
  * Deklarasi kelas EmployeeView
  * @author Nande
+ * 
  */
 public class EmployeeView extends javax.swing.JInternalFrame {
 
