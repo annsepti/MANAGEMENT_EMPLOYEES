@@ -39,21 +39,16 @@ public class RoleControllerTest {
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
     @Test
     public void testGetAll() {
-        System.out.println("getAll");
+        System.out.println("Test: getAll");
         RoleController rc = new RoleController(tools.HibernateUtil.getSessionFactory());
         List<Object> result = rc.getAll();
         assertNotNull(result);
     }
     @Test
     public void testSearch() {
-        System.out.println("search");
+        System.out.println("Test: search");
         String category = "roleName";
         Object value = "HR";
         RoleController rc = new RoleController(tools.HibernateUtil.getSessionFactory());
@@ -62,7 +57,7 @@ public class RoleControllerTest {
     }
     @Test
     public void testGetById() {
-        System.out.println("getById");
+        System.out.println("Test: getById");
         String departmentId = "1";
         RoleController rc = new RoleController(tools.HibernateUtil.getSessionFactory());
         Object result = rc.getById(departmentId);
