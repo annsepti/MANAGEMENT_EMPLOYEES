@@ -39,21 +39,16 @@ public class JobControllerTest {
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
      @Test
     public void testGetAll() {
-        System.out.println("getAll");
+        System.out.println("Test: getAll");
         JobController jc = new JobController(tools.HibernateUtil.getSessionFactory());
         List<Object> result = jc.getAll();
         assertNotNull(result);
     }
     @Test
     public void testSearch() {
-        System.out.println("search");
+        System.out.println("Test: search");
         String category = "jobTitle";
         Object value = "PRESIDENT";
         JobController jc = new JobController(tools.HibernateUtil.getSessionFactory());
@@ -62,7 +57,7 @@ public class JobControllerTest {
     }
     @Test
     public void testGetById() {
-        System.out.println("getById");
+        System.out.println("Test: getById");
         String departmentId = "PRES";
         JobController jc = new JobController(tools.HibernateUtil.getSessionFactory());
         Object result = jc.getById(departmentId);

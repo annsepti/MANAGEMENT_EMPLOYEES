@@ -38,15 +38,10 @@ public class DepartmentControllerTest {
     @After
     public void tearDown() {
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}            
+    
     @Test
     public void testSaveOrUpdate() {
-        System.out.println("Try saveOrUpdate");
+        System.out.println("Test: saveOrUpdate");
         String idDept = "AAA";
         String deptName = "coba";
         String idMng = "18001";
@@ -56,14 +51,14 @@ public class DepartmentControllerTest {
     }
     @Test
     public void testGetAll() {
-        System.out.println("getAll");
+        System.out.println("Test: getAll");
         DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
         List<Object> result = dc.getAll();
         assertNotNull(result);
     }
     @Test
     public void testSearch() {
-        System.out.println("search");
+        System.out.println("Test: search");
         String category = "departmentId";
         Object value = "MSBU";
         DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
@@ -72,7 +67,7 @@ public class DepartmentControllerTest {
     }
     @Test
     public void testGetById() {
-        System.out.println("getById");
+        System.out.println("Test: getById");
         String departmentId = "MSAD";
         DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
         Object result = dc.getById(departmentId);

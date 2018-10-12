@@ -41,6 +41,7 @@ public class TempControllers {
      * @param skck dengan tipe data String
      * @param bpjs dengan tipe data String
      * @param mail dengan tipe data String
+     * @param idEmp dengan tipe data String
      * @return mengembalikan nilai boolean apakah proses save/update berhasil dilakukan
      */
     public boolean saveOrUpdate(String idTemp, String mail,String phone, String npwp,String skck, String bpjs, String idEmp) {

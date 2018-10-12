@@ -40,14 +40,9 @@ public class SiteControllerTest {
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
     @Test
     public void testSaveOrUpdate() {
-        System.out.println("Try saveOrUpdate");
+        System.out.println("Test: Try saveOrUpdate");
         String idSite = "7";
         String siteName = "Toyota";
         String address = "Tebet";
@@ -58,14 +53,14 @@ public class SiteControllerTest {
     }
     @Test
     public void testGetAll() {
-        System.out.println("getAll");
+        System.out.println("Test: getAll");
         SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
         List<Object> result = sc.getAll();
         assertNotNull(result);
     }
     @Test
     public void testSearch() {
-        System.out.println("search");
+        System.out.println("Test: search");
         String category = "siteName";
         Object value = "Toyota";
         SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
@@ -74,7 +69,7 @@ public class SiteControllerTest {
     }
     @Test
     public void testGetById() {
-        System.out.println("getById");
+        System.out.println("Test: getById");
         String departmentId = "1";
         SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
         Object result = sc.getById(departmentId);

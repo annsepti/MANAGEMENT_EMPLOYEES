@@ -26,13 +26,14 @@ public class FunctionDAO {
     }
 
     /**
-     *
+     * Method eksekusi
      * @param CRUD - 0 for Save/Update, 1 for delete, 2 for getById, 3 for
      * search, 4 for getLastId, 5 for login, selain 0-5 for getAll
-     * @param type
-     * @param category
-     * @param key
-     * @return
+     * @param object tipe data Objek
+     * @param type tipe data Class
+     * @param category tipe data String
+     * @param key tipe data Object
+     * @return obj 
      */
     public Object execute(int CRUD, Object object,
             Class type, String category, Object key) {
