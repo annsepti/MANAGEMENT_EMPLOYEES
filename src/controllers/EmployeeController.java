@@ -207,7 +207,7 @@ public class EmployeeController {
         List<Object> objects = (List<Object>) getAll();
         for (Object object : objects) {
             Employee employee = (Employee) object;
-            cmb.addItem(employee.getManagerId().getFirstName());
+            cmb.addItem(employee.getEmployeeId());
         }
     }
     

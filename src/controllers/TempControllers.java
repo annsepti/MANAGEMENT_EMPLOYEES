@@ -36,22 +36,17 @@ public class TempControllers {
     /**
      * Method untuk melakukan penyimpanan data baru atau update data
      * @param idTemp dengan tipe data String
-     * @param idEmp dengan tipe data String
+     * @param phone dengan tipe data String
+     * @param npwp dengan tipe data String
+     * @param skck dengan tipe data String
+     * @param bpjs dengan tipe data String
      * @param mail dengan tipe data String
-     * @param pass dengan tipe data String
-     * @param hp dengan tipe data String
-     * @param t_npwp dengan tipe data String
-     * @param t_skck dengan tipe data String
-     * @param foto dengan tipe data String
-     * @param e_bpjs dengan tipe data String
      * @return mengembalikan nilai boolean apakah proses save/update berhasil dilakukan
      */
-    public boolean saveOrUpdate(String idTemp, String idEmp, String mail, String pass, String hp, String t_npwp,
-            String t_skck, String foto, String e_bpjs) {
+    public boolean saveOrUpdate(String idTemp, String mail,String phone, String npwp,String skck, String bpjs, String idEmp) {
         Employee employee = new Employee(new Long(idEmp));
-        EmployeeTemp temp = new EmployeeTemp(new Long(idTemp), mail, pass, hp, t_npwp, t_skck, foto,
-                e_bpjs, employee);
-        return false;
+        EmployeeTemp temp = new EmployeeTemp(new Long(idTemp), mail, phone, npwp, skck, bpjs, employee);
+        return idao.saveOrUpdate(temp);
     }
     /**
      * Method untuk menghapus temp
@@ -69,5 +64,14 @@ public class TempControllers {
      */
     public Object getById(String idTemp) {
         return idao.getById(idTemp);
+    }
+    
+    public Object getNewId() {
+        EmployeeTemp employee = (EmployeeTemp) idao.getLastId();
+        return Integer.parseInt(employee.getTempId()+ "") + 1;
+    }
+    
+    public Object search(String category, String value) {
+        return idao.search(category, new Employee(new Long(value)));
     }
 }

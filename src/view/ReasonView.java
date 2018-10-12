@@ -5,11 +5,7 @@
  */
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Panel;
-import java.sql.Connection;
 import org.hibernate.SessionFactory;
-import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import tools.HibernateUtil;
 
 /**
@@ -27,19 +23,6 @@ public class ReasonView extends javax.swing.JInternalFrame {
     public ReasonView(SessionFactory sessionFactory) {
         initComponents();
         this.sessionFactory = HibernateUtil.getSessionFactory();
-//        Connection connection = null;
-//        try {
-//            connection = sessionFactory.getSessionFactoryOptions().getServiceRegistry().
-//                    getService(ConnectionProvider.class).getConnection();
-//            JasperDesign jd = JRXmlLoader.load(url);
-//            JasperReport jr = JasperCompileManager.compileReport(jd);
-//            JasperPrint jPrint = JasperFillManager.fillReport(jr, null, connection);
-//            JRViewer viewer = new JRViewer(jPrint);
-//            this.add(viewer);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
 
     }

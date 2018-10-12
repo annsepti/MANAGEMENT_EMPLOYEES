@@ -68,20 +68,20 @@ public class TempControllerTest {
         assertNotNull(result);
     }
 
-    @Test
-    public void testSaveOrUpdate() {
-        System.out.println("saveOrUpdate");
-        String tempId = "1";
-        String email = "haha";
-        String password = "";
-        String phone = "222180";
-        String npwp = "";
-        String skck = "";
-        String foto= "";
-        String bpjs = "";
-        String employeeId = "1";
-        TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
-        boolean result = tc.saveOrUpdate(tempId, email, password, phone, npwp, skck, foto, bpjs, employeeId);
-        assertTrue(result);
-    }
+//    @Test
+//    public void testSaveOrUpdate() {
+//        System.out.println("saveOrUpdate");
+//        String tempId = "1";
+//        String email = "haha";
+//        String password = "";
+//        String phone = "222180";
+//        String npwp = "";
+//        String skck = "";
+//        String foto= "";
+//        String bpjs = "";
+//        String employeeId = "1";
+//        TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
+//        boolean result = tc.saveOrUpdate(tempId, email, password, phone, npwp, skck, foto, bpjs, employeeId);
+//        assertTrue(result);
+//    }
 }

@@ -5,13 +5,15 @@
  */
 package viewemp;
 
-import controllers.DepartmentController;
 import controllers.EmployeeController;
-import controllers.JobController;
-import controllers.SiteController;
+import controllers.TempControllers;
+import java.util.List;
+import javax.swing.JOptionPane;
 import models.Employee;
+import models.EmployeeTemp;
 import org.hibernate.SessionFactory;
 import view.ChangePasswordView;
+import view.Login;
 
 /**
  * Deklarasi kelas EmployeeView
@@ -22,6 +24,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private SessionFactory sessionFactory;
     private Employee employee;
     private EmployeeController employeeController;
+    private TempControllers tempControllers;
     /**
      * Method konstruktor
      * @param sessionFactory dengan tipe data SessionFactory
@@ -29,12 +32,34 @@ public class EmployeeView extends javax.swing.JInternalFrame {
      */
     public EmployeeView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
+        employeeController = new EmployeeController(sessionFactory);
         employeeController.loadCmbSite(cmbSite);
         employeeController.loadCmbDepartment(cmbDepartment);
         employeeController.loadCmbJob(cmbJob);
         employeeController.loadCmbManager(cmbManager);
-
+        tempControllers = new TempControllers(sessionFactory);
         this.employee = employee;
+        bindingData();
+        cekTemp();
+    }
+
+    private void bindingData() {
+        lblEmployeeId.setText(employee.getEmployeeId() + "");
+        txtFirstName.setText(employee.getFirstName());
+        txtLastName.setText(employee.getLastName());
+        dtpBirthDate.setDate(employee.getBirthDate());
+        txtEmail.setText(employee.getEmail());
+        txtPhone.setText(employee.getPhone());
+        txtNpwp.setText(employee.getNpwp());
+        txtSkck.setText(employee.getSkck());
+        txtNik.setText(employee.getNik());
+        txtBpjs.setText(employee.getBpjs());
+        txtSalary.setText(employee.getSalary() + "");
+        cmbDepartment.setSelectedItem(employee.getDepartmentId().getDepartmentName());
+        cmbSite.setSelectedItem(employee.getSiteId().getSiteName());
+        cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
+        cmbManager.setSelectedItem(employee.getManagerId().getLastName());
+        txtStatus.setText(employee.getStatus() + "");
     }
 
     /**
@@ -74,7 +99,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        txtSite3 = new javax.swing.JTextField();
+        txtStatus = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
         btnChangePassword = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
@@ -104,6 +129,23 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setTitle("EMPLOYEE");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         lblEmployeeId.setText("18001");
 
@@ -144,7 +186,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
         jLabel16.setText("STATUS");
 
-        txtSite3.setEnabled(false);
+        txtStatus.setEnabled(false);
 
         btnSubmit.setText("SUBMIT");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -198,16 +240,12 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
         dtpBirthDate.setEnabled(false);
 
-        cmbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbDepartment.setEnabled(false);
 
-        cmbSite.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbSite.setEnabled(false);
 
-        cmbJob.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbJob.setEnabled(false);
 
-        cmbManager.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbManager.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -319,7 +357,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel32)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtSite3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addGap(45, 45, 45))
         );
         jPanel2Layout.setVerticalGroup(
@@ -399,7 +437,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
-                            .addComponent(txtSite3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel32))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -441,7 +479,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmployeeId)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18))
         );
@@ -481,8 +519,43 @@ public class EmployeeView extends javax.swing.JInternalFrame {
      */
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        submit(employee.getRoleId().getRoleId()+"");
+        cekTemp();
     }//GEN-LAST:event_btnSubmitActionPerformed
-
+    private void submit(String role){
+        switch(Integer.parseInt(role)){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                EmployeeTemp employeeTemp = new EmployeeTemp(new Long(tempControllers.getNewId()+""), txtEmail.getText(), txtPhone.getText()
+                , txtNpwp.getText(), txtSkck.getText(), txtBpjs.getText(), employee);
+                boolean hasil = submit(employeeTemp);
+                tampilInfo(hasil);
+                break;
+        }
+    }
+    private boolean submit(EmployeeTemp employeeTemp){
+        return tempControllers.saveOrUpdate(employeeTemp.getTempId()+"", employeeTemp.getEmail(), employeeTemp.getPhone(), employeeTemp.getNpwp(), employeeTemp.getSkck(), employeeTemp.getBpjs(), employee.getEmployeeId()+"");
+    }
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        // TODO add your handling code here:
+        Login login = new Login(sessionFactory);
+        this.getParent().add(login);
+        login.setLocation(480, 200);
+        login.setVisible(true);
+    }//GEN-LAST:event_formInternalFrameClosing
+    
+    private void tampilInfo(boolean isSuccess){
+        if(isSuccess) JOptionPane.showMessageDialog(this, "Update sukses, mohon tunggu konfirmasi dari HR, terima kasih.");
+        else JOptionPane.showMessageDialog(this, "Gagal update data!");
+    }
+    
+    private void cekTemp(){
+        List<EmployeeTemp> employeeTemps = (List<EmployeeTemp>) tempControllers.search("employeeId", employee.getEmployeeId()+"");
+        if(employeeTemps.size() > 0) btnSubmit.setEnabled(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;
@@ -537,7 +610,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNpwp;
     private javax.swing.JTextField txtPhone;
     private javax.swing.JTextField txtSalary;
-    private javax.swing.JTextField txtSite3;
     private javax.swing.JTextField txtSkck;
+    private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
 }

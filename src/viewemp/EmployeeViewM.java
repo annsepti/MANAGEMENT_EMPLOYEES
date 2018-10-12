@@ -5,7 +5,13 @@
  */
 package viewemp;
 
+import java.sql.Connection;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
 import models.Employee;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.SessionFactory;
 import report.ReportView;
 import tools.Tools;
@@ -19,6 +25,7 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
     private SessionFactory sessionFactory;
     Employee employee;
     Tools tools;
+    private Connection connection;
 
     /**
      * Method konstruktor
@@ -30,7 +37,7 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
         this.sessionFactory = sessionFactory;
         this.employee = employee;
         tools = new Tools();
-
+        
     }
 
     /**
@@ -93,10 +100,11 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
         cmbSite = new javax.swing.JComboBox<>();
         cmbJob = new javax.swing.JComboBox<>();
         cmbManager = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        lblEmployeeId = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.MatteBorder(null), "EMPLOYEE DETAILS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 18))); // NOI18N
-        jPanel2.setEnabled(false);
 
         jLabel1.setText("FIRST NAME");
 
@@ -419,6 +427,10 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 
+        jLabel2.setText("Employee ID :");
+
+        lblEmployeeId.setText("18001");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -427,11 +439,20 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblEmployeeId)
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmployeeId)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -444,10 +465,24 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
      */
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
-        ReportView reportView = new ReportView(sessionFactory);
-        this.getParent().add(reportView);
-        reportView.setLocation(480, 200);
-        reportView.setVisible(true);
+//        HashMap parameter = new HashMap();
+//        parameter.put("employeeId", lblEmployeeId.getText());
+//        ReportView reportView = new ReportView(sessionFactory, "src\\report\\EmployeeDetailReport.jrxml");
+//        this.getParent().add(reportView);
+//        reportView.setLocation(480, 200);
+//        reportView.setVisible(true);
+
+        try {
+            String path = "src\\report\\EmployeeDetailReport.jrxml";      // letak penyimpanan report
+            HashMap parameter = new HashMap();
+            parameter.put("employeeId", lblEmployeeId.getText());
+            JasperPrint print = JasperFillManager.fillReport(path, parameter, connection);
+            JasperViewer.viewReport(print, false);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Dokumen Tidak Ada " + ex);
+
+        }
+
     }//GEN-LAST:event_btnPrintActionPerformed
 
 
@@ -470,6 +505,7 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -493,6 +529,7 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblEmployeeId;
     private javax.swing.JTextField txtBpjs;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFirstName;
@@ -521,5 +558,6 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
         cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
         cmbManager.setSelectedItem(employee.getManagerId().getLastName());
         txtStatus.setText(employee.getStatus() + "");
+        lblEmployeeId.setText(employee.getEmployeeId().toString());
     }
 }
