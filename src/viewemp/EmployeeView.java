@@ -28,8 +28,8 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private TempControllers tempControllers;
     /**
      * Method konstruktor
-     * @param sessionFactory dengan tipe data SessionFactory
-     * @param empoloyee dengan tipe data Employee
+     * @param sessionFactory tipe data SessionFactory
+     * @param employee tipe data Employee
      */
     public EmployeeView(SessionFactory sessionFactory, Employee employee) {
         initComponents();

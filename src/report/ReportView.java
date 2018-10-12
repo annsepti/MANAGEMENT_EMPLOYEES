@@ -20,17 +20,16 @@ import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import tools.HibernateUtil;
 
 /**
- *
+ * Deklarasi kelas ReportView
  * @author USER
  */
 public class ReportView extends javax.swing.JInternalFrame {
 
     private SessionFactory sf;
     /**
-     * Creates new form ReportView
-     * @param sessionFactory
-     * @param url
-     * @param txt
+     * Method konstruktor
+     * @param sessionFactory tipe data SessionFactory
+     * @param url tipe data string
      */
     public ReportView(SessionFactory sessionFactory, String url) {
         initComponents();
