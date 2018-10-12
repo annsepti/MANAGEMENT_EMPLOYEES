@@ -16,8 +16,9 @@ import view.ChangePasswordView;
 import view.Login;
 
 /**
- *
+ * Deklarasi kelas EmployeeView
  * @author Nande
+ * 
  */
 public class EmployeeView extends javax.swing.JInternalFrame {
 
@@ -26,10 +27,9 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private EmployeeController employeeController;
     private TempControllers tempControllers;
     /**
-     * Creates new form EmployeeView
-     *
-     * @param sessionFactory
-     * @param empoloyee
+     * Method konstruktor
+     * @param sessionFactory dengan tipe data SessionFactory
+     * @param empoloyee dengan tipe data Employee
      */
     public EmployeeView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
@@ -504,14 +504,20 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Method untuk mengubah password dengan memanggil class ChangePasswordView
+     * @param evt merupakan sebuah event
+     */
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
         // TODO add your handling code here:
         ChangePasswordView changePasswordView = new ChangePasswordView(sessionFactory, employee);
         this.getParent().add(changePasswordView);
         changePasswordView.setVisible(true);
     }//GEN-LAST:event_btnChangePasswordActionPerformed
-
+    /**
+     * Method untuk submit data employee
+     * @param evt merupakan sebuah event
+     */
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         submit(employee.getRoleId().getRoleId()+"");

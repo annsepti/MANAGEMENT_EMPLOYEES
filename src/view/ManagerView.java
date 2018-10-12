@@ -13,7 +13,7 @@ import report.ReportView;
 import viewemp.EmployeeViewM;
 
 /**
- *
+ * Dekalrasi kelas ManagerView
  * @author Nande
  */
 public class ManagerView extends javax.swing.JInternalFrame {
@@ -21,8 +21,9 @@ public class ManagerView extends javax.swing.JInternalFrame {
     private SessionFactory sessionFactory;
     private Employee employee;
     /**
-     * Creates new form Login
-     * @param sessionFactory
+     * Method konstruktor
+     * @param sessionFactory tipe data SessionFactory
+     * @param employee tipe data Employee
      */
     public ManagerView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
@@ -177,7 +178,10 @@ public class ManagerView extends javax.swing.JInternalFrame {
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFindActionPerformed
-
+    /**
+     * Method untuk logout/keluar dari sistem
+     * @param evt merupakan sebuah event
+     */
     private void menuLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLogoutMouseClicked
         // TODO add your handling code here:
         Login login = new Login(sessionFactory);
@@ -188,7 +192,10 @@ public class ManagerView extends javax.swing.JInternalFrame {
         dispose();
 
     }//GEN-LAST:event_menuLogoutMouseClicked
-
+    /**
+     * Method untuk memanggil kelas EmployeeViewM 
+     * @param evt merupakan sebuah event
+     */
     private void menuSettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingMouseClicked
         // TODO add your handling code here:
         EmployeeViewM employeeViewM = new EmployeeViewM(sessionFactory, employee);

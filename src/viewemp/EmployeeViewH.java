@@ -26,7 +26,7 @@ import tools.Tools;
 import view.ReasonView;
 
 /**
- *
+ * Deklarasi kelas EmployeeViewH
  * @author USER
  */
 public class EmployeeViewH extends javax.swing.JInternalFrame {
@@ -40,9 +40,9 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
     private final JobController jobController;
     
     /**
-     * Creates new form EmployeeViewH
-     *
-     * @param sessionFactory
+     * Method konstruktor
+     * @param sessionFactory tipe data SessionFactory
+     * @param employee  tipe data Employee
      */
     public EmployeeViewH(SessionFactory sessionFactory, Employee employee, int newEmployee) {
         initComponents();
@@ -479,7 +479,10 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Method untuk memanggil kelas dari ReasonView
+     * @param evt merupakan sebuah event
+     */
     private void btnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoActionPerformed
         // TODO add your handling code here:
         ReasonView reasonView = new ReasonView(sessionFactory);

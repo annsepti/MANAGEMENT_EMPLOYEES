@@ -15,7 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Deklarasi kelas RoleControllerTest
  * @author 680183
  */
 public class RoleControllerTest {

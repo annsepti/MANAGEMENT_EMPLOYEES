@@ -17,7 +17,7 @@ import report.ReportView;
 import tools.Tools;
 
 /**
- *
+ * Deklarasi kelas EmployeeView M
  * @author USER
  */
 public class EmployeeViewM extends javax.swing.JInternalFrame {
@@ -29,7 +29,9 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
     
 
     /**
-     * Creates new form EmployeeViewM
+     * Method konstruktor
+     * @param sessionFactory tipe data SessionFactory
+     * @param employee tipe data Employee
      */
     public EmployeeViewM(SessionFactory sessionFactory, Employee employee) {
         initComponents();
@@ -458,7 +460,10 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Method untuk mencetak data employee dengan memanggil class ReportView
+     * @param evt merupakan sebuah event
+     */
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
 //        HashMap parameter = new HashMap();

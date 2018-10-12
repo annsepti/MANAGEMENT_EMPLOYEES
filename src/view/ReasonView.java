@@ -9,7 +9,7 @@ import org.hibernate.SessionFactory;
 import tools.HibernateUtil;
 
 /**
- *
+ * Deklarasi kelas ReasonView
  * @author USER
  */
 public class ReasonView extends javax.swing.JInternalFrame {
@@ -17,9 +17,8 @@ public class ReasonView extends javax.swing.JInternalFrame {
     private final SessionFactory sessionFactory;
 
     /**
-     * Creates new form ReasonView
-     * @param sessionFactory
-     * @param url
+     * Method konstruktor
+     * @param sessionFactory tipe data SessionFactory
      */
     public ReasonView(SessionFactory sessionFactory) {
         initComponents();
@@ -118,12 +117,18 @@ public class ReasonView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Method untuk memberikan alasan penolakan data dari HR untuk employee
+     * @param evt merupakan sebuah event
+     */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
-
+    /**
+     * Method untuk membatalkan pengisian form reason
+     * @param evt merupakan sebuah event
+     */
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         dispose();
