@@ -33,6 +33,7 @@ public class HrView extends javax.swing.JInternalFrame {
     public HrView(SessionFactory sessionFactory, Employee employee) {
         initComponents();
         tempController = new TempControllers(sessionFactory);
+        this.sessionFactory = sessionFactory;
         bindingLocation(tempController.getAll());
         this.employee = employee;
     }
@@ -51,6 +52,7 @@ public class HrView extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuSettingProfile = new javax.swing.JMenu();
+        menuNewEmployee = new javax.swing.JMenu();
         menuSite = new javax.swing.JMenu();
         menuLogout = new javax.swing.JMenu();
 
@@ -100,6 +102,14 @@ public class HrView extends javax.swing.JInternalFrame {
             }
         });
         jMenuBar1.add(menuSettingProfile);
+
+        menuNewEmployee.setText("NEW EMPLOYEE");
+        menuNewEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuNewEmployeeMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(menuNewEmployee);
 
         menuSite.setText("SITE");
         menuSite.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -175,7 +185,7 @@ public class HrView extends javax.swing.JInternalFrame {
      */
     private void menuSettingProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingProfileMouseClicked
         // TODO add your handling code here:
-        EmployeeViewH employeeView = new EmployeeViewH(sessionFactory, employee);
+        EmployeeViewH employeeView = new EmployeeViewH(sessionFactory, employee, 1);
         this.getParent().add(employeeView);
         employeeView.setVisible(true);
     }//GEN-LAST:event_menuSettingProfileMouseClicked
@@ -185,12 +195,20 @@ public class HrView extends javax.swing.JInternalFrame {
          
     }//GEN-LAST:event_tblEmployeeTempMouseClicked
 
+    private void menuNewEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuNewEmployeeMouseClicked
+        // TODO add your handling code here:
+        EmployeeViewH employeeView = new EmployeeViewH(sessionFactory, new Employee(), 1);
+        this.getParent().add(employeeView);
+        employeeView.setVisible(true);
+    }//GEN-LAST:event_menuNewEmployeeMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel17;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuLogout;
+    private javax.swing.JMenu menuNewEmployee;
     private javax.swing.JMenu menuSettingProfile;
     private javax.swing.JMenu menuSite;
     private javax.swing.JTable tblEmployeeTemp;

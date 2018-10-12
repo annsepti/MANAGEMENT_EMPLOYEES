@@ -26,6 +26,7 @@ public class EmployeeViewM extends javax.swing.JInternalFrame {
     Employee employee;
     Tools tools;
     private Connection connection;
+    
 
     /**
      * Method konstruktor

@@ -66,10 +66,15 @@ public class Tools {
         return formater.parse(sdate);
     }
     
-    public Employee generatePassword(){
-        return null;
+    public String generatePassword(Employee employee){
+        String birthdate = dateToString(employee.getBirthDate());
+        String[] bdate = birthdate.split("/");
+        return employee.getEmployeeId() + bdate[1] + bdate[0] + bdate[2].substring(2, 4);
     }
     
+    public String generateUsername(Employee employee){
+        return employee.getFirstName().toLowerCase() + "." + employee.getLastName().toLowerCase();
+    }
     
     
     public boolean sendUsernamePassword(Employee employee) {

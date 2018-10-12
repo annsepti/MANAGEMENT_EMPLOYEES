@@ -5,7 +5,22 @@
  */
 package viewemp;
 
+import controllers.DepartmentController;
+import controllers.EmployeeController;
+import controllers.JobController;
+import controllers.SiteController;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import models.Department;
 import models.Employee;
+import models.Job;
+import models.Role;
+import models.Site;
 import org.hibernate.SessionFactory;
 import tools.Tools;
 import view.ReasonView;
@@ -19,16 +34,36 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
     private final SessionFactory sessionFactory;
     Employee employee;
     Tools tools;
+    private final EmployeeController employeeController;
+    private final DepartmentController departmentController;
+    private final SiteController siteController;
+    private final JobController jobController;
+    
     /**
      * Method konstruktor
      * @param sessionFactory tipe data SessionFactory
      * @param employee  tipe data Employee
      */
-    public EmployeeViewH(SessionFactory sessionFactory, Employee employee) {
+    public EmployeeViewH(SessionFactory sessionFactory, Employee employee, int newEmployee) {
         initComponents();
         this.sessionFactory = sessionFactory;
         this.employee = employee;
         tools = new Tools();
+        employeeController = new EmployeeController(sessionFactory);
+        employeeController.loadCmbSite(cmbSite);
+        employeeController.loadCmbDepartment(cmbDepartment);
+        employeeController.loadCmbJob(cmbJob);
+        employeeController.loadCmbManager(cmbManager);
+        siteController = new SiteController(sessionFactory);
+        departmentController = new DepartmentController(sessionFactory);
+        
+        jobController = new JobController(sessionFactory);
+        if(newEmployee == 0) btnSave.setEnabled(false);
+        else
+        {
+            btnApprove.setEnabled(false);
+            btnNo.setEnabled(false);
+        }
         bindingData();
     }
 
@@ -93,6 +128,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         jLabel15 = new javax.swing.JLabel();
         cmbManager = new javax.swing.JComboBox<>();
         jLabel31 = new javax.swing.JLabel();
+        btnSave = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lblEmployeeId = new javax.swing.JLabel();
 
@@ -169,25 +205,24 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
 
         jLabel35.setText(":");
 
-        cmbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel11.setText("SITE NAME");
 
         jLabel29.setText(":");
-
-        cmbSite.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel14.setText("JOB TITLE");
 
         jLabel30.setText(":");
 
-        cmbJob.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel15.setText("MANAGER NAME");
 
-        cmbManager.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel31.setText(":");
+
+        btnSave.setText("SAVE");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -293,6 +328,8 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                 .addContainerGap(79, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSave)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnApprove)
                 .addGap(18, 18, 18)
                 .addComponent(btnNo)
@@ -389,7 +426,8 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNo)
-                    .addComponent(btnApprove))
+                    .addComponent(btnApprove)
+                    .addComponent(btnSave))
                 .addGap(96, 96, 96))
         );
 
@@ -458,9 +496,57 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_btnApproveActionPerformed
-    /**
-     * Method untuk menampilkan data
-     */
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        try {
+            try {
+                // TODO add your handling code here:
+                save();
+            } catch (ParseException ex) {
+                Logger.getLogger(EmployeeViewH.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeViewH.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+    private void save() throws SQLException, ParseException{
+        if(employee.getEmployeeId() == null){
+            Employee e = new Employee();
+            e.setEmployeeId(new Long(employeeController.getNewId()+""));
+            e.setFirstName(txtFirstName.getText());
+            e.setLastName(txtLastName.getText());
+            e.setBirthDate(tools.stringToDate(tools.dateToString(dtpBirthDate.getDate())));
+            e.setHireDate(tools.stringToDate(tools.dateToString(dtpHireDate.getDate())));
+            e.setEmail(txtEmail.getText());
+            e.setPhone(txtPhone.getText());
+            e.setNpwp(txtNpwp.getText());
+            e.setSkck(txtSkck.getText());
+            e.setNik(txtNik.getText());
+            e.setBpjs(txtBpjs.getText());
+            e.setSalary(new BigDecimal(txtSalary.getText()));
+            List<Department> departments =  (List<Department>) departmentController.search("departmentName", cmbDepartment.getSelectedItem()+"");
+            Department department = departments.get(0);
+            List<Site> sites = (List<Site>) siteController.search("siteName", cmbSite.getSelectedItem()+"");
+            Site site = sites.get(0);
+            List<Job> jobs =  (List<Job>) jobController.search("jobTitle", cmbJob.getSelectedItem()+"");
+            Job job = jobs.get(0);
+            String[] manager = cmbManager.getSelectedItem().toString().split("-");
+            e.setManagerId((Employee) employeeController.getById(manager[0]));
+            e.setDepartmentId(department);
+            e.setSiteId(site);
+            e.setJobId(job);
+            e.setRoleId(new Role(3L));
+            e.setStatus('A');
+            e.setUsername(tools.generateUsername(e));
+            e.setPassword(tools.generatePassword(e));
+            int hasil = employeeController.addNewEmployee(e);
+            tools.sendUsernamePassword(e);
+            if(hasil > 0) JOptionPane.showMessageDialog(this, "Berhasil mendaftarkan employee baru");
+            else JOptionPane.showMessageDialog(this, "Gagal mendaftarkan employee baru");
+        }else{
+            
+        }
+    }
     private void bindingData(){
         txtFirstName.setText(employee.getFirstName());
         txtLastName.setText(employee.getLastName());
@@ -472,17 +558,22 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         txtNik.setText(employee.getNik());
         txtBpjs.setText(employee.getBpjs());
         txtSalary.setText(employee.getSalary()+"");
-        cmbDepartment.setSelectedItem(employee.getDepartmentId().getDepartmentName());
-        cmbSite.setSelectedItem(employee.getSiteId().getSiteName());
-        cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
-        cmbManager.setSelectedItem(employee.getManagerId().getLastName());
+        if(employee.getDepartmentId() == null) cmbDepartment.setSelectedItem(null);
+        else cmbDepartment.setSelectedItem(employee.getDepartmentId().getDepartmentName());
+        if(employee.getSiteId() == null) cmbSite.setSelectedItem(null);
+        else cmbSite.setSelectedItem(employee.getSiteId().getSiteName());
+        if(employee.getJobId() == null) cmbJob.setSelectedItem(null);
+        else cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
+        if(employee.getManagerId() == null) cmbManager.setSelectedItem(null);
+        else cmbManager.setSelectedItem(employee.getManagerId().getLastName());
         txtStatus.setText(employee.getStatus()+"");
-        lblEmployeeId.setText(employee.getEmployeeId().toString());
+        lblEmployeeId.setText(employeeController.getNewId()+"");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApprove;
     private javax.swing.JButton btnNo;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cmbDepartment;
     private javax.swing.JComboBox<String> cmbJob;
     private javax.swing.JComboBox<String> cmbManager;
