@@ -13,12 +13,15 @@ import models.Employee;
 import models.EmployeeTemp;
 import org.hibernate.SessionFactory;
 import view.ChangePasswordView;
+import view.HrView;
 import view.Login;
+import view.ManagerView;
 
 /**
  * Deklarasi kelas EmployeeView
+ *
  * @author Nande
- * 
+ *
  */
 public class EmployeeView extends javax.swing.JInternalFrame {
 
@@ -26,8 +29,10 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private Employee employee;
     private EmployeeController employeeController;
     private TempControllers tempControllers;
+
     /**
      * Method konstruktor
+     *
      * @param sessionFactory tipe data SessionFactory
      * @param employee tipe data Employee
      */
@@ -43,6 +48,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         bindingData();
         cekTemp();
     }
+
     /**
      * Method untuk menampilkan data employee
      */
@@ -59,12 +65,21 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         txtBpjs.setText(employee.getBpjs());
         txtSalary.setText(employee.getSalary() + "");
         cmbDepartment.setSelectedItem(employee.getDepartmentId().getDepartmentName());
-        if(employee.getSiteId() != null) cmbSite.setSelectedItem(employee.getSiteId().getSiteName());
-        else cmbSite.setSelectedItem(null);
-        if(employee.getJobId() != null) cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
-        else cmbJob.setSelectedItem(null);
-        if(employee.getManagerId() != null) cmbManager.setSelectedItem(employee.getManagerId().getLastName());
-        else cmbManager.setSelectedItem(null);
+        if (employee.getSiteId() != null) {
+            cmbSite.setSelectedItem(employee.getSiteId().getSiteName());
+        } else {
+            cmbSite.setSelectedItem(null);
+        }
+        if (employee.getJobId() != null) {
+            cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
+        } else {
+            cmbJob.setSelectedItem(null);
+        }
+        if (employee.getManagerId() != null) {
+            cmbManager.setSelectedItem(employee.getManagerId().getLastName());
+        } else {
+            cmbManager.setSelectedItem(null);
+        }
         txtStatus.setText(employee.getStatus() + "");
     }
 
@@ -511,6 +526,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Method untuk mengubah password dengan memanggil class ChangePasswordView
+     *
      * @param evt merupakan sebuah event
      */
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
@@ -518,67 +534,94 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         ChangePasswordView changePasswordView = new ChangePasswordView(sessionFactory, employee);
         this.getParent().add(changePasswordView);
         changePasswordView.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnChangePasswordActionPerformed
     /**
      * Method untuk submit data employee
+     *
      * @param evt merupakan sebuah event
      */
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        submit(employee.getRoleId().getRoleId()+"");
+        submit(employee.getRoleId().getRoleId() + "");
         cekTemp();
     }//GEN-LAST:event_btnSubmitActionPerformed
     /**
      * Method untuk submit data masukan dari employee
+     *
      * @param role tipe data String, roleID 3 yaitu employee
      */
-    private void submit(String role){
-        switch(Integer.parseInt(role)){
+    private void submit(String role) {
+        switch (Integer.parseInt(role)) {
             case 1:
                 break;
             case 2:
                 break;
             case 3:
-                EmployeeTemp employeeTemp = new EmployeeTemp(new Long(tempControllers.getNewId()+""), txtEmail.getText(), txtPhone.getText()
-                , txtNpwp.getText(), txtSkck.getText(), txtBpjs.getText(), employee);
+                EmployeeTemp employeeTemp = new EmployeeTemp(new Long(tempControllers.getNewId() + ""), txtEmail.getText(), txtPhone.getText(),
+                        txtNpwp.getText(), txtSkck.getText(), txtBpjs.getText(), employee);
                 boolean hasil = submit(employeeTemp);
                 tampilInfo(hasil);
                 break;
         }
     }
+
     /**
      * Method submit untuk menyimpan data ke temporary
+     *
      * @param employeeTemp tipe data EmployeeTemp
      * @return mengembalikan nilai temporary ke fungsi saveOrUpdate
      */
-    private boolean submit(EmployeeTemp employeeTemp){
-        return tempControllers.saveOrUpdate(employeeTemp.getTempId()+"", employeeTemp.getEmail(), employeeTemp.getPhone(), employeeTemp.getNpwp(), employeeTemp.getSkck(), employeeTemp.getBpjs(), employee.getEmployeeId()+"");
+    private boolean submit(EmployeeTemp employeeTemp) {
+        return tempControllers.saveOrUpdate(employeeTemp.getTempId() + "", employeeTemp.getEmail(), employeeTemp.getPhone(), employeeTemp.getNpwp(), employeeTemp.getSkck(), employeeTemp.getBpjs(), employee.getEmployeeId() + "");
     }
+
     /**
      * Method untuk memanggil kelas login ketika form EmployeeView ditutup
+     *
      * @param evt berupakan suatu event
      */
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         // TODO add your handling code here:
-        Login login = new Login(sessionFactory);
-        this.getParent().add(login);
-        login.setLocation(480, 200);
-        login.setVisible(true);
+        if (employee.getRoleId().getRoleName().equals("Manager")) {
+            ManagerView managerView = new ManagerView(sessionFactory, employee);
+            this.getParent().add(managerView);
+            managerView.setLocation(480, 200);
+            managerView.setVisible(true);
+        } else if (employee.getRoleId().getRoleName().equals("HR")) {
+            HrView hrView = new HrView(sessionFactory, employee);
+            this.getParent().add(hrView);
+            hrView.setLocation(480, 200);
+            hrView.setVisible(true);
+        } else {
+            Login login = new Login(sessionFactory);
+            this.getParent().add(login);
+            login.setLocation(480, 200);
+            login.setVisible(true);
+        }
+
     }//GEN-LAST:event_formInternalFrameClosing
     /**
      * Method untuk menampilkan info berupa message
+     *
      * @param isSuccess tipe data boolean
      */
-    private void tampilInfo(boolean isSuccess){
-        if(isSuccess) JOptionPane.showMessageDialog(this, "Update sukses, mohon tunggu konfirmasi dari HR, terima kasih.");
-        else JOptionPane.showMessageDialog(this, "Gagal update data!");
+    private void tampilInfo(boolean isSuccess) {
+        if (isSuccess) {
+            JOptionPane.showMessageDialog(this, "Update sukses, mohon tunggu konfirmasi dari HR, terima kasih.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Gagal update data!");
+        }
     }
+
     /**
-     * Method untuk memeriksa isi dari  Temp
+     * Method untuk memeriksa isi dari Temp
      */
-    private void cekTemp(){
-        List<EmployeeTemp> employeeTemps = (List<EmployeeTemp>) tempControllers.search("employeeId", employee.getEmployeeId()+"");
-        if(employeeTemps.size() > 0) btnSubmit.setEnabled(false);
+    private void cekTemp() {
+        List<EmployeeTemp> employeeTemps = (List<EmployeeTemp>) tempControllers.search("employeeId", employee.getEmployeeId() + "");
+        if (employeeTemps.size() > 0) {
+            btnSubmit.setEnabled(false);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

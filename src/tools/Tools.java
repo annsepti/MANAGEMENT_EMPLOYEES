@@ -90,7 +90,7 @@ public class Tools {
     /**
      * 
      * @param employee
-     * @param code 1 for send username and pasword, 2 for reason disaproove, 3
+     * @param code 1 for send username and pasword, 2 for reason disaproove, 3 for change password
      * @return 
      */
     public boolean sendMessage(Employee employee, int code) {
@@ -126,7 +126,7 @@ public class Tools {
     /**
      *
      * @param code 1 for send username and pasword, 2 for reason disaproove, 3
-     * for approove
+     * for change password 
      * @param message
      * @param employee
      * @return
@@ -148,7 +148,7 @@ public class Tools {
             case 3:
                 message.setSubject("Password Has Been Changed");
                 message.setText("Dear " + employee.getFirstName() + " " + employee.getLastName() + ","
-                        + "\n\nYour password successfully changed." + "\n\nRegards,\n\nSystem");
+                        + "\n\nYour password successfully changed." + "\n\nRegards,\n\nHuman Resource Officer");
         }
         return message;
     }
