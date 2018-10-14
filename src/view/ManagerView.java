@@ -193,6 +193,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
         EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
         this.getParent().add(employeeView);
         employeeView.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_menuSettingMouseClicked
     /**
      * Method untuk mencetak list employee report dan memanggil kelas ReportView
