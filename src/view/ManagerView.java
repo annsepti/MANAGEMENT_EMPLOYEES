@@ -157,10 +157,11 @@ public class ManagerView extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEmployeeId)
-                    .addComponent(jLabel2)
-                    .addComponent(txtEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblEmployeeId)
+                        .addComponent(jLabel2)))
                 .addGap(18, 22, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -188,7 +189,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
      * @param evt merupakan sebuah event
      */
     private void menuSettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingMouseClicked
-        // TODO add your handling code here:
+         // TODO add your handling code here:
         EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
         this.getParent().add(employeeView);
         employeeView.setVisible(true);

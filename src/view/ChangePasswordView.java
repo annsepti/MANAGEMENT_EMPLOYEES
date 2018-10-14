@@ -178,12 +178,14 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
             if (new String(txtNewPass.getPassword()).equals(new String(txtConfirmPass.getPassword()))) {
                 try {
                     controller.changePassword(employee.getUsername(), new String(txtNewPass.getPassword()));
+                    Tools tools = new Tools();
+                    tools.sendMessage(employee, 3);
                     tampilPesan("Password successfully updated.");
                     Login login = new Login(sessionFactory);
                     this.getParent().add(login);
                     login.setLocation(480, 200);
                     login.setVisible(true);
-
+                    
                     dispose();
                 } catch (SQLException ex) {
                     Logger.getLogger(ChangePasswordView.class.getName()).log(Level.SEVERE, null, ex);

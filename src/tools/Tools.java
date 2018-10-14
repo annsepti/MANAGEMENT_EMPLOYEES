@@ -33,6 +33,7 @@ public class Tools {
 
     public Tools() {
         controller = new EmployeeController(HibernateUtil.getSessionFactory());
+        setting = new Setting();
     }
 
     public Tools(Employee hr, String reason) {
@@ -144,6 +145,10 @@ public class Tools {
                 message.setSubject("Approvement Result");
                 message.setText("Dear " + employee.getFirstName() + " " + employee.getLastName() + ",\n\n" + reason
                         + "\n\nRegards,\n\n" + hr.getFirstName() + " " + hr.getLastName());
+            case 3:
+                message.setSubject("Password Has Been Changed");
+                message.setText("Dear " + employee.getFirstName() + " " + employee.getLastName() + ","
+                        + "\n\nYour password successfully changed." + "\n\nRegards,\n\nSystem");
         }
         return message;
     }
