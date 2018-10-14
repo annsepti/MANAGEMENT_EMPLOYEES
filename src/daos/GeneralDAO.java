@@ -79,6 +79,11 @@ public class GeneralDAO implements InterfaceDAO {
     }
     
     @Override
+    public Object getTempById(Object id){
+        return gdao.execute(2, null, type, "tempId", new Long(id+""));
+    }
+    
+    @Override
     public int addNewEmployee(Employee employee) throws SQLException{
         Connection con = sf.getSessionFactoryOptions().getServiceRegistry().
                 getService(ConnectionProvider.class).getConnection();
@@ -118,7 +123,7 @@ public class GeneralDAO implements InterfaceDAO {
         callableStatement.setString(19, employee.getBpjs());
         callableStatement.registerOutParameter(20, Types.INTEGER);
         callableStatement.execute();
-        tools.sendUsernamePassword(employee);
+        tools.sendMessage(employee, 1);
         return callableStatement.getInt(20);
     }
     

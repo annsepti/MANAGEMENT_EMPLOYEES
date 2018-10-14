@@ -54,8 +54,8 @@ public class TempControllers {
      * @param idTemp dengan tipe data String
      * @return idao  mengembalikan nilai objek
      */
-    public Object delete(String idTemp) {
-        TempControllers temp = (TempControllers) getById(idTemp);
+    public boolean delete(String idTemp) {
+        EmployeeTemp temp =  (EmployeeTemp) getById(idTemp);
         return idao.delete(temp);
     }
     /**
@@ -64,7 +64,7 @@ public class TempControllers {
      * @return idao mengembalikan nilai objek
      */
     public Object getById(String idTemp) {
-        return idao.getById(idTemp);
+        return idao.getTempById(idTemp);
     }
     /**
      * Method untuk mendapatkan id employee temporary baru

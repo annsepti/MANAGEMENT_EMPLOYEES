@@ -5,26 +5,42 @@
  */
 package view;
 
+import controllers.EmployeeController;
+import controllers.TempControllers;
+import javax.swing.JOptionPane;
+import models.Employee;
+import models.EmployeeTemp;
 import org.hibernate.SessionFactory;
-import tools.HibernateUtil;
+import tools.Tools;
 
 /**
  * Deklarasi kelas ReasonView
+ *
  * @author USER
  */
 public class ReasonView extends javax.swing.JInternalFrame {
 
     private final SessionFactory sessionFactory;
+    private TempControllers controllers;
+    private EmployeeController employeeController;
+    private EmployeeTemp employeeTemp;
+    private Employee hr;
+    private Tools tools;
 
     /**
      * Method konstruktor
+     *
      * @param sessionFactory tipe data SessionFactory
+     * @param employeeTemp
+     * @param hr
      */
-    public ReasonView(SessionFactory sessionFactory) {
+    public ReasonView(SessionFactory sessionFactory, EmployeeTemp employeeTemp, Employee hr) {
         initComponents();
-        this.sessionFactory = HibernateUtil.getSessionFactory();
-
-
+        this.sessionFactory = sessionFactory;
+        controllers = new TempControllers(sessionFactory);
+        employeeController = new EmployeeController(sessionFactory);
+        this.employeeTemp = employeeTemp;
+        this.hr = hr;
     }
 
     /**
@@ -119,14 +135,22 @@ public class ReasonView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Method untuk memberikan alasan penolakan data dari HR untuk employee
+     *
      * @param evt merupakan sebuah event
      */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        if (controllers.delete(employeeTemp.getTempId().toString())) {
+            tools = new Tools(hr, txtReason.getText());
+            Employee e = (Employee) employeeController.getById(employeeTemp.getEmployeeId().getEmployeeId()+"");
+            tools.sendMessage(e, 2);
+            JOptionPane.showMessageDialog(this, "Message sent!!");
+        }
         dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
     /**
      * Method untuk membatalkan pengisian form reason
+     *
      * @param evt merupakan sebuah event
      */
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

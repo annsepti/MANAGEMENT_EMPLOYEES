@@ -59,9 +59,12 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         txtBpjs.setText(employee.getBpjs());
         txtSalary.setText(employee.getSalary() + "");
         cmbDepartment.setSelectedItem(employee.getDepartmentId().getDepartmentName());
-        cmbSite.setSelectedItem(employee.getSiteId().getSiteName());
-        cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
-        cmbManager.setSelectedItem(employee.getManagerId().getLastName());
+        if(employee.getSiteId() != null) cmbSite.setSelectedItem(employee.getSiteId().getSiteName());
+        else cmbSite.setSelectedItem(null);
+        if(employee.getJobId() != null) cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
+        else cmbJob.setSelectedItem(null);
+        if(employee.getManagerId() != null) cmbManager.setSelectedItem(employee.getManagerId().getLastName());
+        else cmbManager.setSelectedItem(null);
         txtStatus.setText(employee.getStatus() + "");
     }
 

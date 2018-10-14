@@ -9,6 +9,7 @@ import controllers.DepartmentController;
 import controllers.EmployeeController;
 import controllers.JobController;
 import controllers.SiteController;
+import controllers.TempControllers;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Department;
 import models.Employee;
+import models.EmployeeTemp;
 import models.Job;
 import models.Role;
 import models.Site;
@@ -38,14 +40,18 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
     private final DepartmentController departmentController;
     private final SiteController siteController;
     private final JobController jobController;
+    private TempControllers tempControllers;
+    private EmployeeTemp employeeTemp;
+    private Employee hr;
     
     /**
      * Method konstruktor
      * @param sessionFactory tipe data SessionFactory
      * @param employee tipe data Employee
+     * @param hr
      * @param newEmployee tipe data Integer
      */
-    public EmployeeViewH(SessionFactory sessionFactory, Employee employee, int newEmployee) {
+    public EmployeeViewH(SessionFactory sessionFactory, Employee employee, Employee hr, int newEmployee) {
         initComponents();
         this.sessionFactory = sessionFactory;
         this.employee = employee;
@@ -57,7 +63,13 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         employeeController.loadCmbManager(cmbManager);
         siteController = new SiteController(sessionFactory);
         departmentController = new DepartmentController(sessionFactory);
-        
+        tempControllers = new TempControllers(sessionFactory);
+        if(employee.getEmployeeId() != null){
+            List<EmployeeTemp> employeeTemps = (List<EmployeeTemp>) tempControllers.search("employeeId", employee.getEmployeeId()+"");
+            employeeTemp = employeeTemps.get(0);
+        }
+            
+        this.hr = hr;
         jobController = new JobController(sessionFactory);
         if(newEmployee == 0) btnSave.setEnabled(false);
         else
@@ -485,8 +497,8 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
      * @param evt merupakan sebuah event
      */
     private void btnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoActionPerformed
-        // TODO add your handling code here:
-        ReasonView reasonView = new ReasonView(sessionFactory);
+         // TODO add your handling code here:
+        ReasonView reasonView = new ReasonView(sessionFactory, employeeTemp, hr);
         this.getParent().add(reasonView);
         reasonView.setLocation(480, 200);
         reasonView.setVisible(true);
@@ -529,11 +541,17 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
             e.setBpjs(txtBpjs.getText());
             e.setSalary(new BigDecimal(txtSalary.getText()));
             List<Department> departments =  (List<Department>) departmentController.search("departmentName", cmbDepartment.getSelectedItem()+"");
-            Department department = departments.get(0);
+            Department department = new Department();
+            if(departments.size() > 0)
+                department = departments.get(0);
             List<Site> sites = (List<Site>) siteController.search("siteName", cmbSite.getSelectedItem()+"");
-            Site site = sites.get(0);
+            Site site = new Site();
+            if(sites.size() > 0)
+                site = sites.get(0);
             List<Job> jobs =  (List<Job>) jobController.search("jobTitle", cmbJob.getSelectedItem()+"");
-            Job job = jobs.get(0);
+            Job job = new Job();
+            if(jobs.size() > 0)
+                job = jobs.get(0);
             String[] manager = cmbManager.getSelectedItem().toString().split("-");
             e.setManagerId((Employee) employeeController.getById(manager[0]));
             e.setDepartmentId(department);
@@ -544,7 +562,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
             e.setUsername(tools.generateUsername(e));
             e.setPassword(tools.generatePassword(e));
             int hasil = employeeController.addNewEmployee(e);
-            tools.sendUsernamePassword(e);
+            tools = new Tools(hr, "");
             if(hasil > 0) JOptionPane.showMessageDialog(this, "Berhasil mendaftarkan employee baru");
             else JOptionPane.showMessageDialog(this, "Gagal mendaftarkan employee baru");
         }else{

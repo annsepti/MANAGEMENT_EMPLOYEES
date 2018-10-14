@@ -24,4 +24,5 @@ public interface InterfaceDAO {
     public int addNewEmployee(Employee employee)throws SQLException;
     public List<Employee> getByManagerId(Object object);
     public int changePassword(String username, String password) throws SQLException;
+    public Object getTempById(Object id);
 }

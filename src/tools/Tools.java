@@ -15,6 +15,7 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import models.Employee;
@@ -25,11 +26,20 @@ import models.Employee;
  */
 public class Tools {
 
-    private final String username = "7nandemonai@gmail.com";
-    private final String password = "Annisa7-";
     private EmployeeController controller;
+    private Setting setting;
+    private Employee hr;
+    private String reason;
+
     public Tools() {
         controller = new EmployeeController(HibernateUtil.getSessionFactory());
+    }
+
+    public Tools(Employee hr, String reason) {
+        controller = new EmployeeController(HibernateUtil.getSessionFactory());
+        setting = new Setting();
+        this.hr = hr;
+        this.reason = reason;
     }
 
     public boolean checkEmail(String email) {
@@ -41,43 +51,48 @@ public class Tools {
         return hasil;
     }
 
-    public boolean checkNewPassword(String newPassword){
+    public boolean checkNewPassword(String newPassword) {
         String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&+-]).{8,}$";
         return newPassword.matches(passwordRegex);
     }
-    
-    public boolean checkNumberFormat(String number){
+
+    public boolean checkNumberFormat(String number) {
         String numberRegex = "\\d+";
         return number.matches(numberRegex);
     }
-    
-    public boolean checkAlfabetOnly(String word){
+
+    public boolean checkAlfabetOnly(String word) {
         String wordRegex = "\\D+";
         return word.matches(wordRegex);
     }
-    
-    public String dateToString(Date date){
+
+    public String dateToString(Date date) {
         SimpleDateFormat formater = new SimpleDateFormat("MM/dd/yyyy");
         return formater.format(date);
     }
-    
-    public Date stringToDate(String sdate) throws ParseException{
+
+    public Date stringToDate(String sdate) throws ParseException {
         SimpleDateFormat formater = new SimpleDateFormat("MM/dd/yyyy");
         return formater.parse(sdate);
     }
-    
-    public String generatePassword(Employee employee){
+
+    public String generatePassword(Employee employee) {
         String birthdate = dateToString(employee.getBirthDate());
         String[] bdate = birthdate.split("/");
         return employee.getEmployeeId() + bdate[1] + bdate[0] + bdate[2].substring(2, 4);
     }
-    
-    public String generateUsername(Employee employee){
+
+    public String generateUsername(Employee employee) {
         return employee.getFirstName().toLowerCase() + "." + employee.getLastName().toLowerCase();
     }
-    
-    
-    public boolean sendUsernamePassword(Employee employee) {
+
+    /**
+     * 
+     * @param employee
+     * @param code 1 for send username and pasword, 2 for reason disaproove, 3
+     * @return 
+     */
+    public boolean sendMessage(Employee employee, int code) {
         boolean hasil = false;
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -88,21 +103,16 @@ public class Tools {
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+                return new PasswordAuthentication(setting.getEmail(), setting.getPassword());
             }
         });
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
+            message.setFrom(new InternetAddress(setting.getEmail()));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(employee.getEmail()));
-            message.setSubject("Employee User Account");
-            message.setText("Dear " + employee.getFirstName()+ " " +employee.getLastName() + ","
-                    + "\n\nHere is your account:\n\nUsername\t: "
-                    + employee.getUsername() + "\nPassword\t: "
-                    + employee.getPassword());
-
+            message = setMessage(code, message, employee);
             Transport.send(message);
             hasil = true;
 
@@ -110,5 +120,31 @@ public class Tools {
             throw new RuntimeException(e);
         }
         return hasil;
+    }
+
+    /**
+     *
+     * @param code 1 for send username and pasword, 2 for reason disaproove, 3
+     * for approove
+     * @param message
+     * @param employee
+     * @return
+     * @throws AddressException
+     * @throws MessagingException
+     */
+    private Message setMessage(int code, Message message, Employee employee) throws AddressException, MessagingException {
+        switch (code) {
+            case 1:
+                message.setSubject("Employee User Account");
+                message.setText("Dear " + employee.getFirstName() + " " + employee.getLastName() + ","
+                        + "\n\nHere is your account:\n\nUsername\t: "
+                        + employee.getUsername() + "\nPassword\t: "
+                        + employee.getPassword() + "\n\nRegards,\n\n" + hr.getFirstName() + " " + hr.getLastName());
+            case 2:
+                message.setSubject("Approvement Result");
+                message.setText("Dear " + employee.getFirstName() + " " + employee.getLastName() + ",\n\n" + reason
+                        + "\n\nRegards,\n\n" + hr.getFirstName() + " " + hr.getLastName());
+        }
+        return message;
     }
 }

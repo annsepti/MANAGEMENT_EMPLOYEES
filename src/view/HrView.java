@@ -5,6 +5,7 @@
  */
 package view;
 
+import controllers.EmployeeController;
 import viewemp.EmployeeView;
 import controllers.TempControllers;
 import java.util.List;
@@ -25,6 +26,7 @@ public class HrView extends javax.swing.JInternalFrame {
     private SessionFactory sessionFactory;
     private final TempControllers tempController;
     private Employee employee;
+    private EmployeeController employeeController;
 
     /**
      * Method konstruktor
@@ -35,8 +37,9 @@ public class HrView extends javax.swing.JInternalFrame {
         initComponents();
         tempController = new TempControllers(sessionFactory);
         this.sessionFactory = sessionFactory;
-        bindingLocation(tempController.getAll());
+        bindingData(tempController.getAll());
         this.employee = employee;
+        employeeController = new EmployeeController(sessionFactory);
     }
 
     /**
@@ -186,14 +189,14 @@ public class HrView extends javax.swing.JInternalFrame {
      */
     private void menuSettingProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingProfileMouseClicked
         // TODO add your handling code here:
-        EmployeeViewH employeeView = new EmployeeViewH(sessionFactory, employee, 1);
+        EmployeeViewH employeeView = new EmployeeViewH(sessionFactory, employee, employee,  1);
         this.getParent().add(employeeView);
         employeeView.setVisible(true);
     }//GEN-LAST:event_menuSettingProfileMouseClicked
 
     private void tblEmployeeTempMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeTempMouseClicked
         // TODO add your handling code here:
-        EmployeeViewH employeeViewH = new EmployeeViewH(sessionFactory, employee, 0);
+        EmployeeViewH employeeViewH = new EmployeeViewH(sessionFactory, setEmployee(), employee, 0);
         this.getParent().add(employeeViewH);
         employeeViewH.setVisible(true);
     }//GEN-LAST:event_tblEmployeeTempMouseClicked
@@ -203,7 +206,7 @@ public class HrView extends javax.swing.JInternalFrame {
      */
     private void menuNewEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuNewEmployeeMouseClicked
         // TODO add your handling code here:
-        EmployeeViewH employeeView = new EmployeeViewH(sessionFactory, new Employee(), 1);
+        EmployeeViewH employeeView = new EmployeeViewH(sessionFactory, new Employee(), employee, 1);
         this.getParent().add(employeeView);
         employeeView.setVisible(true);
     }//GEN-LAST:event_menuNewEmployeeMouseClicked
@@ -223,7 +226,7 @@ public class HrView extends javax.swing.JInternalFrame {
      * Method untuk menampilkan data dari Employee temporary
      * @param empTemp dengan tipe data List
      */
-    private void bindingLocation(List<Object> empTemp) {
+    private void bindingData(List<Object> empTemp) {
         String[] header = {"No", "REQUEST ID", "EMPLOYEE ID", "EMAIL", "PHONE", "NPWP", "SKCK", "BPJS"};
         String[][] data = new String[empTemp.size()][header.length];
         int i = 0;
@@ -242,5 +245,17 @@ public class HrView extends javax.swing.JInternalFrame {
         tblEmployeeTemp.setModel(new DefaultTableModel(data, header));
 
     }
-
+    
+    private Employee setEmployee(){
+        Employee e = new Employee();
+        int row = tblEmployeeTemp.getSelectedRow();
+        e.setEmployeeId(new Long(tblEmployeeTemp.getValueAt(row, 2) + ""));
+        e = (Employee) employeeController.getById(e.getEmployeeId()+"");
+        e.setEmail(tblEmployeeTemp.getValueAt(row, 3)+"");
+        e.setPhone(tblEmployeeTemp.getValueAt(row, 4)+"");
+        e.setNpwp(tblEmployeeTemp.getValueAt(row, 5)+"");
+        e.setSkck(tblEmployeeTemp.getValueAt(row, 6)+"");
+        e.setBpjs(tblEmployeeTemp.getValueAt(row, 7)+"");
+        return e;
+    }
 }
