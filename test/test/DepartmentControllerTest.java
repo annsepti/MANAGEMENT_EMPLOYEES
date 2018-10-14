@@ -39,7 +39,7 @@ public class DepartmentControllerTest {
     public void tearDown() {
     }
     
-    @Test
+//    @Test
     public void testSaveOrUpdate() {
         System.out.println("Test: saveOrUpdate");
         String idDept = "AAA";
@@ -50,27 +50,50 @@ public class DepartmentControllerTest {
         assertTrue(result);
     }
     @Test
+    public void testSaveOrUpdateFalse() {
+        System.out.println("Test: saveOrUpdate");
+        String idDept = "AAA";
+        String deptName = "";
+        String idMng = "18001";
+        DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
+        boolean result = dc.saveOrUpdate(idDept, deptName, idMng);
+        assertFalse(result);
+    }
+//    @Test
     public void testGetAll() {
         System.out.println("Test: getAll");
         DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
         List<Object> result = dc.getAll();
         assertNotNull(result);
+        assertTrue(result.size()>0);
+        assertFalse(result.size()==0);
+        
     }
-    @Test
-    public void testSearch() {
+//    @Test
+    public void testSearch1() {
         System.out.println("Test: search");
         String category = "departmentId";
         Object value = "MSBU";
         DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
         List<Object> result = (List<Object>) dc.search(category, (String) value);
         assertNotNull(result);
+        assertTrue(result.size()==1);
+        assertFalse(result.size()==0);
     }
-    @Test
+//    @Test
     public void testGetById() {
         System.out.println("Test: getById");
         String departmentId = "MSAD";
         DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
         Object result = dc.getById(departmentId);
         assertNotNull(result);
+    }
+//    @Test
+    public void testGetById1() {
+        System.out.println("Test: getById");
+        String departmentId = "MS";
+        DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
+        Object result = dc.getById(departmentId);
+        assertNull(result);
     }
 }

@@ -41,6 +41,13 @@ public class EmployeeControllerTest {
     public void tearDown() {
     }
     @Test
+    public void testGetNewId() {
+        System.out.println("Test: getNewId");
+        EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
+        Object result = ec.getNewId();
+        assertNotNull(result);
+    }
+    @Test
     public void testLoadCmbDepartment() {
         System.out.println("Test: loadCmbDepartment");
         JComboBox cmb = new JComboBox();
@@ -89,7 +96,7 @@ public class EmployeeControllerTest {
         String photo = "";
         String status = "A";
         String birthDate = "";
-        String hireDate = "11/02/2017";
+        String hireDate = "";
         String bpjs = "";
         String departmentId = "MSAD";
         String managerId = "18002";
@@ -108,6 +115,8 @@ public class EmployeeControllerTest {
         EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
         List<Object> result = (List<Object>) ec.getAll();
         assertNotNull(result);
+        assertTrue(result.size()>0);
+        assertFalse(result.size()==0);
     }
     @Test
     public void testSearch() {

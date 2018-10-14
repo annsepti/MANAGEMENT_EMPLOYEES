@@ -45,6 +45,8 @@ public class JobControllerTest {
         JobController jc = new JobController(tools.HibernateUtil.getSessionFactory());
         List<Object> result = jc.getAll();
         assertNotNull(result);
+        assertTrue(result.size()>0);
+        assertFalse(result.size()==0);
     }
     @Test
     public void testSearch() {

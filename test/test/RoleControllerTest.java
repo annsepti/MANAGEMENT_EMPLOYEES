@@ -45,6 +45,8 @@ public class RoleControllerTest {
         RoleController rc = new RoleController(tools.HibernateUtil.getSessionFactory());
         List<Object> result = rc.getAll();
         assertNotNull(result);
+        assertTrue(result.size()>0);
+        assertFalse(result.size()==0);
     }
     @Test
     public void testSearch() {

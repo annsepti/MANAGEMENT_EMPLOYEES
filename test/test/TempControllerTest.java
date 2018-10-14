@@ -6,6 +6,7 @@
 package test;
 
 import controllers.TempControllers;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -47,8 +48,10 @@ public class TempControllerTest {
     public void testGetAll() {
         System.out.println("getAll");
         TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
-        Object result = tc.getAll();
+        List <Object> result = tc.getAll();
         assertNotNull(result);
+        assertTrue(result.size()>0);
+        assertFalse(result.size()==0);
     }
 
     @Test

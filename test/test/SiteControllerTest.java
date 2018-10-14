@@ -6,6 +6,7 @@
 package test;
 
 
+import controllers.EmployeeController;
 import controllers.SiteController;
 import java.util.List;
 import org.junit.After;
@@ -57,6 +58,8 @@ public class SiteControllerTest {
         SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
         List<Object> result = sc.getAll();
         assertNotNull(result);
+        assertTrue(result.size()>0);
+        assertFalse(result.size()==0);
     }
     @Test
     public void testSearch() {
@@ -73,6 +76,13 @@ public class SiteControllerTest {
         String departmentId = "1";
         SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
         Object result = sc.getById(departmentId);
+        assertNotNull(result);
+    }
+    @Test
+    public void testGetAutoId() {
+        System.out.println("Test: getAutoId");
+        EmployeeController ec= new EmployeeController(tools.HibernateUtil.getSessionFactory());
+        Object result = ec.getNewId();
         assertNotNull(result);
     }
 }

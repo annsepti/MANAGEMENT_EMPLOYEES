@@ -6,17 +6,23 @@
 package tools;
 
 /**
- *
+ * Deklarasi kelas setting untuk pengaturan email pengirim notifikasi
  * @author Nande
  */
 public class Setting {
     private final String email = "7nandemonai@gmail.com";
     private final String password = "Annisa7-";
-
+    /**
+     * Method get Email
+     * @return email
+     */
     public String getEmail() {
         return email;
     }
-
+    /**
+     * Method get Password
+     * @return passwor
+     */
     public String getPassword() {
         return password;
     }
