@@ -21,7 +21,7 @@ public class Setting {
     }
     /**
      * Method get Password
-     * @return passwor
+     * @return password
      */
     public String getPassword() {
         return password;

@@ -93,7 +93,7 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
 
         jLabel3.setText("CONFIRM PASSWORD  :");
 
-        jLabel4.setText("Password must contain min 8 character with uppercase number and symbol");
+        jLabel4.setText("Password must contain min 8 character with uppercase, number and symbol");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -182,6 +182,9 @@ public class ChangePasswordView extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_btnSaveActionPerformed
+    /**
+     * Method untuk memeriksa masukan password baru 
+     */
     private void checkRole() {
         if (tools.checkNewPassword(new String(txtNewPass.getPassword()))) {
             if (new String(txtNewPass.getPassword()).equals(new String(txtConfirmPass.getPassword()))) {

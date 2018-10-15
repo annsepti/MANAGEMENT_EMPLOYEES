@@ -56,6 +56,8 @@ public class RoleControllerTest {
         RoleController rc = new RoleController(tools.HibernateUtil.getSessionFactory());
         List<Object> result = (List<Object>) rc.search(category, (String) value);
         assertNotNull(result);
+        assertTrue(result.size()>0);
+        assertFalse(result.size()==0);
     }
     @Test
     public void testGetById() {
@@ -64,5 +66,13 @@ public class RoleControllerTest {
         RoleController rc = new RoleController(tools.HibernateUtil.getSessionFactory());
         Object result = rc.getById(departmentId);
         assertNotNull(result);
+    }
+    @Test
+    public void testGetById1() {
+        System.out.println("Test: getById");
+        String departmentId = "5";
+        RoleController rc = new RoleController(tools.HibernateUtil.getSessionFactory());
+        Object result = rc.getById(departmentId);
+        assertNull(result);
     }
 }

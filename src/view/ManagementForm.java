@@ -88,6 +88,7 @@ public class ManagementForm extends javax.swing.JFrame {
     }//GEN-LAST:event_menuLogoutMouseClicked
 
     /**
+     * Main method, untuk menjalankan program
      * @param args the command line arguments
      */
     public static void main(String args[]) {

@@ -41,6 +41,42 @@ public class EmployeeControllerTest {
     public void tearDown() {
     }
     @Test
+    public void testGetAll() {
+        System.out.println("getAll");
+        EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
+        List<Object> result = (List<Object>) ec.getAll();
+        assertNotNull(result);
+        assertTrue(result.size()>0);
+        assertFalse(result.size()==0);
+    }
+    @Test
+    public void testSearch() {
+        System.out.println("search");
+        String category = "lastName";
+        Object value = "Sani";
+        EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
+        List<Object> result = (List<Object>) ec.search(category, (String) value);
+        assertNotNull(result);
+        assertTrue(result.size()>0);
+        assertFalse(result.size()==0);
+    }
+    @Test
+    public void testGetById() {
+        System.out.println("getById");
+        String departmentId = "18001";
+        EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
+        Object result = ec.getById(departmentId);
+        assertNotNull(result);
+    }
+    @Test
+    public void testGetById1() {
+        System.out.println("getById");
+        String departmentId = "18001";
+        EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
+        Object result = ec.getById(departmentId);
+        assertNull(result);
+    }
+    @Test
     public void testGetNewId() {
         System.out.println("Test: getNewId");
         EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
@@ -79,7 +115,7 @@ public class EmployeeControllerTest {
         ec.loadCmbManager(cmb);
         assertNotNull(ec);
     }
-    @Test
+//    @Test
     public void testSaveOrUpdate() {
         System.out.println("Try saveOrUpdate");
         String employeeId = "18008";
@@ -109,30 +145,34 @@ public class EmployeeControllerTest {
                 departmentId, managerId, jobId, roleId, siteId);
         assertTrue(result);
     }
-    @Test
-    public void testGetAll() {
-        System.out.println("getAll");
+//    @Test
+    public void testSaveOrUpdate1() {
+        System.out.println("Try saveOrUpdate");
+        String employeeId = "18008";
+        String lastName = "Adams";
+        String firstName = "Amy";
+        String nik = "3201075709950555";
+        String username = "";
+        String password = "";
+        String email = "amy.adams@gmail.com";
+        String salary = "";
+        String phone = "";
+        String npwp = "";
+        String skck = "";
+        String photo = "";
+        String status = "A";
+        String birthDate = "";
+        String hireDate = "";
+        String bpjs = "";
+        String departmentId = "MSAD";
+        String managerId = "18002";
+        String jobId = "ACC";
+        String roleId = "";
+        String siteId = "3";
         EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
-        List<Object> result = (List<Object>) ec.getAll();
-        assertNotNull(result);
-        assertTrue(result.size()>0);
-        assertFalse(result.size()==0);
-    }
-    @Test
-    public void testSearch() {
-        System.out.println("search");
-        String category = "lastName";
-        Object value = "Sani";
-        EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
-        List<Object> result = (List<Object>) ec.search(category, (String) value);
-        assertNotNull(result);
-    }
-    @Test
-    public void testGetById() {
-        System.out.println("getById");
-        String departmentId = "18001";
-        EmployeeController ec = new EmployeeController(tools.HibernateUtil.getSessionFactory());
-        Object result = ec.getById(departmentId);
-        assertNotNull(result);
+        boolean result = ec.saveOrUpdate(employeeId, lastName, firstName, nik, username, password,
+                email, salary, phone, npwp, skck, photo, status, birthDate, hireDate, bpjs,
+                departmentId, managerId, jobId, roleId, siteId);
+        assertFalse(result);
     }
 }

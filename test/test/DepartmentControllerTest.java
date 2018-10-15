@@ -39,27 +39,7 @@ public class DepartmentControllerTest {
     public void tearDown() {
     }
     
-//    @Test
-    public void testSaveOrUpdate() {
-        System.out.println("Test: saveOrUpdate");
-        String idDept = "AAA";
-        String deptName = "coba";
-        String idMng = "18001";
-        DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
-        boolean result = dc.saveOrUpdate(idDept, deptName, idMng);
-        assertTrue(result);
-    }
-    @Test
-    public void testSaveOrUpdateFalse() {
-        System.out.println("Test: saveOrUpdate");
-        String idDept = "AAA";
-        String deptName = "";
-        String idMng = "18001";
-        DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
-        boolean result = dc.saveOrUpdate(idDept, deptName, idMng);
-        assertFalse(result);
-    }
-//    @Test
+    //    @Test
     public void testGetAll() {
         System.out.println("Test: getAll");
         DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
@@ -69,7 +49,7 @@ public class DepartmentControllerTest {
         assertFalse(result.size()==0);
         
     }
-//    @Test
+    //    @Test
     public void testSearch1() {
         System.out.println("Test: search");
         String category = "departmentId";
@@ -80,7 +60,7 @@ public class DepartmentControllerTest {
         assertTrue(result.size()==1);
         assertFalse(result.size()==0);
     }
-//    @Test
+    //    @Test
     public void testGetById() {
         System.out.println("Test: getById");
         String departmentId = "MSAD";
@@ -96,4 +76,34 @@ public class DepartmentControllerTest {
         Object result = dc.getById(departmentId);
         assertNull(result);
     }
+    @Test
+    public void testGetById2() {
+        System.out.println("Test: getById");
+        String departmentId = "MS";
+        DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
+        Object result = dc.getById(departmentId);
+        assertNull(result);
+    }
+//    @Test
+    public void testSaveOrUpdate() {
+        System.out.println("Test: saveOrUpdate");
+        String idDept = "AAA";
+        String deptName = "coba";
+        String idMng = "18001";
+        DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
+        boolean result = dc.saveOrUpdate(idDept, deptName, idMng);
+        assertTrue(result);
+    }
+//    @Test
+    public void testSaveOrUpdateFalse() {
+        System.out.println("Test: saveOrUpdate");
+        String idDept = "BBB";
+        String deptName = "";
+        String idMng = "aa";
+        DepartmentController dc = new DepartmentController(tools.HibernateUtil.getSessionFactory());
+        boolean result = dc.saveOrUpdate(idDept, deptName, idMng);
+        assertFalse(result);
+    }
+
+
 }
