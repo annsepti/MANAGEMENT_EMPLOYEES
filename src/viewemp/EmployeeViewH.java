@@ -55,7 +55,8 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         initComponents();
         this.sessionFactory = sessionFactory;
         this.employee = employee;
-        tools = new Tools();
+        this.hr = hr;
+        tools = new Tools(hr, "");
         employeeController = new EmployeeController(sessionFactory);
         employeeController.loadCmbSite(cmbSite);
         employeeController.loadCmbDepartment(cmbDepartment);
@@ -69,7 +70,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
             employeeTemp = employeeTemps.get(0);
         }
             
-        this.hr = hr;
+        
         jobController = new JobController(sessionFactory);
         if(newEmployee == 0) btnSave.setEnabled(false);
         else
@@ -507,7 +508,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
 
     private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
         // TODO add your handling code here:
-
+//        employeeController.saveOrUpdate(lblEmployeeId.getText(), txtFirstName.getName(), title, title, title, title, title, title, title, title, title, title, title, title, title, title, title, title, title, title, title)
     }//GEN-LAST:event_btnApproveActionPerformed
     /**
      * Method untuk melakukan save daata
@@ -539,7 +540,8 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
             e.setSkck(txtSkck.getText());
             e.setNik(txtNik.getText());
             e.setBpjs(txtBpjs.getText());
-            e.setSalary(new BigDecimal(txtSalary.getText()));
+            if(tools.checkNumberFormat(txtSalary.getText()))
+                e.setSalary(new BigDecimal(txtSalary.getText()));
             List<Department> departments =  (List<Department>) departmentController.search("departmentName", cmbDepartment.getSelectedItem()+"");
             Department department = new Department();
             if(departments.size() > 0)
@@ -561,7 +563,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
             e.setStatus('A');
             e.setUsername(tools.generateUsername(e));
             e.setPassword(tools.generatePassword(e));
-            int hasil = employeeController.addNewEmployee(e);
+            int hasil = employeeController.addNewEmployee(e, hr);
             tools = new Tools(hr, "");
             if(hasil > 0) JOptionPane.showMessageDialog(this, "Berhasil mendaftarkan employee baru");
             else JOptionPane.showMessageDialog(this, "Gagal mendaftarkan employee baru");

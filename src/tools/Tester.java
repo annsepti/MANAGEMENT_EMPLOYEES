@@ -48,7 +48,7 @@ public class Tester {
                 ,'A', new Date("1995/09/17"), new Date("2018/09/01"), "",
                 department, manager, job, role, site);
         
-        System.out.println(gdao.addNewEmployee(employee));
+//        System.out.println(gdao.addNewEmployee(employee));
         
         
 //        Employee employee = controller.firstLogin("kurnia.nugraha", "18001250695");
