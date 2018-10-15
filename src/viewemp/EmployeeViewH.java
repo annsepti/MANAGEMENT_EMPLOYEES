@@ -57,6 +57,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         this.employee = employee;
         tools = new Tools();
         employeeController = new EmployeeController(sessionFactory);
+        cmbDepartment.setSelectedItem(" ");
         employeeController.loadCmbSite(cmbSite);
         employeeController.loadCmbDepartment(cmbDepartment);
         employeeController.loadCmbJob(cmbJob);
@@ -110,8 +111,6 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtBpjs = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        txtStatus = new javax.swing.JTextField();
         btnNo = new javax.swing.JButton();
         btnApprove = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
@@ -124,7 +123,6 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
         dtpBirthDate = new org.jdesktop.swingx.JXDatePicker();
         dtpHireDate = new org.jdesktop.swingx.JXDatePicker();
         jLabel33 = new javax.swing.JLabel();
@@ -172,8 +170,6 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
 
         jLabel13.setText("BPJS");
 
-        jLabel16.setText("STATUS");
-
         btnNo.setText("NO");
         btnNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,8 +203,6 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         jLabel26.setText(":");
 
         jLabel27.setText(":");
-
-        jLabel32.setText(":");
 
         jLabel33.setText(":");
 
@@ -298,6 +292,10 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                             .addComponent(dtpBirthDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel33))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel34)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -306,10 +304,6 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel27))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel32))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -318,16 +312,12 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel31))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel29))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel33)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(54, 54, 54)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -336,7 +326,6 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                         .addComponent(txtSalary, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                         .addComponent(cmbSite, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbManager, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(txtStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dtpHireDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(79, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -408,11 +397,9 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel6)
-                                .addComponent(jLabel23)
-                                .addComponent(jLabel16)
-                                .addComponent(jLabel32))
+                                .addComponent(jLabel23))
                             .addComponent(txtNpwp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(10, 10, 10)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSkck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -425,8 +412,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                             .addComponent(jLabel8))
                         .addGap(0, 9, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
+                        .addGap(8, 8, 8)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(dtpHireDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel33)
@@ -436,7 +422,7 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
                     .addComponent(jLabel13)
                     .addComponent(txtBpjs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel26))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNo)
                     .addComponent(btnApprove)
@@ -492,28 +478,25 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnApproveActionPerformed
+
     /**
      * Method untuk memanggil kelas dari ReasonView ketika menolak masukan data dari user
      * @param evt merupakan sebuah event
      */
     private void btnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoActionPerformed
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         ReasonView reasonView = new ReasonView(sessionFactory, employeeTemp, hr);
         this.getParent().add(reasonView);
         reasonView.setLocation(480, 200);
         reasonView.setVisible(true);
-
     }//GEN-LAST:event_btnNoActionPerformed
 
-    private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnApproveActionPerformed
-    /**
-     * Method untuk melakukan save daata
-     * @param evt merupakan sebuah event
-     */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
         try {
             try {
                 // TODO add your handling code here:
@@ -525,7 +508,8 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
             Logger.getLogger(EmployeeViewH.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
-    private void save() throws SQLException, ParseException{
+
+   private void save() throws SQLException, ParseException{
         if(employee.getEmployeeId() == null){
             Employee e = new Employee();
             e.setEmployeeId(new Long(employeeController.getNewId()+""));
@@ -591,7 +575,6 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         else cmbJob.setSelectedItem(employee.getJobId().getJobTitle());
         if(employee.getManagerId() == null) cmbManager.setSelectedItem(null);
         else cmbManager.setSelectedItem(employee.getManagerId().getLastName());
-        txtStatus.setText(employee.getStatus()+"");
         lblEmployeeId.setText(employeeController.getNewId()+"");
     }
 
@@ -611,7 +594,6 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -628,7 +610,6 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
@@ -650,6 +631,5 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtPhone;
     private javax.swing.JTextField txtSalary;
     private javax.swing.JTextField txtSkck;
-    private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
 }
