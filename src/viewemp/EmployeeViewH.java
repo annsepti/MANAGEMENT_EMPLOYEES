@@ -71,7 +71,8 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
             List<EmployeeTemp> employeeTemps = (List<EmployeeTemp>) tempControllers.search("employeeId", employee.getEmployeeId() + "");
             employeeTemp = employeeTemps.get(0);
         }
-
+            
+        
         jobController = new JobController(sessionFactory);
         if (newEmployee == 0) {
             btnSave.setEnabled(false);
@@ -486,12 +487,12 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-//        employeeController.saveOrUpdate(title, title, title, title, title, title,
-//                title, title, title, title, title, title, title, title, title, title, title, title, title, title, title)
-//        
-    }                                          
+//    private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {                                           
+//        // TODO add your handling code here:
+////        employeeController.saveOrUpdate(title, title, title, title, title, title,
+////                title, title, title, title, title, title, title, title, title, title, title, title, title, title, title)
+////        
+//    }                                          
 
     /**
      * Method untuk memanggil kelas dari ReasonView ketika menolak masukan data
@@ -506,6 +507,11 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
         reasonView.setLocation(480, 200);
         reasonView.setVisible(true);
     }//GEN-LAST:event_btnNoActionPerformed
+
+    private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
+        // TODO add your handling code here:
+//        employeeController.saveOrUpdate(lblEmployeeId.getText(), txtFirstName.getName(), title, title, title, title, title, title, title, title, title, title, title, title, title, title, title, title, title, title, title)
+    }//GEN-LAST:event_btnApproveActionPerformed
     /**
      * Method untuk melakukan save daata
      *
@@ -562,10 +568,9 @@ public class EmployeeViewH extends javax.swing.JInternalFrame {
             e.setSkck(txtSkck.getText());
             e.setNik(txtNik.getText());
             e.setBpjs(txtBpjs.getText());
-            if (tools.checkNumberFormat(txtSalary.getText())) {
+            if(tools.checkNumberFormat(txtSalary.getText()))
                 e.setSalary(new BigDecimal(txtSalary.getText()));
-            }
-            List<Department> departments = (List<Department>) departmentController.search("departmentName", cmbDepartment.getSelectedItem() + "");
+            List<Department> departments =  (List<Department>) departmentController.search("departmentName", cmbDepartment.getSelectedItem()+"");
             Department department = new Department();
             if (departments.size() > 0) {
                 department = departments.get(0);
