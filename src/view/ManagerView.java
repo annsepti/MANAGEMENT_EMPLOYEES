@@ -6,11 +6,14 @@
 package view;
 
 import controllers.EmployeeController;
+import java.math.BigDecimal;
 import java.sql.Connection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import models.Employee;
+import models.Site;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
@@ -28,7 +31,7 @@ import viewemp.EmployeeViewM;
  * @author Nande
  */
 public class ManagerView extends javax.swing.JInternalFrame {
-    
+
     private SessionFactory sessionFactory;
     private Employee employee;
     private EmployeeController employeeController;
@@ -59,7 +62,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnPrint = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         lblEmployeeId = new javax.swing.JLabel();
@@ -82,34 +85,39 @@ public class ManagerView extends javax.swing.JInternalFrame {
 
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
 
             }
         ));
-        jScrollPane1.setViewportView(tblEmployee);
+        tblEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmployeeMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblEmployee);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(331, Short.MAX_VALUE)
                 .addComponent(btnPrint)
                 .addGap(362, 362, 362))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(btnPrint)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Employee ID :");
@@ -162,7 +170,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblEmployeeId)
                         .addComponent(jLabel2)))
-                .addGap(18, 22, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -180,7 +188,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
         this.getParent().add(login);
         login.setLocation(480, 200);
         login.setVisible(true);
-        
+
         dispose();
     }//GEN-LAST:event_menuLogoutMouseClicked
     /**
@@ -189,7 +197,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
      * @param evt merupakan sebuah event
      */
     private void menuSettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSettingMouseClicked
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         EmployeeView employeeView = new EmployeeView(sessionFactory, employee);
         this.getParent().add(employeeView);
         employeeView.setVisible(true);
@@ -197,6 +205,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_menuSettingMouseClicked
     /**
      * Method untuk mencetak list employee report dan memanggil kelas ReportView
+     *
      * @param evt merupakan sebuah event
      */
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
@@ -212,16 +221,24 @@ public class ManagerView extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println(ex);
-            
+
         }
 
     }//GEN-LAST:event_btnPrintActionPerformed
+
+    private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
+        // TODO add your handling code here:
+        EmployeeViewM employeeViewM = new EmployeeViewM(sessionFactory, getEmployee(), employee);
+        this.getParent().add(employeeViewM);
+        employeeViewM.setVisible(true);
+    }//GEN-LAST:event_tblEmployeeMouseClicked
     /**
      * Method untuk menampilkan list data employee
+     *
      * @param emmployee dengan tipe data List
      */
-    private void bindingData(List<Employee> emmployee){
-    String[] header = {"No", "EMPLOYEE ID", "FIRST NAME", "LAST NAME", "EMAIL", "SALARY", "PHONE", "SITE NAME", "HIRE DATE"};
+    private void bindingData(List<Employee> emmployee) {
+        String[] header = {"No", "EMPLOYEE ID", "FIRST NAME", "LAST NAME", "EMAIL", "SALARY", "PHONE"};
         String[][] data = new String[emmployee.size()][header.length];
         int i = 0;
         for (Object object : emmployee) {
@@ -233,17 +250,34 @@ public class ManagerView extends javax.swing.JInternalFrame {
             data[i][4] = e.getEmail();
             data[i][5] = e.getSalary() + "";
             data[i][6] = e.getPhone();
-            String site = "null";
-            if (e.getSiteId() != null) {
-                site = e.getSiteId().getSiteName();
-            }
-            data[i][7] = site;
-            data[i][8] = e.getHireDate().toString();
+//            String site = "null";
+//            if (e.getSiteId() != null) {
+//                site = e.getSiteId().getSiteName();
+//            }
+//            data[i][7] = site;
+//            data[i][7] = e.getHireDate().toString();
             i++;
         }
         lblEmployeeId.setText(employee.getEmployeeId() + "");
-        txtEmployeeId.setText(employee.getEmployeeId() + "");
+//        txtEmployeeId.setText(employee.getEmployeeId() + "");
         tblEmployee.setModel(new DefaultTableModel(data, header));
+    }
+
+    private Employee getEmployee() {
+        Employee e = new Employee();
+        int row = tblEmployee.getSelectedRow();
+        e.setEmployeeId(new Long(tblEmployee.getValueAt(row, 1) + ""));
+        e = (Employee) employeeController.getById(e.getEmployeeId() + "");
+        e.setFirstName(tblEmployee.getValueAt(row, 2) + "");
+        e.setLastName(tblEmployee.getValueAt(row, 3) + "");
+        e.setEmail(tblEmployee.getValueAt(row, 4) + "");
+        e.setSalary(new BigDecimal(tblEmployee.getValueAt(row, 5) + ""));
+        e.setPhone(tblEmployee.getValueAt(row, 6) + "");
+//        Site site = new Site();
+//        site.setSiteName(tblEmployee.getValueAt(row, 7) + "");
+//        e.setSiteId(site);
+//        e.setHireDate(new Date(tblEmployee.getValueAt(row, 7) + ""));
+        return e;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -251,7 +285,7 @@ public class ManagerView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblEmployeeId;
     private javax.swing.JMenu menuLogout;
     private javax.swing.JMenu menuSetting;
