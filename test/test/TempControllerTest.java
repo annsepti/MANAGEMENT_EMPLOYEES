@@ -6,6 +6,7 @@
 package test;
 
 import controllers.TempControllers;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -47,26 +48,44 @@ public class TempControllerTest {
     public void testGetAll() {
         System.out.println("getAll");
         TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
-        Object result = tc.getAll();
+        List <Object> result = tc.getAll();
         assertNotNull(result);
+        assertTrue(result.size()>0);
+        assertFalse(result.size()==0);
     }
-
-    @Test
+//    @Test
     public void testGetById() {
         System.out.println("getById");
-        String tempId = "100";
+        String tempId = "1";
         TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
         Object result = tc.getById(tempId);
         assertNotNull(result);
     }
-
     @Test
+    public void testGetById1() {
+        System.out.println("getById");
+        String tempId = "1";
+        TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
+        Object result = tc.getById(tempId);
+        assertNull(result);
+    }
+
+//    @Test
     public void testDelete() {
         System.out.println("delete");
         TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
         Object result = tc.delete("18002");
         assertNotNull(result);
     }
+//    @Test
+    public void testDelete1() {
+        System.out.println("delete");
+        TempControllers tc = new TempControllers(tools.HibernateUtil.getSessionFactory());
+//        Object result = tc.delete("0");
+        String idTemp = "1";
+        assertTrue(tc.delete(idTemp));
+    }
+    
 
 //    @Test
 //    public void testSaveOrUpdate() {

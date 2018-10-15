@@ -6,6 +6,7 @@
 package test;
 
 
+import controllers.EmployeeController;
 import controllers.SiteController;
 import java.util.List;
 import org.junit.After;
@@ -39,8 +40,50 @@ public class SiteControllerTest {
     @After
     public void tearDown() {
     }
-
     @Test
+    public void testGetAll() {
+        System.out.println("Test: getAll");
+        SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
+        List<Object> result = sc.getAll();
+        assertNotNull(result);
+        assertTrue(result.size()>0);
+        assertFalse(result.size()==0);
+    }
+//    @Test
+    public void testSearch() {
+        System.out.println("Test: search");
+        String category = "siteName";
+        Object value = "Toyota";
+        SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
+        List<Object> result = (List<Object>) sc.search(category, (String) value);
+        assertNotNull(result);
+        assertTrue(result.size()>0);
+        assertFalse(result.size()==0);
+    }
+//    @Test
+    public void testGetById() {
+        System.out.println("Test: getById");
+        String departmentId = "1";
+        SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
+        Object result = sc.getById(departmentId);
+        assertNotNull(result);
+    }
+//    @Test
+    public void testGetById1() {
+        System.out.println("Test: getById");
+        String departmentId = "0";
+        SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
+        Object result = sc.getById(departmentId);
+        assertNull(result);
+    }
+//    @Test
+    public void testGetAutoId() {
+        System.out.println("Test: getAutoId");
+        EmployeeController ec= new EmployeeController(tools.HibernateUtil.getSessionFactory());
+        Object result = ec.getNewId();
+        assertNotNull(result);
+    }
+//    @Test
     public void testSaveOrUpdate() {
         System.out.println("Test: Try saveOrUpdate");
         String idSite = "7";
@@ -51,28 +94,15 @@ public class SiteControllerTest {
         boolean result = sc.saveOrUpdate(idSite, siteName, address, idDept);
         assertTrue(result);
     }
-    @Test
-    public void testGetAll() {
-        System.out.println("Test: getAll");
+//    @Test
+    public void testSaveOrUpdate1() {
+        System.out.println("Test: Try saveOrUpdate");
+        String idSite = "a";
+        String siteName = "tes";
+        String address = "Tebet";
+        String idDept= "MSBU";
         SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
-        List<Object> result = sc.getAll();
-        assertNotNull(result);
-    }
-    @Test
-    public void testSearch() {
-        System.out.println("Test: search");
-        String category = "siteName";
-        Object value = "Toyota";
-        SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
-        List<Object> result = (List<Object>) sc.search(category, (String) value);
-        assertNotNull(result);
-    }
-    @Test
-    public void testGetById() {
-        System.out.println("Test: getById");
-        String departmentId = "1";
-        SiteController sc = new SiteController(tools.HibernateUtil.getSessionFactory());
-        Object result = sc.getById(departmentId);
-        assertNotNull(result);
+        boolean result = sc.saveOrUpdate(idSite, siteName, address, idDept);
+        assertTrue(result);
     }
 }

@@ -193,7 +193,10 @@ public class HrView extends javax.swing.JInternalFrame {
         this.getParent().add(employeeView);
         employeeView.setVisible(true);
     }//GEN-LAST:event_menuSettingProfileMouseClicked
-
+    /**
+     * Method agar dapat menekan salah satu data pada table
+     * @param evt merupakan sebuah event
+     */
     private void tblEmployeeTempMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeTempMouseClicked
         // TODO add your handling code here:
         EmployeeViewH employeeViewH = new EmployeeViewH(sessionFactory, setEmployee(), employee, 0);

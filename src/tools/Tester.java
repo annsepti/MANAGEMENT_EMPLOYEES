@@ -22,7 +22,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
- *
+ * Deklarasi kelas tester
  * @author Nande
  */
 public class Tester {
