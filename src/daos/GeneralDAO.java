@@ -84,10 +84,10 @@ public class GeneralDAO implements InterfaceDAO {
     }
     
     @Override
-    public int addNewEmployee(Employee employee) throws SQLException{
+    public int addNewEmployee(Employee employee, Employee hr) throws SQLException{
         Connection con = sf.getSessionFactoryOptions().getServiceRegistry().
                 getService(ConnectionProvider.class).getConnection();
-        Tools tools = new Tools();
+        Tools tools = new Tools(hr, "");
         Employee e = (Employee) getLastId();
         employee.setEmployeeId(e.getEmployeeId() + 1);
         String username = employee.getFirstName().toLowerCase() + "." + employee.getLastName().toLowerCase();

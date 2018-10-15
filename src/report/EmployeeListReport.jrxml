@@ -242,7 +242,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{EMPLOYEES_FIRST_NAME}+" "+$F{EMPLOYEES_LAST_NAME}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="674" y="0" width="67" height="20" uuid="c7ad3429-7bcb-4914-be76-eca78dd94f0f"/>
 				<box bottomPadding="0">
 					<pen lineWidth="1.0" lineColor="#000000"/>
@@ -274,7 +274,6 @@ WHERE
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
-                                        
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>

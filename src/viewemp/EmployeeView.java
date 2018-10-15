@@ -146,6 +146,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         cmbSite = new javax.swing.JComboBox<>();
         cmbJob = new javax.swing.JComboBox<>();
         cmbManager = new javax.swing.JComboBox<>();
+        cmbEmail = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setMaximizable(true);
@@ -269,6 +270,8 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
         cmbManager.setEnabled(false);
 
+        cmbEmail.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "@gmail.com", "@yahoo.com", "@hotmail.com" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -282,7 +285,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                         .addComponent(btnSubmit)
                         .addGap(12, 12, 12))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -292,9 +295,9 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel18)
                                     .addComponent(jLabel19))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtFirstName)
-                                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtLastName)
+                                    .addComponent(txtFirstName)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -327,14 +330,17 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel26)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtEmail)
                                     .addComponent(txtPhone)
                                     .addComponent(txtNpwp)
                                     .addComponent(txtSkck)
                                     .addComponent(txtNik)
-                                    .addComponent(txtBpjs, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(dtpBirthDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(38, 38, 38)
+                                    .addComponent(txtBpjs)
+                                    .addComponent(dtpBirthDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cmbEmail, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -405,8 +411,9 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4))
-                                .addGap(13, 13, 13))
+                                    .addComponent(jLabel4)
+                                    .addComponent(cmbEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel21)
                                 .addGap(18, 18, 18)))
@@ -475,7 +482,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmit)
                     .addComponent(btnChangePassword))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -492,7 +499,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(28, Short.MAX_VALUE))))
+                        .addContainerGap(26, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -558,7 +565,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
             case 2:
                 break;
             case 3:
-                EmployeeTemp employeeTemp = new EmployeeTemp(new Long(tempControllers.getNewId() + ""), txtEmail.getText(), txtPhone.getText(),
+                EmployeeTemp employeeTemp = new EmployeeTemp(new Long(tempControllers.getNewId() + ""), txtEmail.getText()+""+cmbEmail.getSelectedItem(), txtPhone.getText(),
                         txtNpwp.getText(), txtSkck.getText(), txtBpjs.getText(), employee);
                 boolean hasil = submit(employeeTemp);
                 tampilInfo(hasil);
@@ -628,6 +635,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnChangePassword;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cmbDepartment;
+    private javax.swing.JComboBox<String> cmbEmail;
     private javax.swing.JComboBox<String> cmbJob;
     private javax.swing.JComboBox<String> cmbManager;
     private javax.swing.JComboBox<String> cmbSite;

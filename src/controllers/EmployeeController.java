@@ -143,8 +143,8 @@ public class EmployeeController {
      * @return int
      * @throws SQLException penangkap error
      */
-    public int addNewEmployee(Employee employee) throws SQLException{
-        return idao.addNewEmployee(employee);
+    public int addNewEmployee(Employee employee, Employee hr) throws SQLException{
+        return idao.addNewEmployee(employee, hr);
     }
     
     /**

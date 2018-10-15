@@ -61,7 +61,7 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="28" max="32767" attributes="0"/>
+                          <EmptySpace pref="26" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -122,7 +122,7 @@
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -134,9 +134,9 @@
                                           <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="txtLastName" max="32767" attributes="0"/>
                                           <Component id="txtFirstName" max="32767" attributes="0"/>
-                                          <Component id="txtLastName" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -179,17 +179,21 @@
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txtPhone" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txtNpwp" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txtSkck" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txtNik" max="32767" attributes="0"/>
-                                          <Component id="txtBpjs" pref="150" max="32767" attributes="0"/>
+                                          <Component id="txtBpjs" max="32767" attributes="0"/>
                                           <Component id="dtpBirthDate" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="txtEmail" min="-2" pref="63" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="cmbEmail" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -282,8 +286,9 @@
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cmbEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
@@ -372,7 +377,7 @@
                           <Component id="btnSubmit" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnChangePassword" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="34" max="32767" attributes="0"/>
+                      <EmptySpace pref="32" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -629,6 +634,20 @@
                   <StringArray count="0"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="cmbEmail">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="@gmail.com"/>
+                    <StringItem index="1" value="@yahoo.com"/>
+                    <StringItem index="2" value="@hotmail.com"/>
+                  </StringArray>
+                </Property>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

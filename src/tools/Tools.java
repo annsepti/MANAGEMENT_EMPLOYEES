@@ -180,14 +180,17 @@ public class Tools {
                         + "\n\nHere is your account:\n\nUsername\t: "
                         + employee.getUsername() + "\nPassword\t: "
                         + employee.getPassword() + "\n\nRegards,\n\n" + hr.getFirstName() + " " + hr.getLastName());
+                break;
             case 2:
                 message.setSubject("Approvement Result");
                 message.setText("Dear " + employee.getFirstName() + " " + employee.getLastName() + ",\n\n" + reason
                         + "\n\nRegards,\n\n" + hr.getFirstName() + " " + hr.getLastName());
+                break;
             case 3:
                 message.setSubject("Password Has Been Changed");
                 message.setText("Dear " + employee.getFirstName() + " " + employee.getLastName() + ","
                         + "\n\nYour password successfully changed." + "\n\nRegards,\n\nHuman Resource Officer");
+                break;
         }
         return message;
     }
